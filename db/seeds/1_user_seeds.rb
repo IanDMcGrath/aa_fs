@@ -1,5 +1,4 @@
-# User.create!(username:"", email:"", password:"", avatar:"")
-User.create!(username:"user1", email:"email", password:"password", avatar:"fsp_icons_0003_Layer-0.png")
+User.create!(username:"username", email:"email", password:"password", avatar:"fsp_icons_0003_Layer-0.png")
 User.create!(username:"crotchety", email:"crowman@email.com", password:"you'llneverguess", avatar:"fsp_icons_0004_Layer-5.png")
 User.create!(username:"xX_PenGod_Xx", email:"artweewoo@art.com", password:"iluvart", avatar:"fsp_icons_0016_Layer-17.png")
 User.create!(username:"LazorBen", email:"pewpew1337@gmail.com", password:"i shoot therefore I pew", avatar:"fsp_icons_0000_Layer-4.png")
@@ -8,4 +7,5 @@ User.create!(username:"aBoUtTiMe", email:"sPelLiNgAlTeRnAtInGcApSiShArD@mail.com
 User.create!(username:"NotAboutIt", email:"imNotAboutIt@gmail.com", password:"what about it!@", avatar:"fsp_icons_0003_Layer-1.png")
 User.create!(username:"A_is_for_fAngus", email:"beefboi@email.com", password:"babyBacccRibs", avatar:"fsp_icons_0004_Layer-5.png")
 User.create!(username:"TRI_ART", email:"ArtaRtarT@email.com", password:"secret zelda reference", avatar:"fsp_icons_0002_Layer-2.png")
+# User.create!(username:"", email:"", password:"", avatar:"")
 
