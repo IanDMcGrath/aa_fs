@@ -1,0 +1,2 @@
+class ArtSoftware < ApplicationRecord
+end
