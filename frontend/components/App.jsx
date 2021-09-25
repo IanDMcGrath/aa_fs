@@ -14,8 +14,8 @@ const App = () => (
       <img src="/assets/images/user_icons/fsp_icons_0003_Layer-1.png" />
       <nav>nav bar</nav>
     </header>
-      <AuthRoute path="/signin" component={LoginFormContainer} />
-      <AuthRoute path="/signup" component={SignupFormContainer} />
+      <AuthRoute exact path="/signin" component={LoginFormContainer} />
+      <AuthRoute exact path="/signup" component={SignupFormContainer} />
       <SiPlaystation />
   </div>
 );
