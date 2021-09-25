@@ -9,6 +9,19 @@
     <%= javascript_include_tag 'application' %>
   </head>
 
+  <% if current_user %>
+    <script>
+      window.currentUser = {
+        "id": <%= current_user.id %>,
+        "username": "<%= current_user.username %>"
+      };
+    </script>
+  <% else %>
+    <script>
+      window.currentUser = null;
+    </script>
+  <% end %>
+
   <body>
     <%= yield %>
   </body>
