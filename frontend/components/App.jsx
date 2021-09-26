@@ -5,17 +5,21 @@ import WelcomeContainer from "./welcome/welcome_container";
 import { Route } from "react-router";
 import { AuthRoute } from "../util/route_util";
 import {SiPlaystation} from "react-icons/si" // react-icons proof
+import SessionModal from "./session/session_modal";
+import SessionModalContainer from "./session/session_modal_container";
+import { Link } from "react-router-dom";
 
 const App = () => (
   <div>
     <header>
-      <h1>Art Coag</h1>
-      <WelcomeContainer />
-      <img src="/assets/images/user_icons/fsp_icons_0003_Layer-1.png" />
-      <nav>nav bar</nav>
+      <Link to="/"><h1 className="artcoag"><div className="artcoag-front">ART</div>COAG</h1></Link>
+      {/* <WelcomeContainer /> */}
+      <nav>[ nav bar ]</nav>
     </header>
-      <AuthRoute exact path="/signin" component={LoginFormContainer} />
-      <AuthRoute exact path="/signup" component={SignupFormContainer} />
+      {/* <AuthRoute exact path="/signin" component={LoginFormContainer} />
+      <AuthRoute exact path="/signup" component={SignupFormContainer} /> */}
+      <SessionModalContainer />
+
       <SiPlaystation />
   </div>
 );

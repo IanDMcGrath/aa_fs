@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Redirect } from "react-router";
 
+
 class SessionForm extends React.Component {
   constructor(props) {
     super(props);
@@ -35,25 +36,34 @@ class SessionForm extends React.Component {
 
   inputUsername() {
     return (
-      <label>Username
-        <input type="text" value={this.state.username} onChange={this.handleInput('username')} />
-      </label>
+      <ul className="name">
+        <li> Name </li>
+        <li>
+          <input className="session-input-text" type="text" value={this.state.username} onChange={this.handleInput('username')} />
+        </li>
+      </ul>
     )
   }
 
   inputPassword() {
     return (
-      <label>Password
-        <input type="password" value={this.state.password} onChange={this.handleInput('password')} />
-      </label>
+      <ul className="password">
+        <li> Password </li>
+        <li>
+          <input className="session-input-text" type="password" value={this.state.password} onChange={this.handleInput('password')} />
+        </li>
+      </ul>
     )
   }
 
   inputEmail() {
     return (
-      <label>Email
-        <input type="email" value={this.state.email} onChange={this.handleInput('email')} />
-      </label>
+      <ul className="email">
+        <li> Email </li>
+        <li>
+          <input className="session-input-text" type="email" value={this.state.email} onChange={this.handleInput('email')} />
+        </li>
+      </ul>
     )
   }
 
@@ -78,16 +88,13 @@ class SessionForm extends React.Component {
 
 
   render() {
-    // let redirect = currentUser ? <Redirect to="/" /> : null;
-    const otherForm = this.props.formType === 'Sign In' ? 'signup' : 'signin';
 
     return (
       <form onSubmit={this.handleSubmit}>
-        {/* {redirect} */}
         <h1>{this.props.formType}</h1>
         {this.renderErrors()}
-        <Link to={`/${otherForm}`}>{otherForm}</Link>
         {this.props.formType === 'Sign In' ? this.inputsSignin() : this.inputsSignup()}
+
         <input type="submit" value={this.props.formType} />
       </form>
     )

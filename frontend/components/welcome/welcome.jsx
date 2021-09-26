@@ -6,7 +6,7 @@ const Welcome = props => {
 
   const welcomeTag = () => (
     <div>
-      <h3>{currentUser.username}</h3>
+      <p>{currentUser.username}'s avatar</p>
       <button onClick={() => logout()}>Sign Out</button>
     </div>
   );
