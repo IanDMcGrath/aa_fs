@@ -8,13 +8,12 @@ const sessionErrorsReducer = (state = _nullErrors, action) => {
     switch(action.type){
         case RECEIVE_CURRENT_USER:
             return _nullErrors;
+
         case RECEIVE_SESSION_ERRORS:
-            // const nextState = Object.assign({}, state);
-            // nextState[session.errors] = action.errors;
-            // return nextState;
             return action.errors;
-        case CLEAR_ERRORS:
-            return _nullErrors;
+
+        // case CLEAR_ERRORS:
+        //     return _nullErrors;
         default:
             return state;
     }

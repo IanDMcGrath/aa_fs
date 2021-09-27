@@ -30,18 +30,21 @@ class SessionModal extends React.Component {
   }
 
   showModal() {
-    let {formType, shouldShow} = this.state;
-    let otherForm = this.otherFormType();
+    let {formType} = this.state;
+    let {errors} = this.props;
 
     return (
       <div className="modal-screen" onClick={this.toggleModal(false, false)}>
         {/* modal screen background */}
         <div className="modal-session-form">
           <div className="session-form-contents">
-          <div className="modal-session-close" ><MdClose color="grey" className="modal-session-close" onClick={this.toggleModal(false, false)} /></div>
+          <div className="modal-session-close" onClick={this.toggleModal(false, false)}><MdClose color="grey" className="modal-session-close" onClick={this.toggleModal(false, false)} /></div>
           {formType === 'Sign In' ? (null) : (<div><h1 className="artcoag"><div className="artcoag-front">ART</div>COAG</h1><div className="signup-welcome">Join the leading showcase platform for art and design.</div></div>)}
           {formType === 'Sign In' ? (<SigninFormContainer/>) : (<SignupFormContainer/>)}
-          <div>{formType === "Sign Up" ? "Already have an account?" : "Not a member yet?"}</div><div onClick={this.changeFormType} className="other-form">{otherForm}</div>
+          <div className="member-yet"><div>{formType === "Sign Up" ? "Already have an account?" : "Not a member yet?"}</div><div onClick={this.changeFormType} className="other-form">{formType === "Sign Up" ? "Sign in" : "Sign up"}</div></div>
+          {/* <ul>
+            {errors.map((error, i) => <li key={`error-${i}`}>{error}</li>)}
+          </ul> */}
           </div>
         </div>
       </div>
@@ -85,22 +88,21 @@ class SessionModal extends React.Component {
   renderUserOptions() {
     let {logout} = this.props
     return (
-      <div onClick={() => dispatch(logout())}>
+      <div onClick={() => logout()}>
         SIGN OUT
       </div>
     )
   }
 
   render() {
-    let {formType, shouldShow} = this.state;
-    let otherForm = this.otherFormType();
-    let signedIn = Boolean(this.props.currentUser)
+    let {shouldShow} = this.state;
+    let signedIn = Boolean(this.props.currentUser);
     return (
       <div>
         <div className="session-buttons">
           { signedIn ? (this.renderUserOptions()) : (this.renderButtons())}
         </div>
-        {shouldShow === true ? (this.showModal()) : (null)}
+        {shouldShow === true && !signedIn ? (this.showModal()) : (null)}
       </div>
     )
   }

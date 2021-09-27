@@ -7,19 +7,26 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
 // regular action creators
 
-const receiveCurrentUser = currentUser => ({
+const receiveCurrentUser = currentUser => {
+  return {
   type: RECEIVE_CURRENT_USER,
   currentUser
-});
+  }
+};
 
-const logoutCurrentUser = () => ({
+const logoutCurrentUser = () => {
+  console.log("logged out!")
+  return {
   type: LOGOUT_CURRENT_USER
-});
+  }
+};
 
-const receiveErrors = errors => ({
+const receiveErrors = errors => {
+  return {
   type: RECEIVE_SESSION_ERRORS,
   errors
-});
+  }
+};
 
 // thunk action creators
 

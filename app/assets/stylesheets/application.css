@@ -15,6 +15,10 @@
  *= require_self
  */
 
+ * {
+   font-size: 12px;
+ }
+
 body {
   background-color: rgb(23, 23, 23);
   color: rgb(233, 233, 233);
@@ -29,11 +33,13 @@ body {
 h1.artcoag {
   display: flex;
   color: white;
+  font-size: 14px;
 }
 
 .session-buttons {
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   background-color: red;
 }
 
@@ -54,10 +60,10 @@ h1.artcoag {
   top: 50%;
   left: 50%;
 
-  width: 400px;
-  padding: 25px;
+  width: 428px;
+  padding: 25px 25px 0px 25px;
 
-  margin-left: -250px;
+  margin-left: -239px;
   transform: translateY(-50%);
 
   background: rgb(40, 40, 40);
@@ -71,12 +77,64 @@ h1.artcoag {
   cursor: pointer;
 }
 
+.h1-sign-in {
+  font-size: 20px;
+  font-weight: 900;
+}
+
 .session-form-contents {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+input {
+  background-color: rgb(240, 242, 255);
+  outline: none;
+  border-radius: 4px;
+  height: 25px;
+}
+
+.input-label {
+  padding-top: 14px;
+  padding-bottom: 6px;
+  color: rgba(255, 255, 255, 0.685);
+}
+
 .session-input-text {
-  width: 390px;
+  width: 400px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.signup-welcome {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.error {
+  color: red;
+}
+
+.other-form {
+  cursor: pointer;
+  color: rgb(0, 174, 255);
+  text-decoration: underline;
+}
+
+.member-yet {
+  display: flex;
+}
+
+.session-form-submit {
+  display: flex;
+  cursor: pointer;
+  border: solid rgba(255, 255, 255, 0.438) 1px;
+  border-radius: 3px;
+  padding: 10px;
+  background-color:rgb(40, 40, 40);
+  transition: background-color 0.5s;
+}
+.session-form-submit:hover {
+  background-color:rgb(23, 23, 23);
 }

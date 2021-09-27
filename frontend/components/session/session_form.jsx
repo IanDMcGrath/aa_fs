@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Redirect } from "react-router";
+import { CgEnter } from "react-icons/cg";
 
 
 class SessionForm extends React.Component {
@@ -29,7 +30,7 @@ class SessionForm extends React.Component {
   renderErrors() {
     return (
     <ul>
-      {this.props.errors.map((error, i) => <li key={`error-${i}`}>{error}</li>)}
+      {this.props.errors.map((error, i) => <li key={`error-${i}`} className="error">{error}</li>)}
     </ul>
     )
   }
@@ -37,7 +38,7 @@ class SessionForm extends React.Component {
   inputUsername() {
     return (
       <ul className="name">
-        <li> Name </li>
+        <li className="input-label"> Your name </li>
         <li>
           <input className="session-input-text" type="text" value={this.state.username} onChange={this.handleInput('username')} />
         </li>
@@ -48,7 +49,7 @@ class SessionForm extends React.Component {
   inputPassword() {
     return (
       <ul className="password">
-        <li> Password </li>
+        <li className="input-label"> Password </li>
         <li>
           <input className="session-input-text" type="password" value={this.state.password} onChange={this.handleInput('password')} />
         </li>
@@ -59,7 +60,7 @@ class SessionForm extends React.Component {
   inputEmail() {
     return (
       <ul className="email">
-        <li> Email </li>
+        <li className="input-label"> Email </li>
         <li>
           <input className="session-input-text" type="email" value={this.state.email} onChange={this.handleInput('email')} />
         </li>
@@ -90,12 +91,11 @@ class SessionForm extends React.Component {
   render() {
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h1>{this.props.formType}</h1>
-        {this.renderErrors()}
+      <form>
+        {this.props.formType === "Sign In" ? <h1 className="h1-sign-in">Sign In</h1> : null}
         {this.props.formType === 'Sign In' ? this.inputsSignin() : this.inputsSignup()}
-
-        <input type="submit" value={this.props.formType} />
+        <div onClick={this.handleSubmit} className="session-form-submit" ><div><CgEnter color="#00B2FF"/></div>{this.props.formType === "Sign Up" ? "Sign up" : "Sign in"}</div>
+        {this.renderErrors()}
       </form>
     )
   }
