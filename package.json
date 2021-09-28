@@ -43,5 +43,8 @@
   "bugs": {
     "url": "https://github.com/IanDMcGrath/artcoag/issues"
   },
-  "homepage": "https://github.com/IanDMcGrath/artcoag#readme"
+  "homepage": "https://github.com/IanDMcGrath/artcoag#readme",
+  "devDependencies": {
+    "url-loader": "^4.1.1"
+  }
 }

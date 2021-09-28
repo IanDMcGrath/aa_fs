@@ -1,0 +1,221 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_reset
+ *= require_tree .
+ *= require_self
+ */
+
+ :root {
+  --blue: #00B2FF;
+  --white: rgb(233, 233, 233);
+  --grey1: rgba(255, 255, 255, 0.5);
+  --grey2: rgba(255, 255, 255, 0.116);
+  --grey3: rgba(0, 0, 0, 0.3);
+  --bgc1: rgb(32.5, 32.5, 32.5);
+  --bgc2: rgb(23, 23, 23);
+  --modal: rgba(0, 0, 0, 0.7);
+}
+
+ * {
+   font-size: 1rem;
+ }
+
+body {
+  background-color: var(--bgc2);
+  color: var(--white);
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+
+.sticky-header {
+  border-bottom: solid var(--grey2) 0.05rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.artcoag-front {
+  font-weight: 700;
+}
+
+h1.artcoag {
+  display: flex;
+  color: white;
+  font-size: 1.1rem;
+}
+
+h1.artcoag:before {
+  background-image: image-url("artcoag.png");
+}
+
+.sticky-header > a {
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+
+  align-self: center;
+}
+
+.modal-title.artcoag{
+  font-size: 1.5rem;
+  justify-content: center;
+  padding-bottom: 1rem;
+}
+
+.session-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.session-button.modal-show-signin {
+  border-radius: .3rem;
+  background-color: var(--blue);
+  font-size: 1rem;
+  font-weight: 700;
+  padding-left: 2rem;
+}
+
+.session-button {
+  cursor: pointer;
+  margin: .5rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+}
+
+.icon {
+  position: absolute;
+  transform: translatex(-100%) translatey(-15%);
+  padding-right: 0.4rem;
+}
+
+.modal-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background: var(--modal);
+}
+
+.modal-session-form {
+  position: absolute;
+  z-index: 1000;
+
+  top: 50%;
+  left: 50%;
+
+  width: 37.5rem;
+  padding: 2rem 2rem 0rem 2rem;
+
+  left: 50%;
+  top: 1rem;
+  transform: translateX(-50%);
+
+  background-color: var(--bgc1);
+  border-radius: 5px;
+}
+
+.modal-session-close {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  cursor: pointer;
+}
+
+.h1-sign-in {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.session-form-contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+form {
+  width: 100%;
+}
+
+input {
+  background-color: var(--grey3);
+  color: var(--white);
+  outline: none;
+  border-radius: 4px;
+  height: 25px;
+}
+
+.input-label {
+  padding-top: 14px;
+  padding-bottom: 6px;
+  color: rgba(255, 255, 255, 0.685);
+}
+
+.session-input-text {
+  padding: 20px;
+  width: 100%;
+  border: 1px solid grey;
+}
+
+.signup-welcome {
+  font-size: 1rem;
+  color: var(--grey1);
+  font-weight: 300;
+}
+
+.errors {
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
+  padding: 10px;
+}
+
+.other-form {
+  cursor: pointer;
+  color: rgb(0, 174, 255);
+  text-decoration: underline;
+}
+
+.member-yet {
+  display: flex;
+  width: 112%;
+  justify-content: center;
+  padding: 1.2rem;
+  background-color: var(--grey3);
+  margin-top: 2rem;
+  border-radius: 0px 0px 4px 4px;
+  font-size: 0.9rem;
+}
+
+.session-form-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  border: solid rgba(255, 255, 255, 0.438) 1px;
+  border-radius: 3px;
+  padding: 10px;
+  color: rgba(255, 255, 255, 0.918);
+  background-color: var(--bgc1);
+  transition: border-color 0.5s, background-color 0.5s;
+  margin-top: 14px;
+}
+
+.session-form-button:hover {
+  background-color: black;
+}
+
+.session-form-button:active {
+  border-color: black;
+}
+
