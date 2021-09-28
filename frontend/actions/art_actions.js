@@ -6,12 +6,12 @@ export const RECEIVE_ART = "RECEIVE_ART";
 const receiveArts = arts => ({
   type: RECEIVE_ARTS,
   arts
-})
+});
 
 const receiveArt = art => ({
   type: RECEIVE_ART,
   art
-})
+});
 
 
 
