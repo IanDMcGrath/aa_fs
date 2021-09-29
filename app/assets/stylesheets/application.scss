@@ -54,7 +54,13 @@ h1.artcoag {
 }
 
 h1.artcoag:before {
-  background-image: image-url("artcoag.png");
+  // display: block;
+  height: 2rem;
+  width: 2rem;
+  // content: url("artcoag.png");
+  background-color: blue;
+  content: "A";
+  image: image-url("artcoag.png");
 }
 
 .sticky-header > a {

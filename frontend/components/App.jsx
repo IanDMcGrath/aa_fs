@@ -7,9 +7,10 @@ import { AuthRoute } from "../util/route_util";
 // import {SiPlaystation} from "react-icons/si" // react-icons proof
 import SessionModal from "./session/session_modal";
 import SessionModalContainer from "./session/session_modal_container";
-import { Link } from "react-router-dom";
+import { Link, Switch } from "react-router-dom";
 // import ArtCoag from '../../app/assets/images/artcoag.png';
 import ArtIndexContainer from "./art/art_index_container";
+import ArtShowContainer from "./art/art_show_container";
 
 const App = () => (
   <div>
@@ -22,7 +23,10 @@ const App = () => (
       </div>
       <nav>[ nav bar ]</nav>
     </header>
-      <Route path="/" component={ArtIndexContainer} />
+      <Switch>
+        <Route path={`/arts/:artId`} component={ArtShowContainer} />
+        <Route exact path="/" component={ArtIndexContainer} />
+      </Switch>
       {/* <AuthRoute exact path="/signin" component={LoginFormContainer} />
       <AuthRoute exact path="/signup" component={SignupFormContainer} /> */}
 

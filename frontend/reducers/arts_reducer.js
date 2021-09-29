@@ -5,12 +5,11 @@ const artsReducer = (state={}, action) => {
   let nextState = {};
   switch (action.type) {
     case RECEIVE_ARTS:
+
       return action.arts;
 
     case RECEIVE_ART:
-      nextState = Object.assign({}, state);
-      nextState.entities.arts[action.art.id] = action.art;
-      return nextState;
+      return action.art;
 
     default: return state;
   }
