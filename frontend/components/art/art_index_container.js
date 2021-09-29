@@ -7,7 +7,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchArts: () => dispatch(fetchArts)
+  fetchArts: () => dispatch(fetchArts())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtIndex);

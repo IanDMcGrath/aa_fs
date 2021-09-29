@@ -1,9 +1,9 @@
 class Art < ApplicationRecord
-  validates :artist_id, :title, :url, presence: true
+  validates :artist_id, :title, presence: true
 
   belongs_to :artist,
   foreign_key: :artist_id,
   class_name: :User
 
-  has_many_attached :photos
+  has_many_attached :artpanels
 end

@@ -10,6 +10,8 @@
 # drop(:users)
 
 
+
+
 puts "seeds.rb says: hello"
 Dir[File.join(Rails.root, 'db', 'seeds/','*.rb')].sort.each do |seed|
   puts "new seed file found"

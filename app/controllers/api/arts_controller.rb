@@ -2,7 +2,7 @@ class Api::ArtsController < ApplicationController
   def index
     @arts = Art.all
     if @arts
-      render "/api/arts"
+      render "/api/arts/index"
     else
       render json: ['Something went wrong'], status: 401
     end

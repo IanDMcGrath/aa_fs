@@ -1,3 +1,186 @@
 // Place all the styles related to the Arts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+// .art-index-grid {
+//   display: flex;
+//   flex-wrap: wrap;
+//   width: 101vw;
+// }
+
+// :root {
+//   --vwScale: 100vw
+//   --vwMaxWidth: 97vw
+// }
+
+// @media only screen and (max-width: 1920px) {
+//   :root {
+//     --vwScale: calc(100 / 8)
+//   }
+// }
+
+// @media only screen and (max-width: 1680px) {
+//   :root {
+//     --vwScale: calc(100 / 7)
+//   }
+// }
+
+// @media only screen and (max-width: 1440px) {
+//   :root {
+//     --vwScale: calc(100 / 6)
+//   }
+// }
+
+// @media only screen and (max-width: 1200px) {
+//   :root {
+//     --vwScale: calc(100 / 5)
+//   }
+// }
+
+// @media only screen and (max-width: 960px) {
+//   :root {
+//     --vwScale: calc(100 / 4)
+//   }
+// }
+
+// @media only screen and (max-width: 720px) {
+//   :root {
+//     --vwScale: calc(100 / 3)
+//   }
+// }
+
+// @media only screen and (max-width: 480px) {
+//   :root {
+//     --vwScale: calc(100 / 2)
+//   }
+// }
+
+
+
+// .index-thumbnail {
+//   object-fit: cover;
+//   width: calc(var(--vwScale) * 1vw);
+//   height: calc(var(--vwScale) * 1vw);
+//   position: relative;
+// }
+
+:root {
+  --gridCols: 8;
+  --vwScale: calc(100vw / 8);
+}
+
+@media only screen and (max-width: 1680px) {
+  :root {
+    --gridCols: 7;
+    --vwScale: calc(100vw / 7);
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  :root {
+    --gridCols: 6;
+    --vwScale: calc(100vw / 6);
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  :root {
+    --gridCols: 5;
+    --vwScale: calc(100vw / 5);
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  :root {
+    --gridCols: 4;
+    --vwScale: calc(100vw / 4);
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  :root {
+    --gridCols: 3;
+    --vwScale: calc(100vw / 3);
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  :root {
+    --gridCols: 2;
+    --vwScale: calc(100vw / 2);
+  }
+}
+
+@media only screen and (max-width: 240px) {
+  :root {
+    --gridCols: 1;
+    --vwScale: 100vw;
+  }
+}
+
+.art-index-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--gridCols), 1fr);
+  grid-auto-rows: var(--vwScale);
+}
+
+.index-thumbnail {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.index-thumbnail-details-backdrop {
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0,0,0,0), rgba(0,0,0,0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+  transition: opacity .2s linear;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.index-thumbnail-details {
+  text-align: center;
+  position: absolute;
+  bottom: 0%;
+  // transform: translatex(50%);
+  width: 100%;
+  display: flex;
+  padding: 0.5rem;
+}
+
+.index-thumbnail-details-backdrop:hover {
+  opacity: 1;
+}
+
+.index-thumbnail-artist-avatar {
+  background-color: red;
+  border-radius: 2rem;
+  height: 2rem;
+  width: 2rem;
+  padding: 0.5rem;
+  position: relative;
+  top: 0.5rem;
+}
+
+.index-thumbnail-title-name-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.5rem;
+}
+
+.index-thumbnail-title {
+  font-size: 1.2rem;
+}
+
+.index-thumbnail-name {
+  font-size: 0.5rem;
+}

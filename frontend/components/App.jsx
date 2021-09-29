@@ -9,6 +9,7 @@ import SessionModal from "./session/session_modal";
 import SessionModalContainer from "./session/session_modal_container";
 import { Link } from "react-router-dom";
 // import ArtCoag from '../../app/assets/images/artcoag.png';
+import ArtIndexContainer from "./art/art_index_container";
 
 const App = () => (
   <div>
@@ -21,6 +22,7 @@ const App = () => (
       </div>
       <nav>[ nav bar ]</nav>
     </header>
+      <Route path="/" component={ArtIndexContainer} />
       {/* <AuthRoute exact path="/signin" component={LoginFormContainer} />
       <AuthRoute exact path="/signup" component={SignupFormContainer} /> */}
 

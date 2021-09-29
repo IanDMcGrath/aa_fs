@@ -8,7 +8,7 @@ class ArtShow extends React.Component {
   render() {
     return (
       <div>
-
+        Art Show
       </div>
     )
   }
