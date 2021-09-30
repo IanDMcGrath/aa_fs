@@ -1,0 +1,53 @@
+.art-show-container {
+  display: flex;
+  flex-direction: row;
+  background-color: yellow;
+}
+
+.art-comments-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.details-panel {
+  padding: 1rem;
+  width: 22.8rem;
+  height: 100%;
+  background-color: red;
+}
+
+.artpanel {
+  width: 100%;
+}
+
+.details-panel-artist-div {
+  display: flex;
+
+}
+
+.details-panel-artist-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 2rem;
+  background-color: blue;
+}
+
+.details-panel-artist-details {
+  padding-left: 0.5rem;
+}
+
+.details-panel-artist-name {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding-bottom: 0.5rem;
+}
+
+.details-panel-artist-association {
+  color: white;
+}
+
+.details-panel-follow-button {
+  border-radius: 0.2rem;
+}

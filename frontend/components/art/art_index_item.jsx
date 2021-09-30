@@ -17,17 +17,17 @@ class ArtIndexItem extends React.Component {
 
   render() {
     let { art } = this.props
-    console.log(art.url)
+    // console.log(art.artpanels[0])
     return (
       <Link to={`/arts/${art.id}`}>
       <div className="index-thumbnail">
-        <img src={art.url} className="index-thumbnail" />
+        <img src={art.artpanels[0]} className="index-thumbnail" />
         <div className="index-thumbnail-details-backdrop">
         <div className="index-thumbnail-details" onClick={this.handleClick}>
-          <div className="index-thumbnail-artist-avatar"></div>
+          <img src={art.artist.avatar} className="index-thumbnail-artist-avatar" />
           <div className="index-thumbnail-title-name-div">
             <h2 className="index-thumbnail-title">{art.title}</h2>
-            <div className="index-thumbnail-name">xX_artist_username_Xx</div>
+            <div className="index-thumbnail-name">{art.artist.username}</div>
           </div>
         </div>
         </div>

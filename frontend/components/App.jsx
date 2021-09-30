@@ -24,7 +24,7 @@ const App = () => (
       <nav>[ nav bar ]</nav>
     </header>
       <Switch>
-        <Route path={`/arts/:artId`} component={ArtShowContainer} />
+        <Route path={"/arts/:artId"} component={ArtShowContainer} />
         <Route exact path="/" component={ArtIndexContainer} />
       </Switch>
       {/* <AuthRoute exact path="/signin" component={LoginFormContainer} />
