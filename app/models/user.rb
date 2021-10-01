@@ -5,7 +5,9 @@ class User < ApplicationRecord
 
   has_many :artworks,
   foreign_key: :artist_id,
-  class_name: :Art
+  class_name: :Art,
+  dependent: :destroy
+
   attr_reader :password
 
   before_validation :ensure_session_token!

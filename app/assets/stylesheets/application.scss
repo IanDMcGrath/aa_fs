@@ -17,6 +17,7 @@
 
  :root {
   --blue: #00B2FF;
+  --green: rgb(92, 196, 92);
   --white: rgb(233, 233, 233);
   --grey1: rgba(255, 255, 255, 0.5);
   --grey2: rgba(255, 255, 255, 0.116);
@@ -24,11 +25,29 @@
   --bgc1: rgb(32.5, 32.5, 32.5);
   --bgc2: rgb(23, 23, 23);
   --modal: rgba(0, 0, 0, 0.7);
+  --vhBody: calc(100vh - 5.7rem);
+  --vhBody2: calc(200vh - 11.4rem);
 }
 
  * {
    font-size: 1rem;
  }
+
+ nav {
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 0.05rem solid var(--grey2);
+}
+
+.nav-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  width: 100%;
+}
 
 body {
   background-color: var(--bgc2);
@@ -37,10 +56,22 @@ body {
   font-weight: 300;
 }
 
+.body-div {
+  padding-top: 5.7rem;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  background-color: var(--bgc2)
+}
+
 .sticky-header {
   border-bottom: solid var(--grey2) 0.05rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 3.2rem;
 }
 
 .artcoag-front {
@@ -51,6 +82,7 @@ h1.artcoag {
   display: flex;
   color: white;
   font-size: 1.1rem;
+  align-items: center;
 }
 
 h1.artcoag:before {
@@ -69,3 +101,35 @@ h1.artcoag:before {
   align-self: center;
 }
 
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--grey1);
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--white);
+}
+
+.button {
+  border: none;
+  border-radius: 0.2rem;
+  width: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button:active {
+  opacity: 0.6;
+}

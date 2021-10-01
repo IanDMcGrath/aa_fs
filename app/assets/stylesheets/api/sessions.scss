@@ -15,22 +15,34 @@
 }
 
 .session-button.modal-show-signin {
-  border-radius: .3rem;
+  border-radius: .2rem;
   background-color: var(--blue);
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 700;
   padding-left: 2rem;
+  transition: opacity 0.2s;
+}
+
+.session-button.modal-show-signin:hover {
+  opacity: 0.8;
+}
+
+.session-button.modal-show-signin:active {
+  opacity: 0.6;
 }
 
 .session-button {
   cursor: pointer;
   margin: .5rem;
   padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  height: 1.8rem;
+  display: flex;
+  align-items: center;
 }
 
 .icon {
   position: absolute;
-  transform: translatex(-100%) translatey(-15%);
+  transform: translatex(-100%);
   padding-right: 0.4rem;
 }
 

@@ -14,15 +14,16 @@ import ArtShowContainer from "./art/art_show_container";
 
 const App = () => (
   <div>
-    <header>
+    <header className="header">
       <div className="sticky-header">
         {/* <ArtCoag /> */}
         <Link to="/"><h1 className="artcoag"><div className="artcoag-front">ART</div>COAG</h1></Link>
         {/* <WelcomeContainer /> */}
         <SessionModalContainer />
       </div>
-      <nav>[ nav bar ]</nav>
+      <nav><div className="nav-bar-content">[ nav bar ]<div>nav1</div><div>nav2</div><div>nav3</div>[ nav bar ]</div></nav>
     </header>
+    <div className="body-div">
       <Switch>
         <Route path={"/arts/:artId"} component={ArtShowContainer} />
         <Route exact path="/" component={ArtIndexContainer} />
@@ -31,6 +32,7 @@ const App = () => (
       <AuthRoute exact path="/signup" component={SignupFormContainer} /> */}
 
       {/* <SiPlaystation /> */}
+    </div>
   </div>
 );
 

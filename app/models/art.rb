@@ -6,4 +6,9 @@ class Art < ApplicationRecord
   class_name: :User
 
   has_many_attached :artpanels
+
+  has_many :comments,
+  foreign_key: :post_id,
+  class_name: :Comment,
+  dependent: :destroy
 end

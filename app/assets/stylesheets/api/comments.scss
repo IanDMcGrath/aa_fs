@@ -1,0 +1,55 @@
+// Place all the styles related to the Api::Comments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.comment {
+  margin-top: 1.25rem;
+  margin-bottom: 2.6rem;
+}
+
+.comment > h3 {
+  font-size: 1.2rem;
+}
+
+.commenter-details {
+  display: flex;
+}
+
+.commenter-avatar {
+  border-radius: 2rem;
+  background-color: blue;
+  height: 2rem;
+  width: 2rem;
+  margin-right: 0.6rem;
+}
+
+.commenter-username {
+  color: var(--blue);
+}
+
+.commenter-work {
+  font-size: .7rem;
+  color: var(--grey1);
+  margin-top: 0.875rem;
+  margin-bottom: 0.7rem;
+}
+
+.comment-body {
+  margin-bottom: 0.9rem;
+  font-size: 0.9rem;
+}
+
+.comment-timestamps {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.commenter-main {
+  min-width: 5rem;
+}
+
+.comment-edited {
+  margin-right: 0.2rem;
+}

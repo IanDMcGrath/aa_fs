@@ -153,7 +153,7 @@
   // transform: translatex(50%);
   width: 100%;
   display: flex;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 .index-thumbnail-details-backdrop:hover {
@@ -163,8 +163,8 @@
 .index-thumbnail-artist-avatar {
   background-color: red;
   border-radius: 2rem;
-  height: 2rem;
-  width: 2rem;
+  height: 2.5rem;
+  width: 2.5rem;
   padding: 0.5rem;
   position: relative;
   top: 0.5rem;
@@ -174,19 +174,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0rem 0.5rem;
   color: white;
 }
 
 .index-thumbnail-title {
   font-size: 1.2rem;
+  text-align: left;
+  margin-bottom: 0.5rem;
 }
 
 .index-thumbnail-name {
   font-size: 0.8rem;
 }
 
-.button {
-  border: none;
-  border-radius: 
-}
+
