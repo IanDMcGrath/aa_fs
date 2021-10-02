@@ -1,6 +1,6 @@
 class Api::CommentsController < ApplicationController
 
-  # before_action :underscore_params!
+  before_action :underscore_params!
 
   def create
     @comment = Comment.new(comment_params)

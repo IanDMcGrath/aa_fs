@@ -3,7 +3,8 @@ import Comments from "./comments";
 import { fetchComments } from "../../actions/comment_actions";
 
 const mapStateToProps = (state, ownProps) => ({
-  comments: state.entities.comments
+  comments: state.entities.comments,
+  users: state.entities.users
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

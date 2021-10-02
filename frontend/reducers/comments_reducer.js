@@ -15,7 +15,9 @@ const commentsReducer = (state={}, action) => {
       return comments;
 
     case RECEIVE_COMMENT:
-      return action.comment;
+      nextState = Object.assign({}, state);
+      nextState[action.comment.id] = action.comment;
+      return nextState;
 
     case REMOVE_COMMENT:
       nextState = Object.assign({}, state);
@@ -25,10 +27,6 @@ const commentsReducer = (state={}, action) => {
     case RECEIVE_ART:
       if (!action.art.comments) return state;
       comments = action.art.comments;
-      let commenters = action.art.commenters;
-      for (const property in comments) {
-        comments[property].commenter = commenters[comments[property].commenterId]
-      }
 
       return comments;
 

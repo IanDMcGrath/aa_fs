@@ -116,3 +116,38 @@ div.comment-form-button-div {
   border-radius: 0.2rem;
   cursor: not-allowed;
 }
+
+.comment-like-reply {
+  display: flex;
+  align-items: center;
+  font-size: .8rem;
+}
+
+.comment-num-likes {
+  position: relative;
+  bottom: 0.05rem;
+}
+
+.comment-like-reply > div > .inline-icon {
+  font-size: 0.8rem;
+  position: relative;
+  top: 0.15rem;
+}
+
+.comment-like-reply > div {
+  margin-right: 0.9rem;
+}
+
+.comment-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-created {
+  position: relative;
+  top: .1rem;
+}
+
+.comment-reply-textarea {
+  margin-top: 1rem;
+}
