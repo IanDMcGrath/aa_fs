@@ -13,20 +13,20 @@ class Comments extends React.Component {
   }
 
   renderComments() {
-    let {comments, postId} = this.props;
+    let {comments, commentableId} = this.props;
     let numComments = comments.length
     if (!numComments) {numComments = 0};
     return (
       <ul>
-        <CreateCommentFormContainer postId={postId}/>
+        <CreateCommentFormContainer commentable_id={commentableId}/>
         <h3><FaRegComments color="#00B2FF" className="comments-h3-icon"/>{numComments} {numComments === 1 ? "Comment" : "Comments"}</h3>
         {Object.values(comments).length <= 0 ? null : Object.values(comments).reverse().map(comment =>
           <li className="comment" key={`comment-${comment.id}`}>
             <div className="commenter-details">
-              <img className="commenter-avatar" src={comment.commenter.avatar}/>
+              {comment.commenter ? <img className="commenter-avatar" src={comment.commenter.avatar}/> : null}
               <div className="commenter-main">
-                <div className="commenter-username">{comment.commenter.username}</div>
-                <div className="commenter-work">{comment.commenter.work}</div>
+                {comment.commenter ? <div className="commenter-username">{comment.commenter.username}</div> : null}
+                {comment.commenter ? <div className="commenter-work">{comment.commenter.work}</div> : null}
                 <div className="comment-body">{comment.body}</div>
                 <div className="comment-timestamps">
                   {comment.updatedAt !== comment.createdAt ? (<div className="comment-edited">edited</div>) : null}

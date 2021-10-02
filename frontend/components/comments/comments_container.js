@@ -7,7 +7,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchComments: () => dispatch(fetchComments(ownProps.artId))
+  fetchComments: () => dispatch(fetchComments(ownProps.commentableId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments);

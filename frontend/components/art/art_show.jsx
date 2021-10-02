@@ -71,7 +71,7 @@ class ArtShow extends React.Component {
       <div className="art-show-container">
         <div className="art-comments-div">
           <div className="art-div">{art ? this.renderArtpanels() : "Art Panels"}</div>
-          <div className="comments-div">{art ? <CommentsContainer comments={comments} postId={art.id}/> : "Comments Panel"}</div>
+          <div className="comments-div">{art ? <CommentsContainer comments={comments} commentableId={art.id}/> : "Comments Panel"}</div>
         </div>
         <div className="details-div">{art ? this.renderDetailsPanel() : "Details Panel"}</div>
       </div>

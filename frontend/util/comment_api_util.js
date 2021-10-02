@@ -24,7 +24,7 @@ export const createComment = payload => {
 
 export const updateComment = payload => (
   $.ajax({
-    url: `/api/arts/${payload.postId}/comments/${payload.commentId}`,
+    url: `/api/arts/${payload.commentableId}/comments/${payload.commentId}`,
     method: "PATCH",
     data: payload
   })

@@ -3,9 +3,9 @@ import { createComment } from "../../actions/comment_actions";
 import CommentForm from "./comment_form";
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
+  console.log(ownProps);
   return {
-  comment: {body: "", commenter_id: state.session.id, parent_id: null, commentable_id: ownProps.commentable_id, commentable_type: 'art'},
+  comment: {body: "", commenter_id: state.session.id, parent_id: null, commentable_id: ownProps.commentable_id, commentable_type: "Art"},
   formType: "Post Comment"
 }};
 
