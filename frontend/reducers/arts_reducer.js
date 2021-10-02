@@ -9,7 +9,10 @@ const artsReducer = (state={}, action) => {
       return action.arts;
 
     case RECEIVE_ART:
-      return action.art;
+      nextState = Object.assign({}, state);
+      nextState[Object.values(action.art)[0].id] = Object.values(action.art)[0];
+      return nextState;
+      // return action.art;
 
     default: return state;
   }

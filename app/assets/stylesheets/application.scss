@@ -19,6 +19,7 @@
   --blue: #00B2FF;
   --green: rgb(92, 196, 92);
   --white: rgb(233, 233, 233);
+  --white2: rgba(255, 255, 255, 0.75);
   --grey1: rgba(255, 255, 255, 0.5);
   --grey2: rgba(255, 255, 255, 0.116);
   --grey3: rgba(0, 0, 0, 0.3);
@@ -51,7 +52,7 @@
 
 body {
   background-color: var(--bgc2);
-  color: var(--white);
+  color: var(--white2);
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
 }

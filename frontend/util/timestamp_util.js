@@ -13,30 +13,30 @@ export const timeSince = (timeStamp) => {
 
   let seconds = (currentTime.getTime() - startDate) * 0.001;
   if (seconds < 60) {
-    return `${seconds} seconds ago`;
+    return `${Math.ceil(seconds)} seconds ago`;
   }
 
   let minutes = seconds / 60;
   if (minutes < 60) {
-    return `${Math.ceil(minutes)} minutes ago`;
+    return `${Math.floor(minutes)} minutes ago`;
   }
 
   let hours = minutes / 60;
   if (hours < 24) {
-    return `${Math.ceil(hours)} hours ago`;
+    return `${Math.floor(hours)} hours ago`;
   }
 
   let days = hours / 24;
   if (days < 30.4167) {
-    return `${Math.ceil(days)} days ago`;
+    return `${Math.floor(days)} days ago`;
   }
 
   let months = days / 30.4167;
   if (months < 12) {
-    return `${Math.ceil(months)} months ago`;
+    return `${Math.floor(months)} months ago`;
   }
 
   let years = months / 12;
-  return `${Math.ceil(years)} years ago`;
+  return `${Math.floor(years)} years ago`;
 
 }

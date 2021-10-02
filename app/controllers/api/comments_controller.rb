@@ -1,6 +1,11 @@
 class Api::CommentsController < ApplicationController
+
+  before_action :underscore_params!
+
   def create
+    p 'jargon'
     @comment = Comment.new(comment_params)
+    p @comment.body
     if @comment.save
       render '/api/comments/show'
     else
@@ -31,7 +36,7 @@ class Api::CommentsController < ApplicationController
   end
 
   def index
-    @comments = Comment.where(post_id: params[:art_id])
+    @comments = Comment.where(commentable_id: params[:commentable_id])
     if @comments
       render 'api/comments/index'
     else
@@ -51,6 +56,7 @@ class Api::CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:commenter_id, :body, :post_id, :parent_id)
+    params.require(:comment).permit(:commenter_id, :body, :commentable_id, :commentable_type, :parent_id)
+    # params.require(:comment).permit(:body)
   end
 end

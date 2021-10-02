@@ -1,13 +1,11 @@
 class Comment < ApplicationRecord
-  validates :body, presence: true
+  validates :body, :commenter_id, :commentable_id, :commentable_type, presence: true
 
   belongs_to :commenter,
   foreign_key: :commenter_id,
   class_name: :User
 
-  belongs_to :post,
-  foreign_key: :post_id,
-  class_name: :Art
+  belongs_to :commentable, polymorphic: true
 
   belongs_to :parent_comment,
   foreign_key: :parent_id,

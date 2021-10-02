@@ -12,19 +12,21 @@ export const fetchComment = commentId => (
   })
 )
 
-export const createComment = payload => (
+export const createComment = payload => {
+  console.log(payload)
+  return (
   $.ajax({
-    url: `/api/arts/${payload.postId}/comments`,
+    url: `/api/arts/${payload.commentable_id}/comments`,
     method: "POST",
-    payload: payload
+    data: payload
   })
-);
+)};
 
 export const updateComment = payload => (
   $.ajax({
     url: `/api/arts/${payload.postId}/comments/${payload.commentId}`,
     method: "PATCH",
-    payload: payload
+    data: payload
   })
 );
 
@@ -38,6 +40,7 @@ export const deleteComment = commentId => (
 
 
 export const sortComments = comments => {
+  return comments;
   // console.log(comments);
   // comments.sort((cmt1, cmt2) => {
   //   if (cmt1.created_at < cmt2.created_at) {
@@ -79,8 +82,37 @@ export const sortComments = comments => {
   // }
 
 
-  console.log('fix this trash');
+  // if parented, tab in once -> order by parent depth
+  // let commentArray = [];
+  // comments.forEach(comment => {
+  //   if (!comment.parent_id) {
+  //     commentArray.push([comment]);
+  //   } else {
+  //     attachCommentToThread(comment, commentArray);
+      // for (let i=0; i<commentArray.length; i++) {
+      //   for (let j=0; j<commentArray[i].length; j++) {
+      //     if (commentArray[i][j].id === comment.parent_id) {
+      //       commentArray[i][j].push([comment]);
+      //     }
+      //   }
+      // }
+  //   }
+  // })
+  // console.log(commentArray);
+  // return commentArray;
+}
 
+const attachCommentToThread = (comment, thread) => {
+  for (let i=0; i<thread.length; i++) {
+    for (let j=0; j<thread[i].length; j++) {
+      if (thread[i][j].id === comment.parent_id) {
+        thread[i].push([comment]);
+        return null;
+      }
+    }
+  }
+}
 
-  return topComments;
+const bSearchCommentThread = (thread, commentId) => {
+  if (thread[0].parent_id === commentId) return
 }

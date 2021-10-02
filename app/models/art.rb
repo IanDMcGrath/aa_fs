@@ -8,7 +8,10 @@ class Art < ApplicationRecord
   has_many_attached :artpanels
 
   has_many :comments,
-  foreign_key: :post_id,
-  class_name: :Comment,
+  as: :commentable,
   dependent: :destroy
+
+  has_many :commenters,
+  through: :comments,
+  source: :commenter
 end

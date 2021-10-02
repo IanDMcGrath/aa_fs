@@ -1,6 +1,7 @@
 import React from "react";
 import { FaRegComments } from "react-icons/fa";
 import { timeSince } from "../../util/timestamp_util";
+import CreateCommentFormContainer from "./create_comment_form_container";
 
 class Comments extends React.Component {
   constructor(props) {
@@ -8,16 +9,19 @@ class Comments extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchComments();
+    // this.props.fetchComments();
   }
 
   renderComments() {
-    let {comments} = this.props;
+    let {comments, postId} = this.props;
+    let numComments = comments.length
+    if (!numComments) {numComments = 0};
     return (
       <ul>
-        <h3><FaRegComments color="#00B2FF"/>{comments.length} Comments</h3>
-        {comments.map(comment =>
-          <li className="comment">
+        <CreateCommentFormContainer postId={postId}/>
+        <h3><FaRegComments color="#00B2FF" className="comments-h3-icon"/>{numComments} {numComments === 1 ? "Comment" : "Comments"}</h3>
+        {Object.values(comments).length <= 0 ? null : Object.values(comments).reverse().map(comment =>
+          <li className="comment" key={`comment-${comment.id}`}>
             <div className="commenter-details">
               <img className="commenter-avatar" src={comment.commenter.avatar}/>
               <div className="commenter-main">
@@ -25,8 +29,8 @@ class Comments extends React.Component {
                 <div className="commenter-work">{comment.commenter.work}</div>
                 <div className="comment-body">{comment.body}</div>
                 <div className="comment-timestamps">
-                  {comment.updated_at === comment.created_at ? (<div className="comment-edited">edited</div>) : null}
-                  <div className="comment-created">{timeSince(comment.updated_at)}</div>
+                  {comment.updatedAt !== comment.createdAt ? (<div className="comment-edited">edited</div>) : null}
+                  <div className="comment-created">{timeSince(comment.updatedAt)}</div>
                 </div>
               </div>
             </div>
@@ -38,14 +42,9 @@ class Comments extends React.Component {
 
   render() {
     let { comments } = this.props;
-    console.log(this.props);
-    console.log(this.state);
     return (
-      <div>
-        <p>-----------------------</p>
-        <p>| Create Comment Form |</p>
-        <p>-----------------------</p>
-        {comments.length > 0 ? this.renderComments() : null}
+      <div className="comments-div-inner">
+        {this.renderComments()}
       </div>
     )
   }

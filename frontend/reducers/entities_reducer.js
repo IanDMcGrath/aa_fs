@@ -6,7 +6,7 @@ import usersReducer from "./users_reducer";
 const entitiesReducer = combineReducers({
     users: usersReducer,
     arts: artsReducer,
-    comments: commentsReducer
+    comments: commentsReducer,
 });
 
 export default entitiesReducer;

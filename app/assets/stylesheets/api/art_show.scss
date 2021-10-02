@@ -66,6 +66,7 @@ background-color: var(--bgc1)
 }
 
 .details-panel-artist-name {
+  color: var(--blue);
   font-size: 1.5rem;
   font-weight: 500;
   padding-bottom: 0.5rem;
@@ -101,6 +102,7 @@ background-color: var(--bgc1)
 
 .details-panel-art-title {
   border-top: 0.1rem solid var(--grey1);
+  color: var(--white);
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 0.8rem;
@@ -110,7 +112,7 @@ background-color: var(--bgc1)
 .details-panel-art-description {
   font-size: 1rem;
   font-weight: 400;
-  color: var(--grey1);
+  color: var(--white2);
   line-height: 1.75rem;
   margin-bottom: 0.8rem;
 }
@@ -130,7 +132,7 @@ background-color: var(--bgc1)
 }
 
 .details-panel-softwares-used {
-  padding-top: 1rem;
+  padding-top: 2rem;
   border-top: 0.05rem solid var(--grey1);
   padding-bottom: 0.8rem;
 }
@@ -149,4 +151,17 @@ background-color: var(--bgc1)
   padding: 1rem;
   overflow-y: auto;
   height: var(--vhBody);
+}
+
+
+
+.art-stats {
+  color: var(--white2);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.inline-icon {
+  margin-right: 0.4rem;
 }
