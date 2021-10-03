@@ -2,6 +2,9 @@ import React from "react";
 import { FaRegComments, FaRegThumbsUp } from "react-icons/fa";
 import { timeSince } from "../../util/timestamp_util";
 import CreateCommentFormContainer from "./create_comment_form_container";
+import { MdClose } from 'react-icons/md';
+import { BsPencil } from 'react-icons/bs';
+
 
 class Comments extends React.Component {
   constructor(props) {
@@ -16,7 +19,7 @@ class Comments extends React.Component {
   handleLikeClick(e, id) {
     e.preventDefault();
     if (this.props.signedIn) {
-    console.log(`you liked comment# ${id}`)
+    console.log(`you liked comment# ${id}`);
     } else {
       this.props.uiToggleSignin();
     }
@@ -43,7 +46,7 @@ class Comments extends React.Component {
   }
 
   renderComments() {
-    let {comments, users, commentableId} = this.props;
+    let {comments, users, commentableId, signedIn} = this.props;
     let numComments = comments.length
     if (!numComments) {numComments = 0};
     return (
@@ -55,7 +58,12 @@ class Comments extends React.Component {
             <div className="commenter-details">
               <img className="commenter-avatar" src={users[comment.commenterId].avatar}/>
               <div className="commenter-main">
-                <div className="commenter-username">{users[comment.commenterId].username}</div>
+                <div className="comment-header">
+                  <div className="commenter-username">{users[comment.commenterId].username}</div>
+                  <div className="comment-edit-delete">
+                    {signedIn ? <button className="comment-edit-button" onClick={() => console.log('stop editting me')}><MdClose /></button> : null}
+                    {signedIn ? <button className="comment-delete-button" onClick={() => console.log('stop deleting me')}><BsPencil /></button> : null}</div>
+                </div>
                 <div className="commenter-work">{users[comment.commenterId].work}</div>
                 <div className="comment-body">{comment.body}</div>
                 <div className="comment-footer">

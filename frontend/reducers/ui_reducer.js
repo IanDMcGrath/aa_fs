@@ -17,6 +17,7 @@ const uiReducer = (state={}, action) => {
       nextState = Object.assign({}, state);
       // nextState.signin = Object.assign({showSignin: false}, nextState.signin);
       nextState.signin.showSignin = false;
+      nextState.reply.showReply = false;
       return nextState;
 
     case TOGGLE_SIGNIN:

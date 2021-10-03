@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Comments from "./comments";
+import CommentsList from "./comments_list";
 import { fetchComments } from "../../actions/comment_actions";
 import { uiToggleSignin } from "../../actions/ui_actions";
 
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   uiToggleSignin: () => dispatch(uiToggleSignin()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comments);
+export default connect(mapStateToProps, mapDispatchToProps)(CommentsList);
