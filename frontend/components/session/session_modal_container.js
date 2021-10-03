@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { logout } from "../../actions/session_actions";
+import { clearSessionErrors, logout } from "../../actions/session_actions";
 import { uiToggleSignin } from "../../actions/ui_actions";
 import SessionModal from "./session_modal";
 
@@ -15,7 +15,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
   logout: () => dispatch(logout()),
-  uiToggleSignin: () => dispatch(uiToggleSignin())
+  uiToggleSignin: () => dispatch(uiToggleSignin()),
+  clearSessionErrors: () => dispatch(clearSessionErrors()),
   }
 };
 

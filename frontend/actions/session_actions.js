@@ -47,3 +47,7 @@ export const signup = user => dispatch => (
   errors => dispatch(receiveErrors(errors.responseJSON))
   )
 );
+
+export const clearSessionErrors = () => dispatch => (
+  dispatch({type: CLEAR_ERRORS})
+);

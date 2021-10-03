@@ -15,13 +15,21 @@ class Comments extends React.Component {
 
   handleLikeClick(e, id) {
     e.preventDefault();
+    if (this.props.signedIn) {
     console.log(`you liked comment# ${id}`)
+    } else {
+      this.props.uiToggleSignin();
+    }
   }
 
   handleReplyClick(e, id) {
     e.preventDefault();
-    console.log(`you are replying to comment# ${id}`)
-    this.setState({showReply: true, replyId: id})
+    if (this.props.signedIn) {
+      console.log(`you are replying to comment# ${id}`)
+      this.setState({showReply: true, replyId: id})
+    } else {
+      this.props.uiToggleSignin();
+    }
   }
 
   showLikeCount(comment) {

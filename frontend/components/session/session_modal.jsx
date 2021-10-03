@@ -20,6 +20,7 @@ class SessionModal extends React.Component {
   }
 
   changeFormType() {
+    this.props.clearSessionErrors();
     this.setState({formType: this.otherFormType()});
   }
 
@@ -33,14 +34,13 @@ class SessionModal extends React.Component {
 
   showModal() {
     let {formType} = this.state;
-    let {errors} = this.props;
 
     return (
-      <div className="modal-screen" onClick={this.toggleModal(false, false)}>
+      <div className="modal-screen" onClick={this.toggleModal()}>
         {/* modal screen background */}
         <div className="modal-session-form">
           <div className="session-form-contents">
-          <div className="modal-session-close" onClick={this.toggleModal(false, false)}><MdClose color="grey" className="modal-session-close" onClick={this.toggleModal(false, false)} /></div>
+          <div className="modal-session-close" onClick={this.toggleModal()}><MdClose color="grey" className="modal-session-close" onClick={this.toggleModal(false)} /></div>
           {formType === 'Sign In' ? (null) : (<div><h1 className="modal-title artcoag"><div className="artcoag-front">ART</div>COAG</h1><div className="signup-welcome">Join the leading showcase platform for art and design.</div></div>)}
           {formType === 'Sign In' ? (<SigninFormContainer/>) : (<SignupFormContainer/>)}
           <div className="member-yet"><div>{formType === "Sign Up" ? "Already have an account?" : "Not a member yet?"}</div><div onClick={this.changeFormType} className="other-form">{formType === "Sign Up" ? "Sign in" : "Sign up"}</div></div>
@@ -53,10 +53,13 @@ class SessionModal extends React.Component {
     )
   }
 
-  toggleModal(toggle, isSignin) {
-    let formType = isSignin ? "Sign In" : "Sign Up"
+  toggleModal(isSignin=true) {
+    let formType = isSignin ? "Sign In" : "Sign Up";
     return (e) => {
+      // console.log('button clicked')
       if (e.target === e.currentTarget) {
+        console.log('TOGGLED SIGNIN');
+        this.props.uiToggleSignin();
         // return this.setState({shouldShow: toggle, formType: formType})
         return this.setState({formType: formType})
       }
@@ -65,7 +68,7 @@ class SessionModal extends React.Component {
 
   showSignin() {
     return (
-      <div className="session-button modal-show-signin" onClick={this.toggleModal(true, true)}>
+      <div className="session-button modal-show-signin" onClick={this.toggleModal()}>
         <CgEnter className="icon" size="25"/>SIGN IN
       </div>
     )
@@ -73,7 +76,7 @@ class SessionModal extends React.Component {
 
   showSignup() {
     return (
-      <div className="session-button modal-show-signup" onClick={this.toggleModal(true, false)}>
+      <div className="session-button modal-show-signup" onClick={this.toggleModal(false)}>
         <BsPencilSquare className="icon" size="22"/>SIGN UP
       </div>
     )
@@ -101,15 +104,17 @@ class SessionModal extends React.Component {
     // let {shouldShow} = this.state;
     let {showSignin} = this.props;
     let signedIn = Boolean(this.props.currentUser);
-    return (
+
+    if (signedIn) { return (
       <div>
-        <div>
-          { signedIn ? (this.renderUserOptions()) : (this.renderButtons())}
-        </div>
-        {/* {shouldShow === true && !signedIn ? (this.showModal()) : (null)} */}
-        {showSignin === true && !signedIn ? (this.showModal()) : (null)}
+          {this.renderUserOptions()}
       </div>
-    )
+    )} else { return (
+      <div>
+        {this.renderButtons()}
+        {showSignin ? this.showModal() : null}
+      </div>
+    )}
   }
 }
 
