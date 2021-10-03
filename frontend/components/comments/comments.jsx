@@ -24,6 +24,16 @@ class Comments extends React.Component {
     this.setState({showReply: true, replyId: id})
   }
 
+  showLikeCount(comment) {
+    if (!comment.likes) {return ( null
+    // <div className="comment-num-likes"></div>
+    )}
+    return (
+    <div className="comment-num-likes">
+      <FaRegThumbsUp className="num-likes-icon inline-icon" /> {comment.likes} {comment.likes !== 1 ? "Likes" : "Like"}
+    </div>)
+  }
+
   renderComments() {
     let {comments, users, commentableId} = this.props;
     let numComments = comments.length
@@ -43,7 +53,7 @@ class Comments extends React.Component {
                 <div className="comment-footer">
                   <div className="comment-like-reply">
                     <div className="comment-like" onClick={(e) => this.handleLikeClick(e, comment.id)}>Like</div>
-                    <div className="comment-num-likes"><FaRegThumbsUp className="num-likes-icon inline-icon" /> {comment.likes} {comment.likes !== 1 ? "Likes" : "Like"}</div>
+                    {this.showLikeCount(comment)}
                     <div className="comment-reply" onClick={(e) => this.handleReplyClick(e, comment.id)}>Reply</div>
                   </div>
                   <div className="comment-timestamps">

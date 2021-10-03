@@ -6,17 +6,21 @@ import configureStore from "./store/store";
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;
+  let preloadedState = {
+    ui: {
+      signin: {showSignin: false},
+      reply: {showReply: false}
+    }
+  };
   if (window.currentUser) {
-    const preloadedState = {
+    preloadedState = Object.assign({
       session: { id: window.currentUser.id },
-      entities: {
-        users: { [window.currentUser.id]: window.currentUser }
-      }
-    };
+      entities: { users: { [window.currentUser.id]: window.currentUser } }
+    }, preloadedState);
     store = configureStore(preloadedState);
     delete window.currentUser;
   } else {
-    store = configureStore();
+    store = configureStore(preloadedState);
   }
   window.getState = store.getState;
   window.dispatch = store.dispatch;

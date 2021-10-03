@@ -57,7 +57,8 @@ class SessionModal extends React.Component {
     let formType = isSignin ? "Sign In" : "Sign Up"
     return (e) => {
       if (e.target === e.currentTarget) {
-        return this.setState({shouldShow: toggle, formType: formType})
+        // return this.setState({shouldShow: toggle, formType: formType})
+        return this.setState({formType: formType})
       }
     }
   }
@@ -97,14 +98,16 @@ class SessionModal extends React.Component {
   }
 
   render() {
-    let {shouldShow} = this.state;
+    // let {shouldShow} = this.state;
+    let {showSignin} = this.props;
     let signedIn = Boolean(this.props.currentUser);
     return (
       <div>
         <div>
           { signedIn ? (this.renderUserOptions()) : (this.renderButtons())}
         </div>
-        {shouldShow === true && !signedIn ? (this.showModal()) : (null)}
+        {/* {shouldShow === true && !signedIn ? (this.showModal()) : (null)} */}
+        {showSignin === true && !signedIn ? (this.showModal()) : (null)}
       </div>
     )
   }
