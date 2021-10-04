@@ -36,11 +36,11 @@ class SessionModal extends React.Component {
     let {formType} = this.state;
 
     return (
-      <div className="modal-screen" onClick={this.toggleModal()}>
+      <div className="modal-screen" onClick={this.toggleModal(false)}>
         {/* modal screen background */}
         <div className="modal-session-form">
           <div className="session-form-contents">
-          <div className="modal-session-close" onClick={this.toggleModal()}><MdClose color="grey" className="modal-session-close" onClick={this.toggleModal(false)} /></div>
+          <div className="modal-session-close" onClick={this.toggleModal(false)}><MdClose color="grey" className="modal-session-close" onClick={this.toggleModal(false)} /></div>
           {formType === 'Sign In' ? (null) : (<div><h1 className="modal-title artcoag"><div className="artcoag-front">ART</div>COAG</h1><div className="signup-welcome">Join the leading showcase platform for art and design.</div></div>)}
           {formType === 'Sign In' ? (<SigninFormContainer/>) : (<SignupFormContainer/>)}
           <div className="member-yet"><div>{formType === "Sign Up" ? "Already have an account?" : "Not a member yet?"}</div><div onClick={this.changeFormType} className="other-form">{formType === "Sign Up" ? "Sign in" : "Sign up"}</div></div>
@@ -53,14 +53,11 @@ class SessionModal extends React.Component {
     )
   }
 
-  toggleModal(isSignin=true) {
+  toggleModal(showSignin=true, isSignin=true) {
     let formType = isSignin ? "Sign In" : "Sign Up";
     return (e) => {
-      // console.log('button clicked')
       if (e.target === e.currentTarget) {
-        console.log('TOGGLED SIGNIN');
-        this.props.uiToggleSignin();
-        // return this.setState({shouldShow: toggle, formType: formType})
+        this.props.uiToggleSignin({showSignin: showSignin});
         return this.setState({formType: formType})
       }
     }
@@ -68,7 +65,7 @@ class SessionModal extends React.Component {
 
   showSignin() {
     return (
-      <div className="session-button modal-show-signin" onClick={this.toggleModal()}>
+      <div className="session-button modal-show-signin" onClick={this.toggleModal(true, true)}>
         <CgEnter className="icon" size="25"/>SIGN IN
       </div>
     )
@@ -76,7 +73,7 @@ class SessionModal extends React.Component {
 
   showSignup() {
     return (
-      <div className="session-button modal-show-signup" onClick={this.toggleModal(false)}>
+      <div className="session-button modal-show-signup" onClick={this.toggleModal(true, false)}>
         <BsPencilSquare className="icon" size="22"/>SIGN UP
       </div>
     )

@@ -15,7 +15,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
   logout: () => dispatch(logout()),
-  uiToggleSignin: () => dispatch(uiToggleSignin()),
+  uiToggleSignin: signin => dispatch(uiToggleSignin(signin)),
   clearSessionErrors: () => dispatch(clearSessionErrors()),
   }
 };

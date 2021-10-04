@@ -21,7 +21,7 @@ const commentsReducer = (state={}, action) => {
 
     case REMOVE_COMMENT:
       nextState = Object.assign({}, state);
-      delete nextState.comments[action.commentId];
+      delete nextState[action.commentId];
       return nextState;
 
     case RECEIVE_ART:

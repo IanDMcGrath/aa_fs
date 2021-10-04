@@ -14,16 +14,20 @@ class Api::CommentsController < ApplicationController
 
   def update
     @comment = Comment.find_by(id: params[:id])
-    if @comment && @comment.update_attributes(comment_params)
+    if @comment && is_owner(@comment) && @comment.update_attributes(comment_params)
       render '/api/comments/show'
     else
       render @comment.errors.full_messages, status: 422
     end
   end
 
+  def is_owner(comment)
+    current_user.id == comment.commenter_id
+  end
+
   def destroy
     @comment = Comment.find_by(id: params[:id])
-    if @comment
+    if @comment && is_owner(@comment)
       if @comment.destroy
         return nil
       else

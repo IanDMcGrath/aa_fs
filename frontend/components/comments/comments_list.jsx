@@ -4,6 +4,7 @@ import { timeSince } from "../../util/timestamp_util";
 import CreateCommentFormContainer from "./create_comment_form_container";
 import { MdClose } from 'react-icons/md';
 import { BsPencil } from 'react-icons/bs';
+import CommentItemContainer from "./comment_item_container";
 
 
 class Comments extends React.Component {
@@ -16,24 +17,7 @@ class Comments extends React.Component {
     // this.props.fetchComments();
   }
 
-  handleLikeClick(e, id) {
-    e.preventDefault();
-    if (this.props.signedIn) {
-    console.log(`you liked comment# ${id}`);
-    } else {
-      this.props.uiToggleSignin();
-    }
-  }
 
-  handleReplyClick(e, id) {
-    e.preventDefault();
-    if (this.props.signedIn) {
-      console.log(`you are replying to comment# ${id}`)
-      this.setState({showReply: true, replyId: id})
-    } else {
-      this.props.uiToggleSignin();
-    }
-  }
 
   showLikeCount(comment) {
     if (!comment.likes) {return ( null
@@ -46,42 +30,14 @@ class Comments extends React.Component {
   }
 
   renderComments() {
-    let {comments, users, commentableId, signedIn} = this.props;
+    let {comments, users, commentableId, uiToggleSignin, uiToggleReply, updateComment, deleteComment} = this.props;
     let numComments = comments.length
     if (!numComments) {numComments = 0};
     return (
       <ul>
         <CreateCommentFormContainer commentableId={commentableId} parentId=""/>
         <h3><FaRegComments color="#00B2FF" className="comments-h3-icon"/>{numComments} {numComments === 1 ? "Comment" : "Comments"}</h3>
-        {Object.values(comments).length <= 0 ? null : Object.values(comments).reverse().map(comment =>
-          <li className="comment" key={`comment-${comment.id}`}>
-            <div className="commenter-details">
-              <img className="commenter-avatar" src={users[comment.commenterId].avatar}/>
-              <div className="commenter-main">
-                <div className="comment-header">
-                  <div className="commenter-username">{users[comment.commenterId].username}</div>
-                  <div className="comment-edit-delete">
-                    {signedIn ? <button className="comment-edit-button" onClick={() => console.log('stop editting me')}><MdClose /></button> : null}
-                    {signedIn ? <button className="comment-delete-button" onClick={() => console.log('stop deleting me')}><BsPencil /></button> : null}</div>
-                </div>
-                <div className="commenter-work">{users[comment.commenterId].work}</div>
-                <div className="comment-body">{comment.body}</div>
-                <div className="comment-footer">
-                  <div className="comment-like-reply">
-                    <div className="comment-like" onClick={(e) => this.handleLikeClick(e, comment.id)}>Like</div>
-                    {this.showLikeCount(comment)}
-                    <div className="comment-reply" onClick={(e) => this.handleReplyClick(e, comment.id)}>Reply</div>
-                  </div>
-                  <div className="comment-timestamps">
-                    {comment.updatedAt !== comment.createdAt ? (<div className="comment-edited">edited</div>) : null}
-                    <div className="comment-created">{timeSince(comment.updatedAt)}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {this.state.showReply && this.state.replyId === comment.id ? <div className="comment-reply-textarea" ><CreateCommentFormContainer commentableId={commentableId} parentId={comment.id} /></div> : null}
-          </li>
-        )}
+        {Object.values(comments).length <= 0 ? null : Object.values(comments).reverse().map(comment => <CommentItemContainer key={comment.id} comment={comment} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={comment.id === this.state.replyId}/>)}
       </ul>
     )
   }

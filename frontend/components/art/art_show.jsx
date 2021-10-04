@@ -1,7 +1,7 @@
 import React from "react";
 import { FiUserPlus } from "react-icons/fi";
 import {FaRegThumbsUp, FaRegEye, FaRegComments } from "react-icons/fa";
-import CommentsContainer from "../comments/comments_container";
+import CommentsListContainer from "../comments/comments_list_container";
 import { timeSince } from "../../util/timestamp_util";
 import { ArtStats } from "../widgets/art_stats";
 
@@ -71,7 +71,7 @@ class ArtShow extends React.Component {
       <div className="art-show-container">
         <div className="art-comments-div">
           <div className="art-div">{art ? this.renderArtpanels() : "Art Panels"}</div>
-          <div className="comments-div">{art ? <CommentsContainer comments={comments} commentableId={art.id}/> : "Comments Panel"}</div>
+          <div className="comments-div">{art ? <CommentsListContainer comments={comments} commentableId={art.id}/> : "Comments Panel"}</div>
         </div>
         <div className="details-div">{art ? this.renderDetailsPanel() : "Details Panel"}</div>
       </div>

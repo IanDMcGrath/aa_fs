@@ -1,6 +1,6 @@
 import { RECEIVE_COMMENT } from "../actions/comment_actions";
 import { LOGOUT_CURRENT_USER, RECEIVE_CURRENT_USER } from "../actions/session_actions";
-import { TOGGLE_SIGNIN } from "../util/ui_api_util";
+import { TOGGLE_SIGNIN, TOGGLE_REPLY } from "../util/ui_api_util";
 
 const uiReducer = (state={}, action) => {
   Object.freeze(state);
@@ -21,8 +21,11 @@ const uiReducer = (state={}, action) => {
       return nextState;
 
     case TOGGLE_SIGNIN:
-      nextState = Object.assign({}, state, {ui:{}});
-      nextState.signin.showSignin = !nextState.signin.showSignin;
+      nextState = Object.assign({}, state, {signin: action.signin});
+      return nextState;
+
+    case TOGGLE_REPLY:
+      nextState = Object.assign({}, state, {reply: action.reply});
       return nextState;
 
     default: return state;
