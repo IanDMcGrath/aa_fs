@@ -1,4 +1,5 @@
 import React from "react";
+import { MdClose } from 'react-icons/md';
 
 class CommentForm extends React.Component {
   constructor(props) {
@@ -15,17 +16,24 @@ class CommentForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.action({comment: this.state})
-    .then(() => this.setState({body: ""})); // reset the body text on comment success
+    this.props.action(this.state)
+    .then(() => {
+      if (this.props.formType === "Post Comment") {this.setState({body: ""})};
+      if (this.props.handleCancelUpdate) {this.props.handleCancelUpdate()};
+    }); // reset the body text on comment success
   }
 
   render() {
     let { formType } = this.props;
     if (!this.props.comment.commenterId) { return null };
     return (
-      <form onSubmit={this.handleSubmit} className="comment-form">
+      <form className="comment-form">
         <textarea value={this.state.body} onChange={this.updateBody} className="input text-area" placeholder="Share your feedback and comments!"/>
-        {this.state.body.length > 0 ? (<button className="comment-form-button button">{formType}</button>) : <div className="comment-form-button-div">{formType}</div>}
+        <div className="comment-form-buttons">
+          {this.state.body.length > 0 ? (<button className="comment-form-button comment-form-create button" onClick={this.handleSubmit} >{formType}</button>) : <div className="comment-form-button-div">{formType}</div>}
+          {formType === "Update Comment" ? <button className="comment-form-button comment-form-update button" onClick={this.props.handleCancelUpdate}><MdClose /> Cancel </button> : null}
+        </div>
+          {formType === "Update Comment" ? <button className="comment-form-button comment-form-delete button" onClick={this.props.handleCancelUpdate}><MdClose /></button> : null}
       </form>
     )
   }

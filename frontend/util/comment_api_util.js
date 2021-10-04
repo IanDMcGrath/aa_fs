@@ -12,23 +12,25 @@ export const fetchComment = commentId => (
   })
 )
 
-export const createComment = payload => {
-  console.log(payload)
+export const createComment = comment => {
+  console.log(comment)
   return (
   $.ajax({
-    url: `/api/arts/${payload.commentable_id}/comments`,
+    url: `/api/arts/${comment.commentableId}/comments`,
     method: "POST",
-    data: payload
+    data: {comment}
   })
 )};
 
-export const updateComment = payload => (
+export const updateComment = comment => {
+  console.log(comment)
+  return (
   $.ajax({
-    url: `/api/arts/${payload.commentableId}/comments/${payload.commentId}`,
+    url: `/api/arts/${comment.commentableId}/comments/${comment.id}`,
     method: "PATCH",
-    data: payload
+    data: {comment}
   })
-);
+)};
 
 export const deleteComment = commentId => (
   $.ajax({

@@ -3,13 +3,17 @@ import { MdClose } from 'react-icons/md';
 import { BsPencil } from 'react-icons/bs';
 import { timeSince } from "../../util/timestamp_util";
 import CreateCommentFormContainer from "./create_comment_form_container";
+import UpdateCommentFormContainer from "./update_comment_form_container";
 
 
 class CommentItem extends React.Component {
   constructor(props) {
     super(props);
-    this.deleteComment = this.deleteComment.bind(this);
+    this.state = {showUpdateForm: false};
+    this.handleDeleteComment = this.handleDeleteComment.bind(this);
+    this.handleUpdateComment = this.handleUpdateComment.bind(this);
     this.handleReplyClick = this.handleReplyClick.bind(this);
+    this.handleCancelUpdate = this.handleCancelUpdate.bind(this);
   }
 
   showLikeCount(comment) {
@@ -42,7 +46,15 @@ class CommentItem extends React.Component {
     }
   }
 
-  deleteComment() {
+  handleUpdateComment() {
+    this.setState({showUpdateForm: true})
+  }
+
+  handleCancelUpdate() {
+    return () => {this.setState({showUpdateForm: false})}
+  }
+
+  handleDeleteComment() {
     console.log('hello')
     this.props.deleteComment(this.props.comment.id)
   }
@@ -54,8 +66,8 @@ class CommentItem extends React.Component {
         <div className="comment-header">
           <div className="commenter-username">{user.username}</div>
           <div className="comment-edit-delete">
-            {ownComment ? <button className="comment-edit-button" onClick={() => console.log('stop editting me')}><BsPencil /></button> : null}
-            {ownComment ? <button className="comment-delete-button" onClick={this.deleteComment}><MdClose /></button> : null}</div>
+            {ownComment ? <button className="comment-edit-button" onClick={this.handleUpdateComment}><BsPencil /></button> : null}
+            {ownComment ? <button className="comment-delete-button" onClick={this.handleDeleteComment}><MdClose /></button> : null}</div>
         </div>
         <div className="commenter-work">{user.work}</div>
         <div className="comment-body">{comment.body}</div>
@@ -81,15 +93,16 @@ class CommentItem extends React.Component {
     )
   }
 
+
+
   render() {
     let { user, comment, ownComment, showReply, showCommentFormReply } = this.props;
-    console.log(showReply);
-    console.log(showCommentFormReply)
+    let { showUpdateForm } = this.state;
     return (
       <li className="comment">
         <div className="commenter-details">
           <img className="commenter-avatar" src={user.avatar}/>
-          {showEdit ? <UpdateCommentFormContainer comment={comment}/> : this.renderCommentContents()}
+          {showUpdateForm ? <UpdateCommentFormContainer comment={comment} handleCancelUpdate={this.handleCancelUpdate()}/> : this.renderCommentContents()}
         </div>
         {showReply ? <div className="comment-reply-textarea" ><CreateCommentFormContainer commentableId={comment.commentableId} parentId={comment.id} /></div> : null}
       </li>

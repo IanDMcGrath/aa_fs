@@ -14,10 +14,14 @@ class Api::CommentsController < ApplicationController
 
   def update
     @comment = Comment.find_by(id: params[:id])
-    if @comment && is_owner(@comment) && @comment.update_attributes(comment_params)
+    if @comment
+      if is_owner(@comment) && @comment.update_attributes(comment_params)
       render '/api/comments/show'
+      else
+        render @comment.errors.full_messages, status: 422
+      end
     else
-      render @comment.errors.full_messages, status: 422
+      render json: ['Something went wrong'], status: 401
     end
   end
 

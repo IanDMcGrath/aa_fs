@@ -80,6 +80,7 @@
 
 .comment-form {
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .text-area {
@@ -150,4 +151,20 @@ div.comment-form-button-div {
 
 .comment-reply-textarea {
   margin-top: 1rem;
+}
+
+button.comment-form-delete {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  width: 1.2rem;
+  height: 1.2rem;
+  background-color: #ffffff00;
+  border: solid 0.1rem var(--grey1);
+  padding: 0rem;
+}
+
+.comment-form-buttons {
+  display: flex;
+  justify-content: space-between;
 }
