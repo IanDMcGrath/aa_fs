@@ -42,66 +42,32 @@ export const deleteComment = commentId => (
 
 
 export const sortComments = comments => {
-  return comments;
-  // console.log(comments);
-  // comments.sort((cmt1, cmt2) => {
-  //   if (cmt1.created_at < cmt2.created_at) {
-  //     return 1;
-  //   } else if (cmt1.created_at > cmt2.created_at){
-  //     return -1;
-  //   } else {
-  //     return 0;
-  //   }
-  // });
-  // // console.log(comments);
-  // let topComments = [];
-  // let childComments = [];
-  // comments.forEach(cmt => {
-  //   if (!cmt.parent_id) {
-  //     topComments.push(cmt);
-  //   } else {
-  //     childComments.push(cmt);
-  //   }
-  // });
+  // return comments;
+  let remainingComments = Object.assign({}, comments);
+  let resultArr = [];
 
-  // childComments.forEach(cmt => {
-  //   for (let i=0; i<topComments.length; i++) {
-  //     if (topComments[i].id === cmt.parent_id) {
-  //       topComments.splice(i,0, cmt);
-  //       console.log(`attached id:${cmt.id} to id:${topComments[i].id}`)
-  //     }
-  //   }
-  // });
+  
 
+  recurseCommentSort(remainingComments, )
 
-  // let remainingComments = comments.dup;
-  // let resultComments = {};
-  // while (remainingComments.length > 0) {
-  //   for (let i=remainingComments.length-1; i>0; i--) {
+  return resultArr;
+}
 
-  //     resultComments[remainingComments[i].parent_id]
-  //   }
-  // }
+const recurseCommentSort = (allComments, replyIds) => {
+  if (Object.values(comments).length <= 0) return null;
+  // iterate through replyIds array, adding to result Arr, recurse if reply has replies
+  // return resultArr
+  let resultArr = [];
 
+  for (let i=0; i<replyIds.length; i++) {
+    resultArr.push(allComments[replyIds[i]]);
+    if (allComments[replyIds[i]].replies) {
+      recurseCommentSort(allComments, allComments[replyIds[i]].replies)
+    }
+  }
 
-  // if parented, tab in once -> order by parent depth
-  // let commentArray = [];
-  // comments.forEach(comment => {
-  //   if (!comment.parent_id) {
-  //     commentArray.push([comment]);
-  //   } else {
-  //     attachCommentToThread(comment, commentArray);
-      // for (let i=0; i<commentArray.length; i++) {
-      //   for (let j=0; j<commentArray[i].length; j++) {
-      //     if (commentArray[i][j].id === comment.parent_id) {
-      //       commentArray[i][j].push([comment]);
-      //     }
-      //   }
-      // }
-  //   }
-  // })
-  // console.log(commentArray);
-  // return commentArray;
+  return resultArr;
+
 }
 
 const attachCommentToThread = (comment, thread) => {

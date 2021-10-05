@@ -4,9 +4,9 @@ import { deleteComment, fetchComments } from "../../actions/comment_actions";
 import { uiToggleReply, uiToggleSignin } from "../../actions/ui_actions";
 
 const mapStateToProps = (state, ownProps) => ({
-  comments: state.entities.comments,
+  // comments: ownProps.comments,
   users: state.entities.users,
-  
+
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

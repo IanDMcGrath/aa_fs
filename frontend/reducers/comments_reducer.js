@@ -27,6 +27,7 @@ const commentsReducer = (state={}, action) => {
     case RECEIVE_ART:
       if (!action.art.comments) return state;
       comments = action.art.comments;
+      // comments = sortComments(comments);
 
       return comments;
 

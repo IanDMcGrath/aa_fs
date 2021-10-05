@@ -8,6 +8,19 @@ class User < ApplicationRecord
   class_name: :Art,
   dependent: :destroy
 
+  has_many :comments,
+  foreign_key: :commenter_id,
+  dependent: :destroy
+
+  has_many :likes,
+  as: :likeable,
+  dependent: :destroy
+
+  has_many :likes_given,
+  foreign_key: :liker_id,
+  class_name: :Like,
+  dependent: :destroy
+
   attr_reader :password
 
   before_validation :ensure_session_token!

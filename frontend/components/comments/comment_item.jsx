@@ -4,6 +4,8 @@ import { BsPencil } from 'react-icons/bs';
 import { timeSince } from "../../util/timestamp_util";
 import CreateCommentFormContainer from "./create_comment_form_container";
 import UpdateCommentFormContainer from "./update_comment_form_container";
+import CommentItemContainer from "./comment_item_container";
+import CommentListContainer from "./comments_list_container";
 
 
 class CommentItem extends React.Component {
@@ -55,7 +57,6 @@ class CommentItem extends React.Component {
   }
 
   handleDeleteComment() {
-    console.log('hello')
     this.props.deleteComment(this.props.comment.id)
   }
 
@@ -66,8 +67,8 @@ class CommentItem extends React.Component {
         <div className="comment-header">
           <div className="commenter-username">{user.username}</div>
           <div className="comment-edit-delete">
-            {ownComment ? <button className="comment-edit-button" onClick={this.handleUpdateComment}><BsPencil /></button> : null}
-            {ownComment ? <button className="comment-delete-button" onClick={this.handleDeleteComment}><MdClose /></button> : null}</div>
+            {ownComment ? <button className="comment-edit-buttons" onClick={this.handleUpdateComment}><BsPencil /></button> : null}
+            {ownComment ? <button className="comment-edit-buttons" onClick={this.handleDeleteComment}><MdClose /></button> : null}</div>
         </div>
         <div className="commenter-work">{user.work}</div>
         <div className="comment-body">{comment.body}</div>
@@ -96,15 +97,27 @@ class CommentItem extends React.Component {
 
 
   render() {
-    let { user, comment, ownComment, showReply, showCommentFormReply } = this.props;
+    let { user, comment, replies, ownComment, showReply, showReplies, showCommentFormReply, commentableType } = this.props;
     let { showUpdateForm } = this.state;
+    // let {uiToggleSignin} = this.props;
+    let {uiToggleSignin, uiToggleReply, updateComment, deleteComment } = this.props;
+    let style = {'marginLeft': '1rem', 'paddingLeft': '1rem', 'borderLeft': 'solid 1rem grey'}
+    // console.log('replies')
+    // console.log(replies)
     return (
       <li className="comment">
         <div className="commenter-details">
           <img className="commenter-avatar" src={user.avatar}/>
           {showUpdateForm ? <UpdateCommentFormContainer comment={comment} handleCancelUpdate={this.handleCancelUpdate()}/> : this.renderCommentContents()}
         </div>
-        {showReply ? <div className="comment-reply-textarea" ><CreateCommentFormContainer commentableId={comment.commentableId} parentId={comment.id} /></div> : null}
+        {showReply ? <div className="comment-reply-textarea" ><CreateCommentFormContainer parentId={comment.id} commentableId={comment.id} commentableType={"Comment"} /></div> : null}
+        {!replies ? null : <div className="reply-list" style={style}><CommentListContainer comments={replies} commentableId={comment.id} commentableType="Comment" commentType="Comment" /></div>}
+        {/* { !replies ? null : Object.values(replies).map(reply =>
+          <div className="comment-indent">
+            {console.log(reply)}
+          <CommentItemContainer key={reply.id} comment={reply} showReplies={showReplies} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={reply.id}/>
+          </div>
+        )} */}
       </li>
     )
   }

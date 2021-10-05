@@ -11,7 +11,20 @@ class Art < ApplicationRecord
   as: :commentable,
   dependent: :destroy
 
+  has_many :comment_replies,
+  through: :comments,
+  source: :replies
+
   has_many :commenters,
   through: :comments,
   source: :commenter
+
+  has_many :likes,
+  as: :likeable,
+  dependent: :destroy
+
+  has_many :likers,
+  through: :likes,
+  source: :liker
+
 end

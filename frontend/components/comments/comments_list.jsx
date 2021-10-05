@@ -17,27 +17,24 @@ class Comments extends React.Component {
     // this.props.fetchComments();
   }
 
-
-
-  showLikeCount(comment) {
-    if (!comment.likes) {return ( null
-    // <div className="comment-num-likes"></div>
-    )}
-    return (
-    <div className="comment-num-likes">
-      <FaRegThumbsUp className="num-likes-icon inline-icon" /> {comment.likes} {comment.likes !== 1 ? "Likes" : "Like"}
-    </div>)
-  }
-
   renderComments() {
-    let {comments, users, commentableId, uiToggleSignin, uiToggleReply, updateComment, deleteComment} = this.props;
-    let numComments = comments.length
+    let {comments, users, commentableId, commentableType, uiToggleSignin, uiToggleReply, updateComment, deleteComment, commentType} = this.props;
+    let numComments = Object.keys(comments).length
     if (!numComments) {numComments = 0};
+    console.log(comments)
     return (
       <ul>
-        <CreateCommentFormContainer commentableId={commentableId} parentId=""/>
-        <h3><FaRegComments color="#00B2FF" className="comments-h3-icon"/>{numComments} {numComments === 1 ? "Comment" : "Comments"}</h3>
-        {Object.values(comments).length <= 0 ? null : Object.values(comments).reverse().map(comment => <CommentItemContainer key={comment.id} comment={comment} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={comment.id === this.state.replyId}/>)}
+        {/* <h3><FaRegComments color="#00B2FF" className="comments-h3-icon"/>{numComments} {numComments === 1 ? "Comment" : "Comments"}</h3> */}
+        {Object.values(comments).map(comment => !(comment && comment.id && comment.commentableType === commentType) ? null :
+          <div key={comment.id}>
+            <CommentItemContainer key={comment.id} comment={comment} showReplies={true} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={comment.id === this.state.replyId} commentableType={"Comment"}/>
+            {/* { !comment.replies ? null : Object.values(comment.replies).map(reply =>
+            <div className="comment-indent">
+            <CommentItemContainer key={reply.id} comment={reply} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={reply.id === this.state.replyId}/>
+            </div>
+            )} */}
+          </div>
+        )}
       </ul>
     )
   }

@@ -7,12 +7,32 @@ json.set! @art.id do
 end
 
 json.comments do
-  @art.comments.each do |comment|
+  @art.comments.includes(:replies).each do |comment|
     json.set! comment.id do
-      json.extract! comment, :id, :body, :commenter_id, :commentable_id, :commentable_type, :parent_id, :created_at, :updated_at
+      # if !comment.parent_id
+      json.partial! '/api/comments/comment', comment: comment
+      json.replies comment.replies.map{|reply| reply.id}
+      # end
+    end
+      comment.replies.each do |reply|
+        json.set! reply.id do
+          json.partial! '/api/comments/comment', comment: reply
+          json.replies reply.replies.map{|reply2| reply2.id}
+      end
     end
   end
 end
+
+
+# json.comments do
+#   @art.comments.includes(:replies).each do |comment|
+#     if !comment.parent_id
+#       tree_comments(comment)
+#     end
+#   end
+# end
+
+
 
 json.commenters do
   @art.commenters.each do |commenter|
@@ -21,3 +41,19 @@ json.commenters do
     end
   end
 end
+
+json.likes do
+  @art.likes.each do |like|
+    json.set! like.id do
+      json.partial! '/api/likes/like', like: like
+    end
+  end
+end
+
+# json.likers do
+#   @art.likers.each do |liker|
+#     json.set! liker.id do
+#       json.extract! liker, :id, :username, :avatar, :work
+#     end
+#   end
+# end
