@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
 const getComments = (state, ids) => {
   if (!ids || ids.length === 0) return null;
   // return {};
-  console.log(ids);
+  // console.log(ids);
   let comments = {};
   for (let i=0; i<ids.length; i++) {
     Object.assign(comments, {[ids[i]]: state.entities.comments[ids[i]]});

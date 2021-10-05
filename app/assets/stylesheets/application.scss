@@ -134,3 +134,16 @@ h1.artcoag:before {
 .button:active {
   opacity: 0.6;
 }
+
+.upload-button {
+  color: var(--white);
+  transition: color 0.2s;
+}
+.upload-button:visited {
+  color: var(--white);
+}
+
+.upload-button:hover {
+  color: var(--blue);
+
+}

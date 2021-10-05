@@ -22,3 +22,7 @@ export const fetchArts = () => dispatch => (
 export const fetchArt = artId => dispatch => (
   ArtApiUtil.fetchArt(artId).then(art => dispatch(receiveArt(art)))
 );
+
+export const createArt = art => dispatch => (
+  ArtApiUtil.createArt(art).then(art => dispatch(receiveArt(art)))
+);

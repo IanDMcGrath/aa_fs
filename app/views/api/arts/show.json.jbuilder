@@ -46,11 +46,20 @@ json.commenters do
 end
 
 json.likes do
-  @art.likes.each do |like|
-    json.set! like.id do
-      json.partial! '/api/likes/like', like: like
+  json.art_likes do
+    @art.likes.each do |like|
+      json.set! like.liker_id do
+        json.partial! '/api/likes/like', like: like
+      end
     end
   end
+  # json.comment_likes do # build through associations in art.rb
+  #   @art.comments.likes.each do |like|
+  #     json.set! like.liker_id do
+  #       json.partial! '/api/likes/like', like: like
+  #     end
+  #   end
+  # end
 end
 
 # json.likers do

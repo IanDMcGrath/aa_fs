@@ -13,14 +13,14 @@ class LikeButton extends React.Component {
 
   componentDidMount() {
     let { likes, currentUser } = this.props;
-    console.log('is this art liked by current user?: ')
-    console.log(Object.values(likes).some(like => {return like.likerId === currentUser}));
+    // console.log('is this art liked by current user?: ')
+    // console.log(Object.values(likes).some(like => {return like.likerId === currentUser}));
   }
 
   handleLike(e) {
     let { currentUser, like} = this.props;
     e.stopPropagation();
-    console.log(`you ${Boolean(like) ? "unliked" : "liked"} ${this.props.likeableType}# ${this.props.likeableId}`);
+    // console.log(`you ${Boolean(like) ? "unliked" : "liked"} ${this.props.likeableType}# ${this.props.likeableId}`);
     if (currentUser) {
       if (like) {
         this.props.deleteLike(like.id);
@@ -44,7 +44,12 @@ class LikeButton extends React.Component {
     let { like, style } = this.props;
     let liked = Boolean(like);
     return (
-      <button className={`details-panel-like-button button ${liked ? "liked" : "unliked"}`} onClick={this.handleLike}>{liked ? <BsCheck /> : <FaRegThumbsUp />}{liked ? "Liked" : "Like"}</button>
+      <button
+        className={`details-panel-like-button button ${liked ? "liked" : "unliked"}`}
+        onClick={this.handleLike}>
+        {liked ? <BsCheck /> : <FaRegThumbsUp />}
+        {liked ? "Liked" : "Like"}
+      </button>
     )
   }
 

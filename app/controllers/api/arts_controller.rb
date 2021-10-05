@@ -1,4 +1,7 @@
 class Api::ArtsController < ApplicationController
+
+  before_action :underscore_params!
+
   def index
     @arts = Art.all
     if @arts
@@ -29,6 +32,6 @@ class Api::ArtsController < ApplicationController
   private
 
   def art_params
-    params.require(:art).permit(:title, :description, photos:[])
+    params.require(:art).permit(:artist_id, :title, :description, photos:[])
   end
 end

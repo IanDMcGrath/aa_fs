@@ -81,7 +81,7 @@ class ArtShow extends React.Component {
     // console.log("i rendered");
     let { art, comments } = this.props;
     // console.log(this.props);
-
+    console.log('ArtShow has re-rendered!');
     if (!this.props.art) {
       this.props.fetchArt(this.props.match.params.artId);
     }

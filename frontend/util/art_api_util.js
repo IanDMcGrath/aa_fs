@@ -10,4 +10,12 @@ export const fetchArt = artId => (
     url: `/api/arts/${artId}`,
     method: "GET"
   })
-)
+);
+
+export const createArt = art => (
+  $.ajax({
+    url: "/api/arts",
+    method: "POST",
+    data: { art }
+  })
+);
