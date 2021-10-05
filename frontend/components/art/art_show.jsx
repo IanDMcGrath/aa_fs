@@ -58,14 +58,14 @@ class ArtShow extends React.Component {
           </div>
         </div>
         <div className="details-panel-buttons">
-          <LikeButtonContainer likeableId={art.id} likeableType={"Art"}/>
+          <LikeButtonContainer style={"big"} likeableId={art.id} likeableType={"Art"}/>
           <button className="details-panel-follow-button button"><FiUserPlus />  Follow</button>
         </div>
         <div>
           <h2 className="details-panel-art-title">{art.title}</h2>
           <div className="details-panel-art-description">{art.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi accusamus libero tenetur consequatur reprehenderit dolorem maxime et veritatis molestiae rerum perspiciatis dolore dignissimos magni alias aperiam fugiat quam saepe architecto, culpa temporibus vel consectetur eaque quaerat? Natus eius tempore voluptate, officiis, earum blanditiis dolorum, culpa ipsum id porro ducimus eaque? </div>
           <div className="details-panel-art-post-time">Posted {timeSince(art.createdAt)}</div>
-          <AllStats comments={comments} views={0} likes={likes}/>
+          <AllStats comments={comments} views={0} likes={likes} show={true}/>
           <h3 className="details-panel-softwares-used">Software Used</h3>
           <div className="details-panel-softwares">
             <div>3DS Max</div>
@@ -93,7 +93,7 @@ class ArtShow extends React.Component {
           <div className="comments-div">
             {art ? <CreateCommentFormContainer commentableId={art.id} commentableType={"Art"}/> : null }
             {art ? <StatsNumComments comments={comments} /> : null}
-            {art ? <CommentsListContainer comments={comments} commentableId={art.id} commentableType="Art" commentType="Art" /> : "Comments Panel"}
+            {art ? <CommentsListContainer commentIds={null} parentId={null} commentableId={art.id} commentableType="Art" commentType="Art" /> : "Comments Panel"}
           </div>
         </div>
         <div className="details-div">{art ? this.renderDetailsPanel() : "Details Panel"}</div>

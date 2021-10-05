@@ -8,8 +8,17 @@
   font-size: 0.8rem;
 }
 
-button.liked {
+button.details-panel-like-button.liked {
   background-color: rgba(255, 255, 255, 0);
   border-radius: 0.3rem;
   border: solid 0.1rem var(--grey1);
+}
+
+.inline-like-button {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--blue);
+  font-size: inherit;
+  font-weight: inherit;
+  display: flex;
 }

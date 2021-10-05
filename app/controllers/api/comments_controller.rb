@@ -33,10 +33,10 @@ class Api::CommentsController < ApplicationController
     @comment = Comment.find_by(id: params[:id])
     if @comment && is_owner(@comment)
       if @comment.destroy
-        return nil
+        # render '/api/comments/show'
+        return
       else
         render @comment.errors.full_messages, status: 422
-        return nil
       end
       render json: ['Something went wrong'], status: 401
     end

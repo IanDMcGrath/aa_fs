@@ -3,10 +3,11 @@ import { deleteComment, updateComment } from "../../actions/comment_actions";
 import CommentItem from "./comment_item";
 
 const mapStateToProps = (state, ownProps) => ({
-  ownComment: ownProps.comment.commenterId === state.session.id,
-  user: state.entities.users[ownProps.comment.commenterId],
-  showReply: state.ui.reply.showReply && state.ui.reply.commentId === ownProps.comment.id,
-  replies: getComments(state, ownProps.comment.replies)
+  ownComment: state.entities.comments[ownProps.commentId].commenterId === state.session.id,
+  user: state.entities.users[state.entities.comments[ownProps.commentId].commenterId],
+  showReply: state.ui.reply.showReply && state.ui.reply.commentId === ownProps.commentId,
+  replies: getComments(state, state.entities.comments[ownProps.commentId]),
+  comment: state.entities.comments[ownProps.commentId]
 });
 // replies: getComments(state, ownProps.comment.replies)
 

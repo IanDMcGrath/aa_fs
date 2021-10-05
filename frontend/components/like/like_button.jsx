@@ -5,9 +5,9 @@ import { BsCheck } from "react-icons/bs";
 class LikeButton extends React.Component {
   constructor(props) {
     super(props);
-    let currentLike = null;
-    for (let i=0; i<Object.values(props.likes).length && !currentLike; i++) { if (Object.values(props.likes)[i].likerId === props.currentUser) {currentLike = Object.values(props.likes)[i]}};
-    this.state = {currentLike: currentLike};
+    // let currentLike = null;
+    // for (let i=0; i<Object.values(props.likes).length && !currentLike; i++) { if (Object.values(props.likes)[i].likerId === props.currentUser) {currentLike = Object.values(props.likes)[i]}};
+    // this.state = {currentLike: currentLike};
     this.handleLike = this.handleLike.bind(this);
   }
 
@@ -18,29 +18,42 @@ class LikeButton extends React.Component {
   }
 
   handleLike(e) {
-    let { currentUser, likes} = this.props;
+    let { currentUser, like} = this.props;
     e.stopPropagation();
-    console.log(`you ${Boolean(this.state['currentLike']) ? "unliked" : "liked"} ${this.props.likeableType}# ${this.props.likeableId}`);
+    console.log(`you ${Boolean(like) ? "unliked" : "liked"} ${this.props.likeableType}# ${this.props.likeableId}`);
     if (currentUser) {
-      if (Boolean(this.state['currentLike'])) {
-        this.props.deleteLike(this.state.currentLike.id)
-        .then(this.setState({currentLike: null}));
+      if (like) {
+        this.props.deleteLike(like.id);
       } else {
-        this.props.createLike({likerId: this.props.currentUser, likeableId: this.props.likeableId, likeableType: this.props.likeableType})
-        .then(like => {console.log(like);this.setState({currentLike: like})});
+        this.props.createLike({likerId: this.props.currentUser, likeableId: this.props.likeableId, likeableType: this.props.likeableType});
       }
     } else {
       this.props.uiToggleSignin({showSignin: true})
     }
   }
 
-  render() {
-    let liked = Boolean(this.state.currentLike);
+  renderSmallButton() {
+    let { like, style } = this.props;
+    let liked = Boolean(like);
     return (
-      // <div className="details-panel-buttons">
-      <button className={`details-panel-like-button button ${liked ? "liked" : "unliked"}`} onClick={this.handleLike}>{liked ? <BsCheck /> : <FaRegThumbsUp />}{liked ? "Liked" : "Like"}</button>
-      // </div>
+      <button className={`inline-like-button ${liked ? "liked" : "unliked"}`} onClick={this.handleLike}>{liked ? <BsCheck /> : null}{liked ? "Liked" : "Like"}</button>
     )
+  }
+
+  renderBigButton() {
+    let { like, style } = this.props;
+    let liked = Boolean(like);
+    return (
+      <button className={`details-panel-like-button button ${liked ? "liked" : "unliked"}`} onClick={this.handleLike}>{liked ? <BsCheck /> : <FaRegThumbsUp />}{liked ? "Liked" : "Like"}</button>
+    )
+  }
+
+  render() {
+    let { like, style } = this.props;
+    let liked = Boolean(like);
+    return (
+      style === "small" ? this.renderSmallButton() : this.renderBigButton()
+      );
   }
 }
 

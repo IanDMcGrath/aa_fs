@@ -2,10 +2,12 @@ import React from "react";
 import { FaRegThumbsUp, FaRegEye, FaRegComments } from "react-icons/fa";
 
 export const StatsNumLikes = props => {
-  let { likes } = props;
+  let { likes, show } = props;
+  let count = likes ? Object.keys(likes).length : 0;
+  if (count === 0 && !show) {return null};
   return (
     <div className="art-stats-num-likes">
-      <FaRegThumbsUp className="num-likes-icon inline-icon"/>{likes ? Object.keys(likes).length : 0} Likes
+      {show ? <FaRegThumbsUp className="num-likes-icon inline-icon"/> : null}{count} Likes
     </div>
   )
 }

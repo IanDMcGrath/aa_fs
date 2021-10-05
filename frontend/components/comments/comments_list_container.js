@@ -6,7 +6,7 @@ import { uiToggleReply, uiToggleSignin } from "../../actions/ui_actions";
 const mapStateToProps = (state, ownProps) => ({
   // comments: ownProps.comments,
   users: state.entities.users,
-
+  commentIds: (ownProps.commentIds ? ownProps.commentIds : getCommentIds(state, ownProps.commentableId, ownProps.commentableType))
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -18,3 +18,16 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentsList);
+
+const getCommentIds = (state, commentableId, commentableType) => {
+  let commentIds = [];
+  let { comments } = state.entities;
+  Object.values(comments).forEach(comment => {
+    if (!comment.parentId && comment.commentableId === commentableId && comment.commentableType === commentableType) {
+      commentIds.push(comment.id);
+    }
+  })
+  // console.log('found commentIds:');
+  // console.log(commentIds);
+  return commentIds;
+}

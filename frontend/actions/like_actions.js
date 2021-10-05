@@ -29,8 +29,7 @@ export const fetchLike = likeId => dispatch => (
 );
 
 export const createLike = like => dispatch => (
-  APILikes.createLike(like)
-  .then(like => dispatch(receiveLike(like)))
+  APILikes.createLike(like).then(like => dispatch(receiveLike(like)))
 );
 
 export const deleteLike = likeId => dispatch => (

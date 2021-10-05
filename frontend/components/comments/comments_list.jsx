@@ -18,16 +18,16 @@ class Comments extends React.Component {
   }
 
   renderComments() {
-    let {comments, users, commentableId, commentableType, uiToggleSignin, uiToggleReply, updateComment, deleteComment, commentType} = this.props;
-    let numComments = Object.keys(comments).length
-    if (!numComments) {numComments = 0};
-    console.log(comments)
+    let {commentIds, users, commentableId, commentableType, uiToggleSignin, uiToggleReply, updateComment, deleteComment, commentType} = this.props;
+    let numComments = commentIds ? commentIds.length : 0;
+    // if (!numComments) {numComments = 0};
+    // console.log(commentIds)
     return (
       <ul>
         {/* <h3><FaRegComments color="#00B2FF" className="comments-h3-icon"/>{numComments} {numComments === 1 ? "Comment" : "Comments"}</h3> */}
-        {Object.values(comments).map(comment => !(comment && comment.id && comment.commentableType === commentType) ? null :
-          <div key={comment.id}>
-            <CommentItemContainer key={comment.id} comment={comment} showReplies={true} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={comment.id === this.state.replyId} commentableType={"Comment"}/>
+        {Object.values(commentIds).map(commentId =>
+          <div key={commentId}>
+            <CommentItemContainer key={commentId} commentId={commentId} showReplies={true} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={commentId === this.state.replyId} commentableId={commentableId} commentableType={commentableType}/>
             {/* { !comment.replies ? null : Object.values(comment.replies).map(reply =>
             <div className="comment-indent">
             <CommentItemContainer key={reply.id} comment={reply} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={reply.id === this.state.replyId}/>

@@ -16,11 +16,12 @@ class CommentForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if (this.props.formType === "Post Comment") {this.props.action(this.state)} else {
     this.props.action(this.state)
     .then(() => {
       if (this.props.formType === "Post Comment") {this.setState({body: ""})};
       if (this.props.handleCancelUpdate) {this.props.handleCancelUpdate()};
-    }); // reset the body text on comment success
+    })}; // reset the body text on comment success
   }
 
   render() {

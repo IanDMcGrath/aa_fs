@@ -6,7 +6,8 @@ import CreateCommentFormContainer from "./create_comment_form_container";
 import UpdateCommentFormContainer from "./update_comment_form_container";
 import CommentItemContainer from "./comment_item_container";
 import CommentListContainer from "./comments_list_container";
-
+import LikeButtonContainer from "../like/like_button_container";
+import { StatsNumLikes } from "../widgets/stats";
 
 class CommentItem extends React.Component {
   constructor(props) {
@@ -82,8 +83,8 @@ class CommentItem extends React.Component {
     return (
       <div className="comment-footer">
         <div className="comment-like-reply">
-          <div className="comment-like" onClick={(e) => this.handleLikeClick(e, comment.id)}>Like</div>
-          {this.showLikeCount(comment)}
+          <LikeButtonContainer style={"small"} likeableId={comment.id} likeableType={"Comment"}/>
+          <StatsNumLikes likes={0}/>
           <div className="comment-reply" onClick={(e) => this.handleReplyClick(e, comment.id)}>Reply</div>
         </div>
         <div className="comment-timestamps">
@@ -97,11 +98,11 @@ class CommentItem extends React.Component {
 
 
   render() {
-    let { user, comment, replies, ownComment, showReply, showReplies, showCommentFormReply, commentableType } = this.props;
+    let { user, comment, replies, ownComment, showReply, showReplies, showCommentFormReply, commentableId, commentableType } = this.props;
     let { showUpdateForm } = this.state;
     // let {uiToggleSignin} = this.props;
     let {uiToggleSignin, uiToggleReply, updateComment, deleteComment } = this.props;
-    let style = {'marginLeft': '1rem', 'paddingLeft': '1rem', 'borderLeft': 'solid 1rem grey'}
+    let style = {'marginLeft': '2.1rem', 'paddingLeft': '1rem', 'borderLeft': 'solid 0.1rem var(--grey2)'}
     // console.log('replies')
     // console.log(replies)
     return (
@@ -110,8 +111,8 @@ class CommentItem extends React.Component {
           <img className="commenter-avatar" src={user.avatar}/>
           {showUpdateForm ? <UpdateCommentFormContainer comment={comment} handleCancelUpdate={this.handleCancelUpdate()}/> : this.renderCommentContents()}
         </div>
-        {showReply ? <div className="comment-reply-textarea" ><CreateCommentFormContainer parentId={comment.id} commentableId={comment.id} commentableType={"Comment"} /></div> : null}
-        {!replies ? null : <div className="reply-list" style={style}><CommentListContainer comments={replies} commentableId={comment.id} commentableType="Comment" commentType="Comment" /></div>}
+        {showReply ? <div className="comment-reply-textarea" ><CreateCommentFormContainer parentId={comment.id} commentableId={commentableId} commentableType={commentableType} /></div> : null}
+        {!replies ? null : <div className="reply-list" style={style}><CommentListContainer commentIds={comment.replies} commentableId={commentableId} commentableType={commentableType} commentType="Comment" /></div>}
         {/* { !replies ? null : Object.values(replies).map(reply =>
           <div className="comment-indent">
             {console.log(reply)}

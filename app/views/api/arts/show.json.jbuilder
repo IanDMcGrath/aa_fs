@@ -4,6 +4,9 @@ json.set! @art.id do
   json.set! :artist do
     json.extract! @art.artist, :username, :avatar, :work
   end
+  # json.set! :comments do
+    # comment ids array
+  # end
 end
 
 json.comments do

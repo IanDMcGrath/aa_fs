@@ -6,7 +6,7 @@ class Api::LikesController < ApplicationController
     @like = Like.new(like_params)
     puts @like
     if @like.save
-      render json: '/api/like/show'
+      render '/api/likes/show'
     else
       render @like.errors.full_messages, status: 401
     end
@@ -15,7 +15,7 @@ class Api::LikesController < ApplicationController
   def index
     @likes = Like.where(likeable_id: params[:likeable_id])
     if @likes
-      render json: '/api/likes/index'
+      render '/api/likes/index'
     else
       render json: ['Something went wrong'], status: 401
     end
@@ -24,7 +24,8 @@ class Api::LikesController < ApplicationController
   def destroy
     @like = Like.find_by(id: params[:id])
     if @like.destroy
-      return nil
+      # render '/api/likes/show'
+      return
     else
       render @like.errors.full_messages, status: 422
     end
