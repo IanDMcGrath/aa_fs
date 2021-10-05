@@ -5,13 +5,13 @@ import CommentsListContainer from "../comments/comments_list_container";
 import { timeSince } from "../../util/timestamp_util";
 import { AllStats, StatsNumComments } from "../widgets/stats";
 import CreateCommentFormContainer from "../comments/create_comment_form_container";
-import likeButton from "../like/likeButton";
+import LikeButtonContainer from "../like/like_button_container";
 
 class ArtShow extends React.Component {
   constructor(props) {
     super(props)
 
-    this.handleLike = this.handleLike.bind(this);
+    // this.handleLike = this.handleLike.bind(this);
   }
 
   componentDidMount() {
@@ -30,20 +30,20 @@ class ArtShow extends React.Component {
     )
   }
 
-  handleLike(e) {
-    let { art, currentUser, likes} = this.props;
-    e.stopPropagation();
-    console.log(`you liked art# ${this.props.art.id}`);
-    if (currentUser) {
-      if (Object.values(likes).some(like => {return like.likerId === currentUser})) {
-        this.props.deleteLike(Object.values(likes) => (like => {return like.likerId === currentUser}));
-      } else {
-        this.props.createLike({likerId: this.props.currentUser, likeableId: this.props.art.id, likeableType: "Art"})
-      }
-    } else {
-      this.props.uiToggleSignin({showSignin: true})
-    }
-  }
+  // handleLike(e) {
+  //   let { art, currentUser, likes} = this.props;
+  //   e.stopPropagation();
+  //   console.log(`you liked art# ${this.props.art.id}`);
+  //   if (currentUser) {
+  //     if (Object.values(likes).some(like => {return like.likerId === currentUser})) {
+  //       this.props.deleteLike(Object.values(likes) => (like => {return like.likerId === currentUser}));
+  //     } else {
+  //       this.props.createLike({likerId: this.props.currentUser, likeableId: this.props.art.id, likeableType: "Art"})
+  //     }
+  //   } else {
+  //     this.props.uiToggleSignin({showSignin: true})
+  //   }
+  // }
 
   renderDetailsPanel() {
     let { art, comments, likes} = this.props;
@@ -58,7 +58,7 @@ class ArtShow extends React.Component {
           </div>
         </div>
         <div className="details-panel-buttons">
-          <likeButton />
+          <LikeButtonContainer likeableId={art.id} likeableType={"Art"}/>
           <button className="details-panel-follow-button button"><FiUserPlus />  Follow</button>
         </div>
         <div>

@@ -1,3 +1,15 @@
 // Place all the styles related to the Api::Likes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.details-panel-like-button {
+  background-color: var(--green);
+  font-size: 0.8rem;
+}
+
+button.liked {
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 0.3rem;
+  border: solid 0.1rem var(--grey1);
+}

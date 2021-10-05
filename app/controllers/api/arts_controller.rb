@@ -17,6 +17,15 @@ class Api::ArtsController < ApplicationController
     end
   end
 
+  def create
+    @art = Art.new(art_params)
+    if @art.save
+      render "/api/arts/show"
+    else
+      render @art.errors.full_messages, status: 422
+    end
+  end
+
   private
 
   def art_params

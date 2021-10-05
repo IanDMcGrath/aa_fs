@@ -1,5 +1,8 @@
 class Api::LikesController < ApplicationController
-    def create
+
+  before_action :underscore_params!
+
+  def create
     @like = Like.new(like_params)
     puts @like
     if @like.save
