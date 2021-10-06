@@ -32,6 +32,6 @@ class Api::ArtsController < ApplicationController
   private
 
   def art_params
-    params.require(:art).permit(:artist_id, :title, :description, photos:[])
+    params.require(:art).permit(:artist_id, :title, :description, :artpanels)
   end
 end
