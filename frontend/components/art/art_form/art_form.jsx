@@ -1,5 +1,6 @@
 import React from "react";
 import { BiRocket } from "react-icons/bi";
+import FileUploadModal from "./file_upload_modal";
 
 class ArtForm extends React.Component {
   constructor(props) {
@@ -55,7 +56,14 @@ class ArtForm extends React.Component {
             </label>
           </div>
           <div className="form-section-upload">
-            <div className="form-section-header-upload"></div>
+            <div className="form-section-header-upload">
+              <FileUploadModal buttonName="HQ Images" buttonDetails="JPG, PNG, GIF" />
+              <FileUploadModal buttonName="Video Clip" buttonDetails="MP4" />
+              <FileUploadModal buttonName="Video" buttonDetails="YouTube, Vimeo" />
+              <FileUploadModal buttonName="Sketchfab" buttonDetails="Embed Sketchfab" />
+              <FileUploadModal buttonName="Marmoset Viewer" buttonDetails="Up to 50 Mb" />
+              <FileUploadModal buttonName="360 Pano" buttonDetails="JPG" />
+            </div>
             <div className="form-section-body-upload">
               <label className="form-label"> Upload media files
                 <input type="file" multiple onChange={this.handleFile}/>

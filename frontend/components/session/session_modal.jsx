@@ -38,7 +38,7 @@ class SessionModal extends React.Component {
     return (
       <div className="modal-screen" onClick={this.toggleModal(false)}>
         {/* modal screen background */}
-        <div className="modal-session-form">
+        <div className="modal-form">
           <div className="session-form-contents">
           <div className="modal-session-close" onClick={this.toggleModal(false)}><MdClose color="grey" className="modal-session-close" onClick={this.toggleModal(false)} /></div>
           {formType === 'Sign In' ? (null) : (<div><h1 className="modal-title artcoag"><div className="artcoag-front">ART</div>COAG</h1><div className="signup-welcome">Join the leading showcase platform for art and design.</div></div>)}

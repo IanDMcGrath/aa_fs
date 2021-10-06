@@ -58,14 +58,30 @@ body {
 }
 
 .body-div {
-  padding-top: 5.7rem;
+  padding-top: 3.15rem;
+  // padding-top: 5.7rem;
 }
 
 .header {
   position: fixed;
+  top: 0%;
   width: 100%;
   background-color: var(--bgc2);
   z-index: 1;
+}
+
+a.github > svg {
+  color: black;
+  font-size: 2rem;
+  background-color: white;
+  border-radius: 2rem;
+}
+
+a.linkedin > svg {
+  color: rgb(36, 143, 214);
+  font-size: 2rem;
+  background-color: white;
+  border-radius: 0.2rem;
 }
 
 .sticky-header {

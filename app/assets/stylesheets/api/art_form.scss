@@ -58,8 +58,13 @@
 
 .form-section-header-upload {
   height: 6.8rem;
-  margin: 1rem;
+  margin: 0.6rem;
+  padding-bottom: 0.6rem;
   border-bottom: solid 0.05rem var(--grey2);
+  // display: flex;
+  // justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
 }
 
 .form-section-body-upload {
@@ -125,4 +130,116 @@
 
 .button:hover {
   opacity: 0.8;
+}
+
+.form-upload-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // border-right: solid 0.1rem var(--grey2);
+  text-align: center;
+  line-height: 1.5rem;
+  height: 100%;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+
+.form-upload-button:hover {
+  background-color: var(--grey2);
+}
+
+.form-upload-button > div:first-child {
+  color: var(--blue);
+}
+
+.form-section-header-upload > div {
+  border-right: solid 0.1rem var(--grey2);
+
+  // border-right: none;
+}
+
+.form-section-header-upload > div:last-child {
+  border-right: none;
+}
+
+.upload-button-name {
+  font-size: 0.9rem;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.upload-button-details {
+  font-size: 0.8rem;
+  color: var(--grey1);
+}
+
+.modal-input {
+  position: absolute;
+  right: 50%;
+  transform: translatex(50%) translatey(10%);
+  background-color: var(--bgc1);
+  width: 100%;
+  max-width: 37.5rem;
+}
+
+.modal-header {
+  font-size: 1.5rem;
+  padding: 1.2rem;
+  padding-top: 1.25rem;
+  background-color: var(--grey2);
+}
+
+.modal-body {
+  padding: 1rem;
+}
+
+.tip {
+  padding: 1rem;
+  background-color: var(--grey2);
+  display: flex;
+}
+
+.tip.left-blue {
+  border-left: solid 0.3rem var(--blue);
+}
+
+.tip-media {
+  min-width: 2rem;
+  min-height: 2rem;
+  background-color: black;
+  margin-right: 1rem;
+}
+
+.tip-content {
+  font-size: .9rem;
+}
+
+.modal-footer {
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.upload-add-button {
+  background-color: var(--blue);
+  color: var(--white);
+  font-size: .9rem;
+  padding: .6rem;
+  border: none;
+  border-radius: .2rem;
+}
+
+.button-secondary {
+  font-size: .8rem;
+  background-color: var(--bgc1);
+  transition: background-color 0.2s;
+  color: var(--white);
+  border: solid 0.05rem var(--grey1);
+  border-radius: 0.2rem;
+  padding: .3rem 0.8rem;
+}
+
+.button-secondary {
+  background-color: var(--black);
 }
