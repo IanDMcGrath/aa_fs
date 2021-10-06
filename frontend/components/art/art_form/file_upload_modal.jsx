@@ -44,7 +44,7 @@ class FileUploadModal extends React.Component {
     let { buttonName } = this.props;
     return (
       <div className="modal-screen" onClick={this.handleToggleModal}>
-        <div className="modal-input">
+        <div className="modal-input animated fadeInTop">
           <div className="modal-header">Upload {buttonName}</div>
           <div className="modal-body">
             <div className="tip left-blue">

@@ -27,4 +27,8 @@ class Art < ApplicationRecord
   through: :likes,
   source: :liker
 
+  has_many :comments_likes,
+  through: :comments,
+  source: :likes
+
 end
