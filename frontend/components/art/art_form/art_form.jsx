@@ -1,4 +1,5 @@
 import React from "react";
+import { BiRocket } from "react-icons/bi";
 
 class ArtForm extends React.Component {
   constructor(props) {
@@ -48,18 +49,33 @@ class ArtForm extends React.Component {
         <form onSubmit={this.handleSubmit.bind(this)} className="art-form">
           <h2>{formType}</h2>
           <h3>{this.state.title.length > 0 ? this.state.title : "Untitled"}</h3>
-          <label><div className="label-artwork-title">Artwork Title</div>
-            <div className="artwork-title-container"><input type="text" value={this.state.title} onChange={this.handleInput('title')} placeholder="What is your artwork called" className="artwork-title-input"/></div>
-          </label>
-          <label className="label-artwork-files"> Upload media files
-            <input type="file" multiple onChange={this.handleFile}/>
-          </label>
-          <label ><div className="label-artwork-details">Artwork Details</div>
-            <label ><div className="label-artwork-description">Artwork Description</div>
-              <textarea value={this.state.description} onChange={this.handleInput('description')} className="input text-area art" />
+          <div className="form-section">
+            <label><div className="form-section-header">Artwork Title</div>
+              <div className="form-section-body"><input type="text" value={this.state.title} onChange={this.handleInput('title')} placeholder="What is your artwork called" className="form-input-text"/></div>
             </label>
-          </label>
-          <button className="button submit">{formType}</button>
+          </div>
+          <div className="form-section-upload">
+            <div className="form-section-header-upload"></div>
+            <div className="form-section-body-upload">
+              <label className="form-label"> Upload media files
+                <input type="file" multiple onChange={this.handleFile}/>
+              </label>
+            </div>
+          </div>
+          <div className="form-section">
+            <div className="form-section-header">Artwork Details</div>
+            <div className="form-section-body">
+              <label ><div className="form-label">Artwork Description</div>
+                <textarea value={this.state.description} onChange={this.handleInput('description')} className="form-text-area art" placeholder="Artwork Description"/>
+              </label>
+            </div>
+          </div>
+          <div className="form-section">
+            <div className="form-section-header">Publishing Options</div>
+            <div className="form-section-body">
+              <button className="form-submit button publish"><BiRocket /> {formType === "Create New Artwork" ? "Publish" : "Commit Changes"}</button>
+            </div>
+          </div>
         </form>
       </div>
     )

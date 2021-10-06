@@ -42,7 +42,7 @@ class SessionForm extends React.Component {
       <ul className="name">
         <li className="input-label"> Your name </li>
         <li>
-          <input className="session-input-text"
+          <input className="form-input-text"
           type="text"
           value={this.state.username}
           placeholder="username"
@@ -57,7 +57,7 @@ class SessionForm extends React.Component {
       <ul className="password">
         <li className="input-label"> Password </li>
         <li>
-          <input className="session-input-text"
+          <input className="form-input-text"
           type="password"
           value={this.state.password}
           placeholder="password"
@@ -72,7 +72,7 @@ class SessionForm extends React.Component {
       <ul className="email">
         <li className="input-label"> Email </li>
         <li>
-          <input className="session-input-text" type="email" value={this.state.email} placeholder="email@email.com" onChange={this.handleInput('email')} />
+          <input className="form-input-text" type="email" value={this.state.email} placeholder="email@email.com" onChange={this.handleInput('email')} />
         </li>
       </ul>
     )

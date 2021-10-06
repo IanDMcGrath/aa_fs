@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import ArtForm from "./art_form";
-import createArt from "../../../actions/art_actions";
+import { createArt } from "../../../actions/art_actions";
 
 const mapStateToProps = state => ({
   art: {title:"", description:"", artistId: state.session.id},

@@ -64,7 +64,8 @@ body {
 .header {
   position: fixed;
   width: 100%;
-  background-color: var(--bgc2)
+  background-color: var(--bgc2);
+  z-index: 1;
 }
 
 .sticky-header {

@@ -112,10 +112,12 @@ input {
   color: rgba(255, 255, 255, 0.685);
 }
 
-.session-input-text {
-  padding: 20px;
+.form-input-text {
+  padding: 1.16rem;
   width: 100%;
-  border: 1px solid grey;
+  border: 1px solid var(--grey2);
+  font-size: 0.9rem;
+  padding-left: 0.6rem;
 }
 
 .signup-welcome {
