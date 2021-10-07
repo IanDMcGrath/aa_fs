@@ -26,8 +26,11 @@
   --bgc1: rgb(32.5, 32.5, 32.5);
   --bgc2: rgb(23, 23, 23);
   --modal: rgba(0, 0, 0, 0.7);
-  --vhBody: calc(100vh - 5.7rem);
-  --vhBody2: calc(200vh - 11.4rem);
+  // --vhBody: calc(100vh - 5.7rem);
+  // --vhBody2: calc(200vh - 11.4rem);
+  --vhBody: calc(100vh - 3.15rem);
+  --vhBody2: calc(200vh - 6.3rem);
+
 }
 
  * {

@@ -4,10 +4,8 @@ import { uiToggleSignin } from "../../actions/ui_actions";
 import LikeButton from "./like_button";
 
 const mapStateToProps = (state, ownProps) => ({
-  likes: state.entities.likes,
-  currentUser: state.session.id,
-  // like: getLike(state.entities.likes, state.session.id),
   like: getLike(state, ownProps.likeableType, ownProps.likeableId),
+  currentUser: state.session.id,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -18,32 +16,20 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(LikeButton);
 
-// const getLike = (likes, currentUser) => {
-//   let currentLike = null;
-//   for (let i=0; i<Object.values(likes).length && !currentLike; i++) {
-//     if (Object.values(likes)[i].likerId === currentUser) {
-//       currentLike = Object.values(likes)[i]
-//     }
-//   };
-//   return currentLike;
-// }
 
 const getLike = (state, likeableType, likeableId) => {
-  let entitiesType = state.entities[`${likeableType}s`.toLowerCase()];
-  console.log(`${likeableType}s`.toLowerCase())
-  console.log('found type:')
-  console.log(entitiesType)
-  if (entitiesType) {
-    let key = entitiesType[likeableId];
-    console.log('found key:')
-    console.log(key)
-    if (key) {
-      let likedEntity = state.entities.likes[key.commentableId];
-      console.log('found like:')
-      console.log(likedEntity)
-      return likedEntity;
+  let likeType = state.entities.likes[`${likeableType.toLowerCase()}Likes`];
+  // console.log(`${likeableType}s`.toLowerCase());
+  // console.log('found type:');
+  // console.log(entitiesType);
+  if (likeType) {
+    let like = likeType[likeableId];
+    // console.log('found key:');
+    // console.log(key);
+    if (like) {
+      return like;
     }
   }
-  console.log('failed to find like')
+  // console.log('failed to find like');
   return null;
 }

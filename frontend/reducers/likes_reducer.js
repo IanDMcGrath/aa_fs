@@ -12,14 +12,15 @@ const likesReducer = (state={}, action) => {
       return action.art.likes;
 
     case RECEIVE_LIKE:
-      nextState = Object.assign({}, state);
-      console.log(nextState);
-      nextState[action.like.id] = action.like;
+      nextState = Object.assign({}, state, {[`${action.like.likeableType.toLowerCase()}Likes`]: {[action.like.likeableId]: action.like}});
+      // console.log(nextState[`${action.like.likeableType.toLowerCase()}Likes`]);
+      nextState[`${action.like.likeableType.toLowerCase()}Likes`][action.like.likeableId] = action.like;
       return nextState;
 
     case REMOVE_LIKE:
       nextState = Object.assign({}, state);
-      delete nextState[action.likeId];
+      // console.log(action);
+      delete nextState[`${action.like.likeableType.toLowerCase()}Likes`][action.like.likeableId];
       return nextState;
 
     default: return state;

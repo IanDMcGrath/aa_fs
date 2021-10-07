@@ -41,7 +41,7 @@ class LikeButton extends React.Component {
   }
 
   renderBigButton() {
-    let { like, style } = this.props;
+    let { like, style, likedObject } = this.props;
     let liked = Boolean(like);
     return (
       <button
@@ -56,6 +56,7 @@ class LikeButton extends React.Component {
   render() {
     let { like, style } = this.props;
     let liked = Boolean(like);
+    console.log(like);
     return (
       style === "small" ? this.renderSmallButton() : this.renderBigButton()
       );

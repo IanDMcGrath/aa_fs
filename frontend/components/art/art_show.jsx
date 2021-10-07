@@ -23,11 +23,20 @@ class ArtShow extends React.Component {
 
   renderArtpanels() {
     let { art } = this.props;
+    if (!art.artpanels) {return null};
     return (
       <ul>
         {art.artpanels.map((artpanel, i) => <li className="artpanel-div" key={i}><img src={artpanel} key={`artpanel-${i}`} className="artpanel"/></li>)}
       </ul>
     )
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    var result = _.isEqual(
+      _.omit(this.props, ['likes']),
+      _.omit(nextProps, ['likes'])
+    );
+    return !result;
   }
 
   // handleLike(e) {
@@ -46,7 +55,8 @@ class ArtShow extends React.Component {
   // }
 
   renderDetailsPanel() {
-    let { art, comments, likes} = this.props;
+    let { art, comments} = this.props;
+    let likes = art.likes
     // console.log(likes)
     return (
       <div className="details-panel" onClick={this.handleClick}>

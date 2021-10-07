@@ -24,7 +24,7 @@ class Api::LikesController < ApplicationController
   def destroy
     @like = Like.find_by(id: params[:id])
     if @like.destroy
-      # render '/api/likes/show'
+      render '/api/likes/show'
       return
     else
       render @like.errors.full_messages, status: 422
