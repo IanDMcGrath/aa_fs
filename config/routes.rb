@@ -9,8 +9,10 @@ Rails.application.routes.draw do
     resources :arts, only: [:index, :show, :create] do
       resources :comments, only: [:create, :update, :index]
       resources :likes, only: [:index]
+
     end
     resources :likes, only: [:show, :create, :destroy]
     resources :comments, only: [:show, :destroy]
+    resources :tags, only: [:index]
   end
 end

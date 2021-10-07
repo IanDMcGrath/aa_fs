@@ -31,14 +31,14 @@ class ArtShow extends React.Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    let np = Object.assign({}, nextProps);
-    let tp = Object.assign({}, this.props);
-    delete np.likes;
-    delete tp.likes;
-    let result = JSON.stringify(np) === JSON.stringify(tp);
-    return !result;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   let np = Object.assign({}, nextProps);
+  //   let tp = Object.assign({}, this.props);
+  //   delete np.likes;
+  //   delete tp.likes;
+  //   let result = JSON.stringify(np) === JSON.stringify(tp);
+  //   return !result;
+  // }
 
   // handleLike(e) {
   //   let { art, currentUser, likes} = this.props;

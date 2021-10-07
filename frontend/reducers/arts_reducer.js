@@ -15,19 +15,20 @@ const artsReducer = (state={}, action) => {
       return nextState;
       // return action.art;
 
-    case RECEIVE_LIKE:
-      if (action.like.likeableType === "Art") {
-        nextState = Object.assign({}, state, {[action.like.likeableId]: {likes: (action.like.likeableId.likes + 1)}});
-        return nextState;
-      }
-      return state;
+    // LIKELY NEEDS TO BE IN A NEW REDUCER FOR STAT TRACKING WIDGET
+    // case RECEIVE_LIKE:
+    //   if (action.like.likeableType === "Art") {
+    //     nextState = Object.assign({}, state, {[action.like.likeableId]: {likes: (action.like.likeableId.likes + 1)}});
+    //     return nextState;
+    //   }
+    //   return state;
 
-    case REMOVE_LIKE:
-      if (action.likeableType === "Art") {
-        nextState = Object.assign({}, state, {[action.like.likeableId]: {likes: (action.like.likeableId.likes - 1)}});
-        return nextState;
-      }
-      return state;
+    // case REMOVE_LIKE:
+    //   if (action.likeableType === "Art") {
+    //     nextState = Object.assign({}, state, {[action.like.likeableId]: {likes: (action.like.likeableId.likes - 1)}});
+    //     return nextState;
+    //   }
+    //   return state;
 
     default: return state;
   }

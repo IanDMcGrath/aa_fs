@@ -1,6 +1,8 @@
 import React from "react";
 import { BiRocket } from "react-icons/bi";
+import { EvalDevToolModulePlugin } from "webpack";
 import FileUploadModal from "./file_upload_modal";
+import MediumCheckbox from "./medium_checkbox";
 
 class ArtForm extends React.Component {
   constructor(props) {
@@ -8,21 +10,19 @@ class ArtForm extends React.Component {
     this.state = Object.assign({}, this.props.art, {artfiles: null});
     this.handleInput = this.handleInput.bind(this);
     this.handleFile = this.handleFile.bind(this);
+    this.handleCheckbox = this.handleCheckbox.bind(this);
   }
 
   handleInput(field) {
-    console.log(this.state);
     return (e) => this.setState({[field]: e.currentTarget.value});
   }
 
   handleFile(e) {
     this.setState({artfiles: e.currentTarget.files[0]})
-    console.log(this.state);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state)
     const formData = new FormData();
     formData.append('art[artist_id]', this.state.artistId)
     formData.append('art[title]', this.state.title);
@@ -41,6 +41,17 @@ class ArtForm extends React.Component {
       res => console.log(res.message),
       res => console.log(res.responseJSON)
     )
+  }
+
+  handleCheckbox(e, medium) {
+    console.log(medium);
+    // console.log(e.currentTarget.value);
+  }
+
+  componentDidMount() {
+    if (!this.props.mediums) {
+      this.props.fetchTags();
+    }
   }
 
   render() {
@@ -76,6 +87,34 @@ class ArtForm extends React.Component {
               <label ><div className="form-label">Artwork Description</div>
                 <textarea value={this.state.description} onChange={this.handleInput('description')} className="form-text-area art" placeholder="Artwork Description"/>
               </label>
+            </div>
+          </div>
+          <div className="form-section">
+            <div className="form-section-header">Categorization</div>
+            <div className="form-section-body">
+              <div className="form-label">Medium</div>
+                <div className="form-list">
+                  {!this.props.mediums ? null : Object.values(this.props.mediums).map((medium, i) =>
+                  <MediumCheckbox key={`medium-${i}`} medium={medium} handleCheckbox={this.handleCheckbox} count={this.state.selectedMediums ? Object.keys(this.state.selectedMediums).length : 0}/>)}
+                  {/* console.log(medium))} */}
+
+                  {/* <label htmlFor="Digital 2D" className="checkbox-label">
+                    <input type="checkbox" value="Digital 2D" name="Digital 2D" onChange={() => this.handleCheckbox('Digital 2D')} className="form-checkbox"/>
+                  Digital 2D</label>
+                  <label htmlFor="Digital 3D" className="checkbox-label">
+                    <input type="checkbox" value="Digital 3D" name="Digital 3D" onChange={() => this.handleCheckbox('Digital 3D')} className="form-checkbox"/>
+                  Digital 3D</label>
+                  <label htmlFor="Animation" className="checkbox-label">
+                    <input type="checkbox" value="Animation" name="Animation" onChange={() => this.handleCheckbox('Animation')} className="form-checkbox"/>
+                  Animation</label>
+                  <label htmlFor="Real-time" className="checkbox-label">
+                    <input type="checkbox" value="Real-time" name="Real-time" onChange={() => this.handleCheckbox('Real-time')} className="form-checkbox"/>
+                  Real-time</label> */}
+                </div>
+
+              {/* <label ><div className="form-label">Subject Matter</div>
+                <textarea value={this.state.description} onChange={this.handleChangeTag('description')} className="form-dropdown"/>
+              </label> */}
             </div>
           </div>
           <div className="form-section">

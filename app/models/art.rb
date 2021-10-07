@@ -1,5 +1,7 @@
 class Art < ApplicationRecord
   validates :artist_id, :title, presence: true
+  validates_length_of :mediums, :subject_matters, maximum: 3
+
 
   belongs_to :artist,
   foreign_key: :artist_id,
@@ -31,4 +33,17 @@ class Art < ApplicationRecord
   through: :comments,
   source: :likes
 
+  has_many :taggings,
+  as: :taggable,
+  dependent: :destroy
+
+  has_many :subject_matters,
+  -> {where category: "Subject Matter"},
+  through: :taggings,
+  source: :tag
+
+  has_many :mediums,
+  -> {where category: "Medium"},
+  through: :taggings,
+  source: :tag
 end
