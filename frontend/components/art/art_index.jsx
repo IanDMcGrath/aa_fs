@@ -23,8 +23,8 @@ class ArtIndex extends React.Component {
     if (!filter.artIds || !(Object.keys(filter.artIds).length > 0)) {return null;}
     console.log('filtering!');
     return (
-      Object.values(filter.artIds).map(artId =>
-        (arts[artId.id] ? <ArtIndexItemContainer key={arts[artId.id].id} art={arts[artId.id - 1]}/>: null)
+      Object.values(filter.artIds).map(artKey =>
+        (arts[artKey.id] ? <ArtIndexItemContainer key={arts[artKey.id].id} art={arts[artKey.id - 1]}/>: null)
       )
     );
   }

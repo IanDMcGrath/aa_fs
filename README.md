@@ -8,12 +8,13 @@
 
 
 ## Challenges
+### Art Index Page Grid
  Minimizing empty space to maximize art thumbnails. But they have to stay the same size such that no one image dominates the others. The main feature of the index page is a dynamically reconfiguring grid. More columns are added as the viewport expands; adjusting incrementally based on the viewport width. It's voodoo witchcraft achieved using css's @media tag and a max-width argument.
  ![index page](/README_files/art_index.JPG)
  ![index page squeezed](/README_files/art_index_thin.JPG)
 
-
- Filtering prefetched results in the index page. Each artwork has a set of tags that define it for filtering. When the index page has already pulled all arts, whats the fasted method to find the arts that adopt a tag? The tags have a collection of ids that are iterated over in lieue of all arts ids. So you can simply key into a global filter to key into the arts index. `Object.values(state.ui.filter.artIds).map(artId => state.entities.arts[artId])`
+### Filtering
+ Filtering prefetched results in the index page. Each artwork has a set of tags that define it for filtering. When the index page has already pulled all arts, whats the fasted method to find the arts that adopt a tag? The tags have a collection of ids that are iterated over in lieue of all arts ids. So you can simply key into a global filter to key into the arts index. `Object.values(state.ui.filter.artIds).map(artKey => state.entities.arts[artKey.id])`
  ![filter](/README_files/filter.JPG)
 
 
@@ -50,3 +51,30 @@
   * AWS S3
 
 ![sign in form](/README_files/signin.JPG)
+
+## Planned Features
+* Art Edit Form
+  * Be able to edit an artwork to add/remove tags, edit title / description, (but not edit art panels)
+
+* Delete Artwork
+  * Outright Delete instead of editing an existing artwork
+
+* More filtering categories
+  * The current filters are base on the used medium and don't describe enough of what the artwork is about
+
+* Multi file uploading
+  * The create page currently only supports single file uploades
+
+* Multi format art pages
+  * artworks currently only support images but they could be ...
+    * embedded videos
+    * embedded sketchfabs
+    * marmoset render turntables
+
+* Comments that don't break
+  * a major challenge of comments was convincing them to only re-render their parent comment and list
+  * fix pending
+
+* Page refresh
+  * some changes require a page refresh before updates are visible
+  * fix pending
