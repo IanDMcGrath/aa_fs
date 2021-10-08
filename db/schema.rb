@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_07_175456) do
+ActiveRecord::Schema.define(version: 2021_10_08_023623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 2021_10_07_175456) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "commenter_id", null: false
-    t.integer "posted_id", null: false
     t.integer "parent_id"
     t.text "body", null: false
     t.datetime "created_at", null: false
@@ -76,7 +75,6 @@ ActiveRecord::Schema.define(version: 2021_10_07_175456) do
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["commenter_id"], name: "index_comments_on_commenter_id"
     t.index ["parent_id"], name: "index_comments_on_parent_id"
-    t.index ["posted_id"], name: "index_comments_on_posted_id"
   end
 
   create_table "follows", force: :cascade do |t|

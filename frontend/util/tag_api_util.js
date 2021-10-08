@@ -4,3 +4,11 @@ export const fetchTags = () => (
     method: 'GET'
   })
 );
+
+export const createTaggings = taggings => (
+  $.ajax({
+    url: "/api/taggings",
+    method: "POST",
+    data: {taggings},
+  })
+)

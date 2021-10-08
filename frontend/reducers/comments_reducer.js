@@ -31,19 +31,19 @@ const commentsReducer = (state={}, action) => {
       // comments = sortComments(comments);
       return comments;
 
-    case RECEIVE_LIKE:
-      if (action.like.likeableType === "Comment") {
-        nextState = Object.assign({}, state, {[action.like.likeableId]: {likes: (action.like.likeableId.likes + 1)}});
-        return nextState;
-      }
-      return state;
+    // case RECEIVE_LIKE:
+    //   if (action.like.likeableType === "Comment") {
+    //     nextState = Object.assign({}, state, {[action.like.likeableId]: {likes: (action.like.likeableId.likes + 1)}});
+    //     return nextState;
+    //   }
+    //   return state;
 
-    case REMOVE_LIKE:
-      if (action.likeableType === "Comment") {
-        nextState = Object.assign({}, state, {[action.like.likeableId]: {likes: (action.like.likeableId.likes - 1)}});
-        return nextState;
-      }
-      return state;
+    // case REMOVE_LIKE:
+    //   if (action.likeableType === "Comment") {
+    //     nextState = Object.assign({}, state, {[action.like.likeableId]: {likes: (action.like.likeableId.likes - 1)}});
+    //     return nextState;
+    //   }
+    //   return state;
 
     default: return state;
   }

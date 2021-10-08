@@ -36,10 +36,42 @@ class ArtForm extends React.Component {
       data: formData,
       contentType: false,
       processData: false
-    }).then(
-      res => console.log(res.message),
-      res => console.log(res.responseJSON)
-    )
+    }).then(res => {
+      // console.log('this is the response:');
+      // console.log(res);
+      // let taggings = Object.values(this.state.selectedMediums).map(medium => ({tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}));
+      // console.log(taggings);
+      // this.props.createTaggings(taggings);
+      let medium = Object.values(this.state.selectedMediums)[0];
+      let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}
+      console.log(tagging);
+      $.ajax({
+        url: "/api/taggings",
+        method: "POST",
+        data: {tagging},
+      }).then(res => {
+          if (Object.values(this.state.selectedMediums).length < 2) {
+            return null;
+          }
+          let medium = Object.values(this.state.selectedMediums)[1];
+          let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}
+          console.log(tagging);
+          $.ajax({
+            url: "/api/taggings",
+            method: "POST",
+            data: {tagging},
+          }).then(res => {
+              if (Object.values(this.state.selectedMediums).length < 3) {
+                return null;
+              }
+              let medium = Object.values(this.state.selectedMediums)[2];
+              let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}
+              console.log(tagging);
+              $.ajax({
+                url: "/api/taggings",
+                method: "POST",
+                data: {tagging},
+              })})})});
   }
 
   handleCheckbox(e, medium, disabled) {
@@ -50,7 +82,7 @@ class ArtForm extends React.Component {
       nextMediums = Object.assign({}, this.state.selectedMediums);
       delete nextMediums[medium.id];
     } else {
-      nextMediums = Object.assign({}, this.state.selectedMediums, {[medium.id]: medium.name});
+      nextMediums = Object.assign({}, this.state.selectedMediums, {[medium.id]: medium});
     }
     this.setState({selectedMediums: nextMediums});
 
@@ -63,7 +95,7 @@ class ArtForm extends React.Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     let { formType } = this.props;
     return (
       <div className="art-form-div">
@@ -105,25 +137,7 @@ class ArtForm extends React.Component {
                 <div className="form-list">
                   {!this.props.mediums ? null : Object.values(this.props.mediums).map((medium, i) =>
                   <MediumCheckbox key={`medium-${i}`} medium={medium} handleCheckbox={this.handleCheckbox} count={this.state.selectedMediums ? Object.keys(this.state.selectedMediums).length : 0} checked={this.state.selectedMediums[medium.id]}/>)}
-                  {/* console.log(medium))} */}
-
-                  {/* <label htmlFor="Digital 2D" className="checkbox-label">
-                    <input type="checkbox" value="Digital 2D" name="Digital 2D" onChange={() => this.handleCheckbox('Digital 2D')} className="form-checkbox"/>
-                  Digital 2D</label>
-                  <label htmlFor="Digital 3D" className="checkbox-label">
-                    <input type="checkbox" value="Digital 3D" name="Digital 3D" onChange={() => this.handleCheckbox('Digital 3D')} className="form-checkbox"/>
-                  Digital 3D</label>
-                  <label htmlFor="Animation" className="checkbox-label">
-                    <input type="checkbox" value="Animation" name="Animation" onChange={() => this.handleCheckbox('Animation')} className="form-checkbox"/>
-                  Animation</label>
-                  <label htmlFor="Real-time" className="checkbox-label">
-                    <input type="checkbox" value="Real-time" name="Real-time" onChange={() => this.handleCheckbox('Real-time')} className="form-checkbox"/>
-                  Real-time</label> */}
                 </div>
-
-              {/* <label ><div className="form-label">Subject Matter</div>
-                <textarea value={this.state.description} onChange={this.handleChangeTag('description')} className="form-dropdown"/>
-              </label> */}
             </div>
           </div>
           <div className="form-section">
