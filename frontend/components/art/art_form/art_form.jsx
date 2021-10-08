@@ -49,7 +49,7 @@ class ArtForm extends React.Component {
         url: "/api/taggings",
         method: "POST",
         data: {tagging},
-      }).then(res => {
+      }).then(() => {
           if (Object.values(this.state.selectedMediums).length < 2) {
             return null;
           }
@@ -60,7 +60,7 @@ class ArtForm extends React.Component {
             url: "/api/taggings",
             method: "POST",
             data: {tagging},
-          }).then(res => {
+          }).then(() => {
               if (Object.values(this.state.selectedMediums).length < 3) {
                 return null;
               }
@@ -71,7 +71,8 @@ class ArtForm extends React.Component {
                 url: "/api/taggings",
                 method: "POST",
                 data: {tagging},
-              })})})});
+              }).then(() => (console.log('successfully submitted 3 tags')))
+            })})});
   }
 
   handleCheckbox(e, medium, disabled) {
