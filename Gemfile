@@ -51,6 +51,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'pry-rails'
   gem 'annotate'
+  # gem 'open-uri'
 end
 gem 'jquery-rails'
 gem 'aws-sdk-s3'
