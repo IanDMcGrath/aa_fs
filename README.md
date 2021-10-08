@@ -8,7 +8,10 @@
 
 
 ## Challenges
-![index page](/README_files/art_index.JPG)
+ One of the technical challenges of the art index page is minimizing empty space to maximize art thumbnails. But they have to stay the same size such that no one image dominates the others. The main feature of the index page is a dynamically reconfiguring grid. More columns are added as the viewport expands; adjusting incrementally based on the viewport width. It's voodoo witchcraft achieved using css's @media tag and a max-width argument.
+ ![index page](/README_files/art_index.JPG)
+ ![index page squeezed](/README_files/art_index_thin.JPG)
+
 
 ## Technical Jargon
 
