@@ -1,4 +1,4 @@
-import { TOGGLE_SIGNIN, TOGGLE_REPLY } from "../util/ui_api_util";
+import { TOGGLE_SIGNIN, TOGGLE_REPLY, CHANGE_FILTER } from "../util/ui_api_util";
 
 export const uiToggleSignin = signin => dispatch => (
   dispatch({
@@ -13,3 +13,10 @@ export const uiToggleReply = reply => dispatch => (
     reply
   })
 );
+
+export const uiChangeFilter = tag => dispatch => (
+  dispatch({
+    type: CHANGE_FILTER,
+    tag
+  })
+)

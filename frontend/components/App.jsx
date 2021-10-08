@@ -31,7 +31,7 @@ const App = () => (
     </header>
     <div className="body-div">
       <Switch>
-        <Route path={"/arts/new"} component={CreateArtFormContainer} />
+        <ProtectedRoute path={"/arts/new"} component={CreateArtFormContainer} />
         <Route path={"/arts/:artId"} component={ArtShowContainer} />
         <Route exact path="/" component={ArtIndexContainer} />
       </Switch>

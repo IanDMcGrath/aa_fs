@@ -10,4 +10,14 @@ class Tag < ApplicationRecord
   has_many :tagged_items,
   through: :taggings,
   source: :taggable
+
+  has_many :mediums,
+  -> {where category: "Medium"},
+  through: :taggings,
+  source: :tag
+
+  has_many :art_taggings,
+  -> {where taggable_type: "Art"},
+  through: :taggings,
+  source: :taggable
 end

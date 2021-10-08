@@ -3,9 +3,10 @@ import * as ArtApiUtil from "../util/art_api_util.js";
 export const RECEIVE_ARTS = "RECEIVE_ARTS";
 export const RECEIVE_ART = "RECEIVE_ART";
 
-const receiveArts = arts => ({
+const receiveArts = payload => ({
   type: RECEIVE_ARTS,
-  arts
+  arts: payload.arts,
+  tags: payload.tags
 });
 
 const receiveArt = art => ({

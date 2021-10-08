@@ -1,5 +1,6 @@
 import React from "react";
 import { BiRocket } from "react-icons/bi";
+import { Redirect } from "react-router";
 import FileUploadModal from "./file_upload_modal";
 import MediumCheckbox from "./medium_checkbox";
 
@@ -10,6 +11,7 @@ class ArtForm extends React.Component {
     this.handleInput = this.handleInput.bind(this);
     this.handleFile = this.handleFile.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
+    this.handleSuccess = this.handleSuccess.bind(this);
   }
 
   handleInput(field) {
@@ -52,7 +54,7 @@ class ArtForm extends React.Component {
       }).then(() => {
           if (Object.values(this.state.selectedMediums).length < 2) {
             return null;
-          }
+          } else {this.handleSuccess();}
           let medium = Object.values(this.state.selectedMediums)[1];
           let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}
           console.log(tagging);
@@ -63,7 +65,7 @@ class ArtForm extends React.Component {
           }).then(() => {
               if (Object.values(this.state.selectedMediums).length < 3) {
                 return null;
-              }
+              } else {this.handleSuccess();}
               let medium = Object.values(this.state.selectedMediums)[2];
               let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}
               console.log(tagging);
@@ -71,8 +73,14 @@ class ArtForm extends React.Component {
                 url: "/api/taggings",
                 method: "POST",
                 data: {tagging},
-              }).then(() => (console.log('successfully submitted 3 tags')))
+              }).then(() => (this.handleSuccess()))
             })})});
+  }
+
+  handleSuccess() {
+    return (
+      <Route to="/"/>
+    )
   }
 
   handleCheckbox(e, medium, disabled) {

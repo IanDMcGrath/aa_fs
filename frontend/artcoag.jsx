@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let preloadedState = {
     ui: {
       signin: {showSignin: false},
-      reply: {showReply: false}
+      reply: {showReply: false},
+      filter: {},
     }
   };
   if (window.currentUser) {
