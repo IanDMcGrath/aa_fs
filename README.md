@@ -50,7 +50,6 @@
 * Services
   * AWS S3
 
-![sign in form](/README_files/signin.JPG)
 
 ## Planned Features
 * Art Edit Form
