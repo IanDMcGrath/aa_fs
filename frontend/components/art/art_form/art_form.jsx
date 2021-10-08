@@ -1,13 +1,12 @@
 import React from "react";
 import { BiRocket } from "react-icons/bi";
-import { EvalDevToolModulePlugin } from "webpack";
 import FileUploadModal from "./file_upload_modal";
 import MediumCheckbox from "./medium_checkbox";
 
 class ArtForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, this.props.art, {artfiles: null});
+    this.state = Object.assign({}, this.props.art, {artfiles: null}, {selectedMediums: {}});
     this.handleInput = this.handleInput.bind(this);
     this.handleFile = this.handleFile.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
@@ -43,9 +42,18 @@ class ArtForm extends React.Component {
     )
   }
 
-  handleCheckbox(e, medium) {
-    console.log(medium);
-    // console.log(e.currentTarget.value);
+  handleCheckbox(e, medium, disabled) {
+    // console.log(medium);
+    if (disabled) {return null};
+    let nextMediums = {};
+    if (this.state.selectedMediums[medium.id]) {
+      nextMediums = Object.assign({}, this.state.selectedMediums);
+      delete nextMediums[medium.id];
+    } else {
+      nextMediums = Object.assign({}, this.state.selectedMediums, {[medium.id]: medium.name});
+    }
+    this.setState({selectedMediums: nextMediums});
+
   }
 
   componentDidMount() {
@@ -55,6 +63,7 @@ class ArtForm extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     let { formType } = this.props;
     return (
       <div className="art-form-div">
@@ -95,7 +104,7 @@ class ArtForm extends React.Component {
               <div className="form-label">Medium</div>
                 <div className="form-list">
                   {!this.props.mediums ? null : Object.values(this.props.mediums).map((medium, i) =>
-                  <MediumCheckbox key={`medium-${i}`} medium={medium} handleCheckbox={this.handleCheckbox} count={this.state.selectedMediums ? Object.keys(this.state.selectedMediums).length : 0}/>)}
+                  <MediumCheckbox key={`medium-${i}`} medium={medium} handleCheckbox={this.handleCheckbox} count={this.state.selectedMediums ? Object.keys(this.state.selectedMediums).length : 0} checked={this.state.selectedMediums[medium.id]}/>)}
                   {/* console.log(medium))} */}
 
                   {/* <label htmlFor="Digital 2D" className="checkbox-label">

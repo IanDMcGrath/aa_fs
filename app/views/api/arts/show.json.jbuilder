@@ -27,18 +27,20 @@ json.commenters do
   end
 end
 
-json.likes do
-  json.art_likes do
-    @art.likes.where(liker_id: current_user.id).each do |like|
-      json.set! like.likeable_id do
-        json.partial! '/api/likes/like', like: like
+if logged_in?
+  json.likes do
+    json.art_likes do
+      @art.likes.where(liker_id: current_user.id).each do |like|
+        json.set! like.likeable_id do
+          json.partial! '/api/likes/like', like: like
+        end
       end
     end
-  end
-  json.comment_likes do
-    @art.comments_likes.where(liker_id: current_user.id).each do |like|
-      json.set! like.likeable_id do
-        json.partial! '/api/likes/like', like: like
+    json.comment_likes do
+      @art.comments_likes.where(liker_id: current_user.id).each do |like|
+        json.set! like.likeable_id do
+          json.partial! '/api/likes/like', like: like
+        end
       end
     end
   end

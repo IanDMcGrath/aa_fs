@@ -243,3 +243,30 @@
 .button-secondary {
   background-color: var(--black);
 }
+
+.checkbox-label {
+  border: solid 0.1rem var(--grey2);
+  display: flex;
+  align-items: center;
+}
+
+
+
+.checkbox {
+  height: 0.9rem;
+  width: 0.9rem;
+  border: solid 0.1rem var(--grey2);
+  margin: 0.5rem;
+  border-radius: 0.2rem;
+  background-color: var(--grey2);
+}
+
+.checkbox.disabled {
+  background-color: red;
+}
+
+// .checkbox[type=checkbox] {
+//   margin: 2rem;
+//   background-color: green;
+//   color: green;
+// }
