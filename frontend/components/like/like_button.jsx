@@ -12,7 +12,7 @@ class LikeButton extends React.Component {
   }
 
   componentDidMount() {
-    let { likes, currentUser } = this.props;
+    // let { likes, currentUser } = this.props;
     // console.log('is this art liked by current user?: ')
     // console.log(Object.values(likes).some(like => {return like.likerId === currentUser}));
   }
