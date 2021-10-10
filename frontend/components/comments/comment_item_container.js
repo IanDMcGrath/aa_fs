@@ -3,28 +3,25 @@ import { deleteComment, updateComment } from "../../actions/comment_actions";
 import CommentItem from "./comment_item";
 
 const mapStateToProps = (state, ownProps) => ({
-  ownComment: state.entities.comments[ownProps.commentId].commenterId === state.session.id,
-  user: state.entities.users[state.entities.comments[ownProps.commentId].commenterId],
+  isOwnComment: Boolean(commentExists(state, ownProps) && getComment(state, ownProps).commenterId === state.session.id),
+  user: commentExists(state, ownProps) ? state.entities.users[state.entities.comments[ownProps.isReply ? 'replies' : 'rootComments'][ownProps.commentId].commenterId] : null,
+  isSignedIn: Boolean(state.session.id),
   showReply: state.ui.reply.showReply && state.ui.reply.commentId === ownProps.commentId,
-  replies: getComments(state, state.entities.comments[ownProps.commentId]),
-  comment: state.entities.comments[ownProps.commentId]
+  comment: commentExists(state, ownProps) ? getComment(state, ownProps) : null,
+  replies: commentExists(state, ownProps) ? getComment(state, ownProps).replies : null,
 });
-// replies: getComments(state, ownProps.comment.replies)
 
 const mapDispatchToProps = dispatch => ({
   // updateComment: (comment) => dispatch(updateComment(comment)),
   // deleteComment: commentId => dispatch(deleteComment(commentId)),
 });
 
-const getComments = (state, ids) => {
-  if (!ids || ids.length === 0) return null;
-  // return {};
-  // console.log(ids);
-  let comments = {};
-  for (let i=0; i<ids.length; i++) {
-    Object.assign(comments, {[ids[i]]: state.entities.comments[ids[i]]});
-  }
-  return comments;
+export default connect(mapStateToProps, null)(CommentItem);
+
+const commentExists = (state, ownProps) => {
+  return Boolean(state.entities.comments[ownProps.isReply ? 'replies' : 'rootComments'][ownProps.commentId])
 }
 
-export default connect(mapStateToProps, null)(CommentItem);
+const getComment = (state, ownProps) => {
+  return state.entities.comments[ownProps.isReply ? 'replies' : 'rootComments'][ownProps.commentId]
+}

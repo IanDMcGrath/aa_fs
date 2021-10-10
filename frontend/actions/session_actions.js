@@ -15,7 +15,7 @@ const receiveCurrentUser = currentUser => {
 };
 
 const logoutCurrentUser = () => {
-  console.log("logged out!")
+  // console.log("logged out!")
   return {
   type: LOGOUT_CURRENT_USER
   }

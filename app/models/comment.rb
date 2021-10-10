@@ -16,4 +16,6 @@ class Comment < ApplicationRecord
   as: :likeable,
   dependent: :destroy
 
+  
+
 end

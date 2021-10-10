@@ -31,7 +31,7 @@ class CommentItem extends React.Component {
 
   handleLikeClick(e, id) {
     e.preventDefault();
-    if (this.props.ownComment) {
+    if (this.props.isOwnComment) {
     console.log(`you liked comment# ${id}`);
     } else {
       this.props.uiToggleSignin({showSignin: true});
@@ -40,8 +40,8 @@ class CommentItem extends React.Component {
 
   handleReplyClick(e, id) {
     e.preventDefault();
-    if (this.props.ownComment) {
-      console.log(`you are replying to comment# ${id}`)
+    if (this.props.isSignedIn) {
+      // console.log(`you are replying to comment# ${id}`)
       // this.setState({showReply: true, replyId: id})
       this.props.uiToggleReply({showReply: true, commentId: id})
     } else {
@@ -62,14 +62,14 @@ class CommentItem extends React.Component {
   }
 
   renderCommentContents() {
-    let { user, comment, ownComment, showReply, showCommentFormReply } = this.props;
+    let { user, comment, isOwnComment, showReply, showCommentFormReply } = this.props;
     return (
       <div className="commenter-main">
         <div className="comment-header">
           <div className="commenter-username">{user.username}</div>
           <div className="comment-edit-delete">
-            {ownComment ? <button className="comment-edit-buttons" onClick={this.handleUpdateComment}><BsPencil /></button> : null}
-            {ownComment ? <button className="comment-edit-buttons" onClick={this.handleDeleteComment}><MdClose /></button> : null}</div>
+            {isOwnComment ? <button className="comment-edit-buttons" onClick={this.handleUpdateComment}><BsPencil /></button> : null}
+            {isOwnComment ? <button className="comment-edit-buttons" onClick={this.handleDeleteComment}><MdClose /></button> : null}</div>
         </div>
         <div className="commenter-work">{user.work}</div>
         <div className="comment-body">{comment.body}</div>
@@ -79,12 +79,12 @@ class CommentItem extends React.Component {
   }
 
   renderCommentFooter() {
-    let { user, comment, ownComment, showReply, showCommentFormReply } = this.props;
+    let { user, comment, isOwnComment, showReply, showCommentFormReply } = this.props;
     return (
       <div className="comment-footer">
         <div className="comment-like-reply">
-          <LikeButtonContainer style={"small"} likeableId={comment.id} likeableType={"Comment"}/>
-          <StatsNumLikes likes={0}/>
+          {/* <LikeButtonContainer style={"small"} likeableId={comment.id} likeableType={"Comment"}/>
+          <StatsNumLikes likes={0}/> */}
           <div className="comment-reply" onClick={(e) => this.handleReplyClick(e, comment.id)}>Reply</div>
         </div>
         <div className="comment-timestamps">
@@ -98,7 +98,9 @@ class CommentItem extends React.Component {
 
 
   render() {
-    let { user, comment, replies, ownComment, showReply, showReplies, showCommentFormReply, commentableId, commentableType } = this.props;
+    let { user, comment, replies, isOwnComment, showReply, showReplies, showCommentFormReply, commentableId, commentableType } = this.props;
+    if (!comment) {return null};
+    // console.log(`comment: ${comment.id} has rendered!`)
     let { showUpdateForm } = this.state;
     // let {uiToggleSignin} = this.props;
     let {uiToggleSignin, uiToggleReply, updateComment, deleteComment } = this.props;
@@ -108,11 +110,11 @@ class CommentItem extends React.Component {
     return (
       <li className="comment">
         <div className="commenter-details">
-          <img className="commenter-avatar" src={user.avatar}/>
+          <img className="commenter-avatar" src={user.avatar}/> {`Id:${comment.id}`}
           {showUpdateForm ? <UpdateCommentFormContainer comment={comment} handleCancelUpdate={this.handleCancelUpdate()}/> : this.renderCommentContents()}
         </div>
         {showReply ? <div className="comment-reply-textarea" ><CreateCommentFormContainer parentId={comment.id} commentableId={commentableId} commentableType={commentableType} /></div> : null}
-        {!replies ? null : <div className="reply-list" style={style}><CommentListContainer commentIds={comment.replies} commentableId={commentableId} commentableType={commentableType} commentType="Comment" /></div>}
+        {!replies || Object.keys(replies).length <= 0 ? null : <div className="reply-list" style={style}><CommentListContainer isReplyList={true} commentIds={comment.replies} commentableId={commentableId} commentableType={commentableType} commentType="Comment" /></div>}
         {/* { !replies ? null : Object.values(replies).map(reply =>
           <div className="comment-indent">
             {console.log(reply)}

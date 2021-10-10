@@ -104,7 +104,7 @@ class ArtShow extends React.Component {
           <div className="comments-div">
             {art ? <CreateCommentFormContainer commentableId={art.id} commentableType={"Art"}/> : null }
             {art ? <StatsNumComments comments={comments} /> : null}
-            {art ? <CommentsListContainer commentIds={null} parentId={null} commentableId={art.id} commentableType="Art" commentType="Art" /> : "Comments Panel"}
+            {art ? <CommentsListContainer isReplyList={false} commentIds={null} parentId={null} commentableId={art.id} commentableType="Art" commentType="Art" /> : "Comments Panel"}
           </div>
         </div>
         <div className="details-div">{art ? this.renderDetailsPanel() : "Details Panel"}</div>

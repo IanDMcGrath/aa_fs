@@ -13,7 +13,7 @@ export const fetchComment = commentId => (
 )
 
 export const createComment = comment => {
-  console.log(comment)
+  // console.log(comment)
   return (
   $.ajax({
     url: `/api/arts/${comment.commentableId}/comments`,
@@ -23,7 +23,7 @@ export const createComment = comment => {
 )};
 
 export const updateComment = comment => {
-  console.log(comment)
+  // console.log(comment)
   return (
   $.ajax({
     url: `/api/arts/${comment.commentableId}/comments/${comment.id}`,
@@ -46,7 +46,7 @@ export const sortComments = comments => {
   let remainingComments = Object.assign({}, comments);
   let resultArr = [];
 
-  
+
 
   recurseCommentSort(remainingComments, )
 

@@ -46,7 +46,7 @@ class ArtForm extends React.Component {
       // this.props.createTaggings(taggings);
       let medium = Object.values(this.state.selectedMediums)[0];
       let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}
-      console.log(tagging);
+      // console.log(tagging);
       $.ajax({
         url: "/api/taggings",
         method: "POST",
@@ -57,7 +57,7 @@ class ArtForm extends React.Component {
           } else {this.handleSuccess();}
           let medium = Object.values(this.state.selectedMediums)[1];
           let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}
-          console.log(tagging);
+          // console.log(tagging);
           $.ajax({
             url: "/api/taggings",
             method: "POST",
@@ -68,7 +68,7 @@ class ArtForm extends React.Component {
               } else {this.handleSuccess();}
               let medium = Object.values(this.state.selectedMediums)[2];
               let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}
-              console.log(tagging);
+              // console.log(tagging);
               $.ajax({
                 url: "/api/taggings",
                 method: "POST",

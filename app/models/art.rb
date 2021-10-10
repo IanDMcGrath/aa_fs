@@ -13,9 +13,17 @@ class Art < ApplicationRecord
   as: :commentable,
   dependent: :destroy
 
+  has_many :root_comments,
+  -> {where parent_id: nil},
+  as: :commentable,
+  class_name: :Comment,
+  dependent: :destroy
+
   has_many :comment_replies,
-  through: :comments,
-  source: :replies
+  -> {wherenot parent_id: nil},
+  as: :commentable,
+  class_name: :Comment,
+  dependent: :destroy
 
   has_many :commenters,
   through: :comments,

@@ -9,10 +9,34 @@ end
 
 json.comments do
   @art.comments.includes(:replies, :likes).each do |comment|
-    json.set! comment.id do
-      json.partial! '/api/comments/comment', comment: comment
-      json.likes comment.likes.count
-      json.replies comment.replies.map{|reply| reply.id}
+    if comment.parent_id
+      json.replies do
+        json.set! comment.id do
+          json.partial! '/api/comments/comment', comment: comment
+          json.likes comment.likes.count
+          json.replies do
+            comment.replies.each do |reply|
+              json.set! reply.id do
+                json.extract! reply, :id
+              end
+            end
+          end
+        end
+      end
+    else
+      json.root_comments do
+        json.set! comment.id do
+          json.partial! '/api/comments/comment', comment: comment
+          json.likes comment.likes.count
+          json.replies do
+            comment.replies.each do |reply|
+              json.set! reply.id do
+                json.extract! reply, :id
+              end
+            end
+          end
+        end
+      end
     end
   end
 end

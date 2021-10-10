@@ -12,7 +12,8 @@ class ArtIndexItem extends React.Component {
   handleClick(e) {
     e.stopPropagation();
     e.preventDefault();
-    console.log(`you clicked art: ${this.props.art.id}`)
+    // console.log(`you clicked art: ${this.props.art.id}`)
+    // increment views here ?
   }
 
   render() {
