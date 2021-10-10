@@ -20,6 +20,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(CommentsList);
 
 const getCommentKeys = (state, commentableId, commentableType) => {
+  if (!state.entities.comments || Object.keys(state.entities.comments).length <= 0) {return null};
   let commentIds = {};
   let { rootComments } = state.entities.comments;
   Object.values(rootComments).forEach(comment => {

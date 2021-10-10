@@ -6,6 +6,8 @@ import { timeSince } from "../../util/timestamp_util";
 import { AllStats, StatsNumComments } from "../widgets/stats";
 import CreateCommentFormContainer from "../comments/create_comment_form_container";
 import LikeButtonContainer from "../like/like_button_container";
+import { userIcon1 } from "../../util/images_user_icons";
+import userIcon from '/public/assets/artcoag.png';
 
 class ArtShow extends React.Component {
   constructor(props) {
@@ -62,7 +64,8 @@ class ArtShow extends React.Component {
     return (
       <div className="details-panel" onClick={this.handleClick}>
         <div className="details-panel-artist-div">
-          <img src={art.artist.avatar} className="details-panel-artist-avatar" />
+          {console.log('load art show user icon')}
+          <img src={require('/public/assets/artcoag.png')} className="details-panel-artist-avatar" />
           <div className="details-panel-artist-details">
             <h2 className="details-panel-artist-name">{art.artist.username}</h2>
             <div className="details-panel-artist-association">{art.artist.work}</div>
