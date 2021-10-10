@@ -6,8 +6,6 @@ import { timeSince } from "../../util/timestamp_util";
 import { AllStats, StatsNumComments } from "../widgets/stats";
 import CreateCommentFormContainer from "../comments/create_comment_form_container";
 import LikeButtonContainer from "../like/like_button_container";
-import { userIcon1 } from "../../util/images_user_icons";
-import userIcon from '/public/assets/artcoag.png';
 
 class ArtShow extends React.Component {
   constructor(props) {
@@ -65,7 +63,7 @@ class ArtShow extends React.Component {
       <div className="details-panel" onClick={this.handleClick}>
         <div className="details-panel-artist-div">
           {console.log('load art show user icon')}
-          <img src={require('/public/assets/artcoag.png')} className="details-panel-artist-avatar" />
+          <img src={art.artist.avatar} className="details-panel-artist-avatar" />
           <div className="details-panel-artist-details">
             <h2 className="details-panel-artist-name">{art.artist.username}</h2>
             <div className="details-panel-artist-association">{art.artist.work}</div>
@@ -79,7 +77,7 @@ class ArtShow extends React.Component {
           <h2 className="details-panel-art-title">{art.title}</h2>
           <div className="details-panel-art-description">{art.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi accusamus libero tenetur consequatur reprehenderit dolorem maxime et veritatis molestiae rerum perspiciatis dolore dignissimos magni alias aperiam fugiat quam saepe architecto, culpa temporibus vel consectetur eaque quaerat? Natus eius tempore voluptate, officiis, earum blanditiis dolorum, culpa ipsum id porro ducimus eaque? </div>
           <div className="details-panel-art-post-time">Posted {timeSince(art.createdAt)}</div>
-          <AllStats comments={comments} views={0} likes={likes} show={true}/>
+          {/* <AllStats comments={comments} views={0} likes={likes} show={true}/> */}
           <h3 className="details-panel-softwares-used">Software Used</h3>
           <div className="details-panel-softwares">
             <div>3DS Max</div>
