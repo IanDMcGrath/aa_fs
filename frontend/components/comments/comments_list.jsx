@@ -17,37 +17,38 @@ class Comments extends React.Component {
     // this.props.fetchComments();
   }
 
-  renderComments() {
-    let {isReplyList, commentKeys, users, commentableId, commentableType, uiToggleSignin, uiToggleReply, updateComment, deleteComment, commentType} = this.props;
+  componentDidUpdate() {
+    console.log('comments-list is checking update');
+  }
+
+  shouldComponentUpdate() {
+    console.log('comments-list is checking if should update');
+    return true;
+  }
+
+  render() {
+    let { isReplyList, commentKeys, users, commentableId, commentableType, uiToggleSignin, uiToggleReply, updateComment, deleteComment, commentType } = this.props;
+    console.log(`comment-list ${this.props.parentId} rendered!`);
     // let numComments = commentKeys ? Object.keys(commentKeys.length) : 0;
     // if (!numComments) {numComments = 0};
     // console.log(commentIds)
     // console.log("check commentKeys")
     // console.log(commentKeys);
-    if (!commentKeys || Object.values(commentKeys).length <= 0) {return null;}
+    if (!commentKeys || Object.values(commentKeys).length <= 0) { return null; }
     return (
       <ul>
         {/* <h3><FaRegComments color="#00B2FF" className="comments-h3-icon"/>{numComments} {numComments === 1 ? "Comment" : "Comments"}</h3> */}
         {Object.values(commentKeys).map(commentKey =>
           <div key={commentKey.id}>
-            <CommentItemContainer key={commentKey.id} isReply={isReplyList} commentId={commentKey.id} showReplies={true} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={commentKey.id === this.state.replyId} commentableId={commentableId} commentableType={commentableType}/>
+            <CommentItemContainer key={commentKey.id} isReply={isReplyList} commentId={commentKey.id} showReplies={true} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={commentKey.id === this.state.replyId} commentableId={commentableId} commentableType={commentableType} />
             {/* { !comment.replies ? null : Object.values(comment.replies).map(reply =>
-            <div className="comment-indent">
-            <CommentItemContainer key={reply.id} comment={reply} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={reply.id === this.state.replyId}/>
-            </div>
-            )} */}
+              <div className="comment-indent">
+              <CommentItemContainer key={reply.id} comment={reply} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={reply.id === this.state.replyId}/>
+              </div>
+              )} */}
           </div>
         )}
       </ul>
-    )
-  }
-
-  render() {
-    let { comments } = this.props;
-    return (
-      <div className="comments-div-inner">
-        {this.renderComments()}
-      </div>
     )
   }
 }

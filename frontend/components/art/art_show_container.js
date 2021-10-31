@@ -6,7 +6,7 @@ import { uiToggleSignin } from "../../actions/ui_actions";
 
 const mapStateToProps = (state, ownProps) => ({
   art: state.entities.arts[ownProps.match.params.artId],
-  comments: state.entities.comments,
+  comments: state.entities.comments.rootComments,
   likes: state.entities.likes,
   currentUser: state.session.id,
 });

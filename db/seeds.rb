@@ -12,11 +12,13 @@
 
 
 
-puts "seeds.rb says: hello"
+puts "seeds.rb: Starting Seeds:"
 Dir[File.join(Rails.root, 'db', 'seeds/','*.rb')].sort.each do |seed|
-  puts "new seed file found"
+  puts "new seed file found..."
   load seed
+  puts 'seeds loaded'
 end
+puts 'seeding complete!'
 
 # User.create!(username:"username", email:"email", password:"password", avatar:"fsp_icons_0003_Layer-0.png")
 # User.create!(username:"crotchety", email:"crowman@email.com", password:"you'llneverguess", avatar:"fsp_icons_0004_Layer-5.png")

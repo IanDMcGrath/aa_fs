@@ -2,14 +2,17 @@ import { connect } from "react-redux";
 import { deleteComment, updateComment } from "../../actions/comment_actions";
 import CommentItem from "./comment_item";
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps) => {
+  console.log('comment printing state ...');
+  console.log(state);
+  return ({
   isOwnComment: Boolean(commentExists(state, ownProps) && getComment(state, ownProps).commenterId === state.session.id),
   user: commentExists(state, ownProps) ? state.entities.users[state.entities.comments[ownProps.isReply ? 'replies' : 'rootComments'][ownProps.commentId].commenterId] : null,
   isSignedIn: Boolean(state.session.id),
   showReply: state.ui.reply.showReply && state.ui.reply.commentId === ownProps.commentId,
   comment: commentExists(state, ownProps) ? getComment(state, ownProps) : null,
   replies: commentExists(state, ownProps) ? getComment(state, ownProps).replies : null,
-});
+})};
 
 const mapDispatchToProps = dispatch => ({
   // updateComment: (comment) => dispatch(updateComment(comment)),

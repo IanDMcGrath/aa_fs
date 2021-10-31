@@ -3,11 +3,15 @@ import CommentsList from "./comments_list";
 import { deleteComment, fetchComments } from "../../actions/comment_actions";
 import { uiToggleReply, uiToggleSignin } from "../../actions/ui_actions";
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps) => {
+  console.log('comment-list is recieving props!:...');
+  console.log(ownProps.commentIds);
+  return ({
   // comments: ownProps.comments,
   users: state.entities.users,
-  commentKeys: (ownProps.commentIds ? ownProps.commentIds : getCommentKeys(state, ownProps.commentableId, ownProps.commentableType)),
-});
+  // commentKeys: (ownProps.commentIds ? ownProps.commentIds : getCommentKeys(state, ownProps.commentableId, ownProps.commentableType)),
+  commentKeys: ownProps.commentIds,
+})};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchComments: () => dispatch(fetchComments(ownProps.commentableId)),
@@ -28,7 +32,7 @@ const getCommentKeys = (state, commentableId, commentableType) => {
       commentIds[comment.id] = {id: comment.id};
       // console.log(commentIds)
     }
-  })
+  });
   // console.log('found commentIds:');
   // console.log(commentIds);
   return commentIds;

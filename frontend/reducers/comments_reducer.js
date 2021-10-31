@@ -21,9 +21,11 @@ const commentsReducer = (state={}, action) => {
       if (action.comment.parentId) {
         // find parentComment (if any) to add to its replies list
         let parentComment = null;
-        parentComment = nextState.rootComments[action.comment.parentId] ? nextState.rootComments[action.comment.parentId] : nextState.replies[action.comment.parentId]
+        parentComment = nextState.rootComments[action.comment.parentId] ? nextState.rootComments[action.comment.parentId] : nextState.replies[action.comment.parentId];
         //  set the new reply // checking if parentComment's replies attribute exists first
-        if (parentComment.replies) {parentComment.replies[action.comment.id] = {id: action.comment.id}} else {parentComment.replies = {replies: {id: action.comment.id}}}
+        if (parentComment.replies) {
+          parentComment.replies[action.comment.id] = {id: action.comment.id}
+        } else {parentComment.replies = {replies: {id: action.comment.id}}}
         // put the mutated parentComment back into state
         nextState[nextState.rootComments[action.comment.parentId] ? "rootComments" : "replies"][parentComment.id] = parentComment;
       }

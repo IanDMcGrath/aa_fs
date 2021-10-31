@@ -19,6 +19,13 @@ class CommentItem extends React.Component {
     this.handleCancelUpdate = this.handleCancelUpdate.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.replies && Object.keys(nextProps.replies).length !== Object.keys(this.props.replies).length) {
+      return true;
+    }
+    return true;
+  }
+
   showLikeCount(comment) {
     if (!comment.likes) {return ( null
     // <div className="comment-num-likes"></div>
@@ -100,7 +107,7 @@ class CommentItem extends React.Component {
   render() {
     let { user, comment, replies, isOwnComment, showReply, showReplies, showCommentFormReply, commentableId, commentableType } = this.props;
     if (!comment) {return null};
-    // console.log(`comment: ${comment.id} has rendered!`)
+    console.log(`comment: ${comment.id} has rendered!`)
     let { showUpdateForm } = this.state;
     // let {uiToggleSignin} = this.props;
     let {uiToggleSignin, uiToggleReply, updateComment, deleteComment } = this.props;
@@ -113,7 +120,7 @@ class CommentItem extends React.Component {
           <img className="commenter-avatar" src={user.avatar}/> {`Id:${comment.id}`}
           {showUpdateForm ? <UpdateCommentFormContainer comment={comment} handleCancelUpdate={this.handleCancelUpdate()}/> : this.renderCommentContents()}
         </div>
-        {showReply ? <div className="comment-reply-textarea" ><CreateCommentFormContainer parentId={comment.id} commentableId={commentableId} commentableType={commentableType} /></div> : null}
+        {showReply ? <div className="comment-reply-textarea"><CreateCommentFormContainer parentId={comment.id} commentableId={commentableId} commentableType={commentableType} /></div> : null}
         {!replies || Object.keys(replies).length <= 0 ? null : <div className="reply-list" style={style}><CommentListContainer isReplyList={true} commentIds={comment.replies} commentableId={commentableId} commentableType={commentableType} commentType="Comment" /></div>}
         {/* { !replies ? null : Object.values(replies).map(reply =>
           <div className="comment-indent">
