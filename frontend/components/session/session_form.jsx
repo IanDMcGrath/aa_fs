@@ -87,7 +87,7 @@ class SessionForm extends React.Component {
   loginDemoUser(e) {
     e.preventDefault();
     e.stopPropagation();
-    this.props.login({username:"User Name", password:"password"});
+    this.props.login({username:"DemoUser0", password:"password"});
   }
 
   inputsSignin() {

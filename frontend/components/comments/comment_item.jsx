@@ -19,27 +19,28 @@ class CommentItem extends React.Component {
     this.handleCancelUpdate = this.handleCancelUpdate.bind(this);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.replies && Object.keys(nextProps.replies).length !== Object.keys(this.props.replies).length) {
-      return true;
-    }
-    return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (this.props.replies && Object.keys(nextProps.replies).length !== Object.keys(this.props.replies).length) {
+  //     return true;
+  //   }
+  //   return true;
+  // }
 
   showLikeCount(comment) {
     if (!comment.likes) {return ( null
     // <div className="comment-num-likes"></div>
     )}
     return (
-    <div className="comment-num-likes">
-      <FaRegThumbsUp className="num-likes-icon inline-icon" /> {comment.likes} {comment.likes !== 1 ? "Likes" : "Like"}
-    </div>)
+      <div className="comment-num-likes">
+        <FaRegThumbsUp className="num-likes-icon inline-icon" /> {comment.likes} {comment.likes !== 1 ? "Likes" : "Like"}
+      </div>
+    )
   }
 
   handleLikeClick(e, id) {
     e.preventDefault();
     if (this.props.isOwnComment) {
-    console.log(`you liked comment# ${id}`);
+    // console.log(`you liked comment# ${id}`);
     } else {
       this.props.uiToggleSignin({showSignin: true});
     }
@@ -65,7 +66,7 @@ class CommentItem extends React.Component {
   }
 
   handleDeleteComment() {
-    this.props.deleteComment(this.props.comment.id)
+    this.props.deleteComment(this.props.comment.id);
   }
 
   renderCommentContents() {
@@ -107,7 +108,7 @@ class CommentItem extends React.Component {
   render() {
     let { user, comment, replies, isOwnComment, showReply, showReplies, showCommentFormReply, commentableId, commentableType } = this.props;
     if (!comment) {return null};
-    console.log(`comment: ${comment.id} has rendered!`)
+    // console.log(`comment: ${comment.id} has rendered!`);
     let { showUpdateForm } = this.state;
     // let {uiToggleSignin} = this.props;
     let {uiToggleSignin, uiToggleReply, updateComment, deleteComment } = this.props;
@@ -121,13 +122,7 @@ class CommentItem extends React.Component {
           {showUpdateForm ? <UpdateCommentFormContainer comment={comment} handleCancelUpdate={this.handleCancelUpdate()}/> : this.renderCommentContents()}
         </div>
         {showReply ? <div className="comment-reply-textarea"><CreateCommentFormContainer parentId={comment.id} commentableId={commentableId} commentableType={commentableType} /></div> : null}
-        {!replies || Object.keys(replies).length <= 0 ? null : <div className="reply-list" style={style}><CommentListContainer isReplyList={true} commentIds={comment.replies} commentableId={commentableId} commentableType={commentableType} commentType="Comment" /></div>}
-        {/* { !replies ? null : Object.values(replies).map(reply =>
-          <div className="comment-indent">
-            {console.log(reply)}
-          <CommentItemContainer key={reply.id} comment={reply} showReplies={showReplies} uiToggleSignin={uiToggleSignin} uiToggleReply={uiToggleReply} updateComment={updateComment} deleteComment={deleteComment} showCommentFormReply={reply.id}/>
-          </div>
-        )} */}
+        {!comment.replies || Object.keys(comment.replies).length <= 0 ? null : <div className="reply-list" style={style}><CommentListContainer isReplyList={comment.parentId} parentId={comment.id} commentIds={comment.replies} commentableId={commentableId} commentableType={commentableType} commentType="Comment" /></div>}
       </li>
     )
   }

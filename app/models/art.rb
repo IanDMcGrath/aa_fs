@@ -2,12 +2,11 @@ class Art < ApplicationRecord
   validates :artist_id, :title, presence: true
   validates_length_of :mediums, :subject_matters, maximum: 3
 
+  has_many_attached :artpanels
 
   belongs_to :artist,
   foreign_key: :artist_id,
   class_name: :User
-
-  has_many_attached :artpanels
 
   has_many :comments,
   as: :commentable,

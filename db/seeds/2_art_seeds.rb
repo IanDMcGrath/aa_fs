@@ -407,7 +407,7 @@ art = nil
 
 
 # 31
-art = Art.create!(artist_id: 6, title:"Kobald", description:"")
+art = Art.create!(artist_id: 6, title:"Kobold", description:"First bit of homework for a character design class. Just learning how to paint shadows and highlights. Basic material rendering.")
 art.save!
 file = open('https://artcoag-seeds.s3.us-west-1.amazonaws.com/arts/lizardman.jpg')
 if file

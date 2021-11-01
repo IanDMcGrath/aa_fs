@@ -3,6 +3,8 @@ class User < ApplicationRecord
   validates :password_digest, :avatar, presence: true
   validates :password, length: {minimum: 6}, allow_nil: true
 
+  has_one_attached :avatar
+
   has_many :artworks,
   foreign_key: :artist_id,
   class_name: :Art,

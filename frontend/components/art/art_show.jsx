@@ -3,13 +3,14 @@ import { FiUserPlus } from "react-icons/fi";
 import {FaRegThumbsUp, FaRegEye, FaRegComments } from "react-icons/fa";
 import CommentsListContainer from "../comments/comments_list_container";
 import { timeSince } from "../../util/timestamp_util";
-import { AllStats, StatsNumComments } from "../widgets/stats";
+// import { AllStats, StatsNumComments } from "../widgets/stats";
+import StatsNumCommentsContainer from "../widgets/stats_container";
 import CreateCommentFormContainer from "../comments/create_comment_form_container";
 import LikeButtonContainer from "../like/like_button_container";
 
 class ArtShow extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     // this.handleLike = this.handleLike.bind(this);
   }
@@ -75,7 +76,7 @@ class ArtShow extends React.Component {
         </div>
         <div>
           <h2 className="details-panel-art-title">{art.title}</h2>
-          <div className="details-panel-art-description">{art.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi accusamus libero tenetur consequatur reprehenderit dolorem maxime et veritatis molestiae rerum perspiciatis dolore dignissimos magni alias aperiam fugiat quam saepe architecto, culpa temporibus vel consectetur eaque quaerat? Natus eius tempore voluptate, officiis, earum blanditiis dolorum, culpa ipsum id porro ducimus eaque? </div>
+          <div className="details-panel-art-description">{art.description}</div>
           <div className="details-panel-art-post-time">Posted {timeSince(art.createdAt)}</div>
           {/* <AllStats comments={comments} views={0} likes={likes} show={true}/> */}
           <h3 className="details-panel-softwares-used">Software Used</h3>
@@ -93,18 +94,19 @@ class ArtShow extends React.Component {
     // console.log("i rendered");
     let { art, comments } = this.props;
     // console.log(this.props);
-    console.log('ArtShow has re-rendered!');
-    if (!this.props.art) {
-      this.props.fetchArt(this.props.match.params.artId);
-    }
+    // console.log('ArtShow has re-rendered!');
+    if (!this.props.art) { return null; }
+    // if (!this.props.art) {
+    //   this.props.fetchArt(this.props.match.params.artId);
+    // }
 
     return (
       <div className="art-show-container">
         <div className="art-comments-div">
           <div className="art-div">{art ? this.renderArtpanels() : "Art Panels"}</div>
           <div className="comments-div">
-            {art ? <CreateCommentFormContainer commentableId={art.id} commentableType={"Art"}/> : null }
-            {art ? <StatsNumComments comments={comments} /> : null}
+            <CreateCommentFormContainer commentableId={art.id} commentableType={"Art"}/>
+            {comments ? <StatsNumCommentsContainer/> : null}
             {art ? <CommentsListContainer isReplyList={false} commentIds={comments} parentId={null} commentableId={art.id} commentableType="Art" commentType="Art" /> : "Comments Panel"}
           </div>
         </div>

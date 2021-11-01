@@ -16,6 +16,7 @@ class CommentForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    // console.log('SUBMITTED NEW COMMENT')
     if (this.props.formType === "Post Comment") {this.props.action(this.state)} else {
     this.props.action(this.state)
     .then(() => {

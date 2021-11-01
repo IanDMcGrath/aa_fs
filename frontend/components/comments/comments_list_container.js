@@ -4,13 +4,16 @@ import { deleteComment, fetchComments } from "../../actions/comment_actions";
 import { uiToggleReply, uiToggleSignin } from "../../actions/ui_actions";
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('comment-list is recieving props!:...');
-  console.log(ownProps.commentIds);
+  // console.log(`comment-list ${ownProps.parentId ? ownProps.parentId : 'root'} is recieving props!:...`);
+  // console.log(ownProps.commentIds);
+  // console.log(state.entities.comments[ownProps.isReplyList ? 'replies' : 'rootComments']);
   return ({
   // comments: ownProps.comments,
   users: state.entities.users,
   // commentKeys: (ownProps.commentIds ? ownProps.commentIds : getCommentKeys(state, ownProps.commentableId, ownProps.commentableType)),
-  commentKeys: ownProps.commentIds,
+  // commentKeys: ownProps.commentIds,
+  commentKeys: ownProps.parentId ? (state.entities.comments[ownProps.isReplyList ? 'replies' : 'rootComments'][ownProps.parentId].replies) : state.entities.comments.rootComments,
+  comments: state.entities.comments[ownProps.parentId ? 'replies' : 'rootComments'],
 })};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
