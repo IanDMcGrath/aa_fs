@@ -24,7 +24,9 @@ class ArtForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { artistId, title, description, artfiles, selectedMediums } = this.state;
+    const { artistId, title, description, artfiles } = this.state;
+    const selectedMediums = Object.values(this.state.selectedMediums);
+
 
     const formData = new FormData();
     formData.append('art[artist_id]', artistId);
@@ -35,13 +37,25 @@ class ArtForm extends React.Component {
     // );
     // formData.append('art[artpanels]', this.state.artfiles);
 
+    // console.log('ART FILE OBJECT...');
+    // console.log(artfiles[0]);
+    // console.log('END OF ARTFILE.');
+
+    // return null;
+
     for (let i = 0; i < artfiles.length; i++) {
       formData.append("art[artpanels][]", artfiles[i]);
     }
-    for (let i = 0; i < artfiles.length; i++) {
-      formData.append("art[tags][]", selectedMediums[i]);
-    }
+    // for (let i = 0; i < artfiles.length; i++) {
+    //   // formData.append("art[tags][]", { tag: { tag_id: selectedMediums[i].id, taggable_tpe: "Art" } });
+    //   formData.append(`tagging[tags][${i}][tag_id]`, selectedMediums[i].id);
+    //   formData.append(`tagging[tags][${i}][taggable_type]`, 'Art');
+    // }
 
+    // console.log("FORM DATA OBJECT...");
+    // console.log(formData.getAll('art[artpanels][]'));
+    // console.log(formData.getAll('art[tags][1][taggable_type]'));
+    // console.log('END OF FORMDATA');
     $.ajax({
       url: "/api/arts",
       method:"POST",
@@ -49,7 +63,7 @@ class ArtForm extends React.Component {
       contentType: false,
       processData: false
     }).then(res => {
-      return null;
+      // return null;
       // console.log('this is the response:');
       // console.log(res);
       // let taggings = Object.values(this.state.selectedMediums).map(medium => ({tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}));
