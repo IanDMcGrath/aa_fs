@@ -1,4 +1,4 @@
-@arts.with_attached_artpanels.each do |art|
+@arts.with_attached_artpanels.includes(:taggings).each do |art|
   json.set! :arts do
     json.set! art.id do
       json.extract! art, :id, :title, :artist_id

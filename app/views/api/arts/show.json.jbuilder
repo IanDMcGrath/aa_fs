@@ -72,6 +72,21 @@ if logged_in?
   end
 end
 
+json.set! :tags do
+  json.set! :tag_mediums do
+    @art.mediums.each do |medium|
+      json.set! medium.name do
+        json.extract! medium, :id, :name
+        # json.set! :art_ids do
+        #   json.set! @art.id do
+        #     json.extract! @art, :id
+        #   end
+        # end
+      end
+    end
+  end
+end
+
 
 # json.likers do
 #   @art.likers.each do |liker|
