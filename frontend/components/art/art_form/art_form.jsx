@@ -1,6 +1,6 @@
 import React from "react";
 import { BiRocket } from "react-icons/bi";
-import { Redirect } from "react-router";
+import { Redirect, withRouter } from "react-router";
 import FileUploadModal from "./file_upload_modal";
 import MediumCheckbox from "./medium_checkbox";
 
@@ -9,7 +9,7 @@ class ArtForm extends React.Component {
     super(props);
     this.state = Object.assign({}, this.props.art, {artfiles: null}, {selectedMediums: {}});
     this.handleInput = this.handleInput.bind(this);
-    this.handleFile = this.handleFile.bind(this);
+    this.handleFiles = this.handleFiles.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
     this.handleSuccess = this.handleSuccess.bind(this);
   }
@@ -18,20 +18,30 @@ class ArtForm extends React.Component {
     return (e) => this.setState({[field]: e.currentTarget.value});
   }
 
-  handleFile(e) {
-    this.setState({artfiles: e.currentTarget.files[0]})
+  handleFiles(e) {
+    this.setState({artfiles: e.currentTarget.files});
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    const { artistId, title, description, artfiles, selectedMediums } = this.state;
+
     const formData = new FormData();
-    formData.append('art[artist_id]', this.state.artistId)
-    formData.append('art[title]', this.state.title);
-    formData.append('art[description]', this.state.description);
+    formData.append('art[artist_id]', artistId);
+    formData.append('art[title]', title);
+    formData.append('art[description]', description);
     // Object.values(this.state.artfiles).forEach(artfile =>
     //   formData.append('art[artPanels]', artfile)
     // );
-    formData.append('art[artpanels]', this.state.artfiles);
+    // formData.append('art[artpanels]', this.state.artfiles);
+
+    for (let i = 0; i < artfiles.length; i++) {
+      formData.append("art[artpanels][]", artfiles[i]);
+    }
+    for (let i = 0; i < artfiles.length; i++) {
+      formData.append("art[tags][]", selectedMediums[i]);
+    }
+
     $.ajax({
       url: "/api/arts",
       method:"POST",
@@ -39,13 +49,14 @@ class ArtForm extends React.Component {
       contentType: false,
       processData: false
     }).then(res => {
+      return null;
       // console.log('this is the response:');
       // console.log(res);
       // let taggings = Object.values(this.state.selectedMediums).map(medium => ({tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}));
       // console.log(taggings);
       // this.props.createTaggings(taggings);
       let medium = Object.values(this.state.selectedMediums)[0];
-      let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}
+      let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"};
       // console.log(tagging);
       $.ajax({
         url: "/api/taggings",
@@ -54,9 +65,9 @@ class ArtForm extends React.Component {
       }).then(() => {
           if (Object.values(this.state.selectedMediums).length < 2) {
             return null;
-          } else {this.handleSuccess();}
+          } else {this.handleSuccess(res);}
           let medium = Object.values(this.state.selectedMediums)[1];
-          let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}
+          let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"};
           // console.log(tagging);
           $.ajax({
             url: "/api/taggings",
@@ -65,22 +76,22 @@ class ArtForm extends React.Component {
           }).then(() => {
               if (Object.values(this.state.selectedMediums).length < 3) {
                 return null;
-              } else {this.handleSuccess();}
+              } else {this.handleSuccess(res)}
               let medium = Object.values(this.state.selectedMediums)[2];
-              let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}
+              let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"};
               // console.log(tagging);
               $.ajax({
                 url: "/api/taggings",
                 method: "POST",
                 data: {tagging},
-              }).then(() => (this.handleSuccess()))
-            })})});
+              }).then(() => (this.handleSuccess(res)));
+            });
+          });
+        });
   }
 
-  handleSuccess() {
-    return (
-      <Route to="/"/>
-    )
+  handleSuccess(res) {
+    this.props.history.push(`/arts/${Object.keys(res)[0]}`);
   }
 
   handleCheckbox(e, medium, disabled) {
@@ -127,7 +138,7 @@ class ArtForm extends React.Component {
             </div>
             <div className="form-section-body-upload">
               <label className="form-label"> Upload media files
-                <input type="file" multiple onChange={this.handleFile}/>
+                <input type="file" multiple onChange={this.handleFiles}/>
               </label>
             </div>
           </div>

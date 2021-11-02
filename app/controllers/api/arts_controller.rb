@@ -23,6 +23,7 @@ class Api::ArtsController < ApplicationController
   def create
     @art = Art.new(art_params)
     if @art.save
+      Tag.create(tag_params)
       render "/api/arts/show"
     else
       render @art.errors.full_messages, status: 422
@@ -32,6 +33,10 @@ class Api::ArtsController < ApplicationController
   private
 
   def art_params
-    params.require(:art).permit(:artist_id, :title, :description, :artpanels)
+    params.require(:art).permit(:artist_id, :title, :description, artpanels: [])
+  end
+
+  def tag_params
+    params.require(:art).permit(tags: [])
   end
 end

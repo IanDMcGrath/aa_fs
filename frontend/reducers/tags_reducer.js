@@ -14,6 +14,7 @@ const tagsReducer = (state={}, action) => {
       return action.tags;
 
     case RECEIVE_ART:
+      if (!action.art.tags) {return state;}
       return action.art.tags;
 
     default: return state;
