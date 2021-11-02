@@ -20,7 +20,7 @@ const App = () => (
     <header className="header">
       <div className="sticky-header">
         {/* <ArtCoag /> */}
-        <Link to="/"><h1 className="artcoag"><div className="artcoag-front">ART</div>COAG</h1></Link>
+        <Link to="/" className="logo-title-container"><div className="logo-container" /><h1 className="artcoag"><div className="artcoag-front">ART</div>COAG</h1></Link>
         {/* <WelcomeContainer /> */}
         <a href={"https://github.com/IanDMcGrath?tab=repositories"} className="github"><GrGithub /></a>
         <a href={"https://www.linkedin.com/in/ianmcgrath-techartist/"} className="linkedin"><GrLinkedin /></a>

@@ -3,7 +3,8 @@ json.set! @art.id do
   # json.likes @art.likes.count
   json.artpanels @art.artpanels.map { |file| url_for(file) }
   json.set! :artist do
-    json.extract! @art.artist, :username, :avatar, :work
+    json.extract! @art.artist, :username, :work
+    json.avatar [url_for(@art.artist.avatar)]
   end
 end
 
@@ -46,7 +47,8 @@ end
 json.commenters do
   @art.commenters.each do |commenter|
     json.set! commenter.id do
-      json.extract! commenter, :id, :username, :avatar, :work
+      json.extract! commenter, :id, :username, :work
+      json.avatar [url_for(commenter.avatar)]
     end
   end
 end
@@ -74,7 +76,7 @@ end
 # json.likers do
 #   @art.likers.each do |liker|
 #     json.set! liker.id do
-#       json.extract! liker, :id, :username, :avatar, :work
+#       json.extract! liker, :id, :username, :work
 #     end
 #   end
 # end

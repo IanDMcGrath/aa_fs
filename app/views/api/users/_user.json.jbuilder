@@ -1,2 +1,2 @@
 json.extract! user, :id, :username
-json.avatar [url_for(user.avatar[0])]
+json.avatar [url_for(user.avatar)]

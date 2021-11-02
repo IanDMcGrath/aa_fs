@@ -39,17 +39,17 @@ end
 user = nil
 
 user = User.create!(username:"Samuel Cramin", email:"sam_cram@mail.com", password:"but this one's all lowercase", work:"3D Artist at University of Idaho")
-file = open('https://artcoag-seeds.s3.us-west-1.amazonaws.com/avatars/fsp_icons_0005_Layer-6.png')
+file = open('https://artcoag-seeds.s3.us-west-1.amazonaws.com/avatars/fsp_icons_0006_Layer-7.png')
 if file
-  user.avatar.attach(io: file, filename: 'fsp_icons_0005_Layer-6.png')
+  user.avatar.attach(io: file, filename: 'fsp_icons_0006_Layer-7.png')
   file = nil
 end
 user = nil
 
 user = User.create!(username:"Samantha Floresh", email:"SamFlo@gmail.com", password:"what about it!@", work:"Artist at AE ICED")
-file = open('https://artcoag-seeds.s3.us-west-1.amazonaws.com/avatars/fsp_icons_0006_Layer-7.png')
+file = open('https://artcoag-seeds.s3.us-west-1.amazonaws.com/avatars/fsp_icons_0005_Layer-6.png')
 if file
-  user.avatar.attach(io: file, filename: 'fsp_icons_0006_Layer-7.png')
+  user.avatar.attach(io: file, filename: 'fsp_icons_0005_Layer-6.png')
   file = nil
 end
 user = nil

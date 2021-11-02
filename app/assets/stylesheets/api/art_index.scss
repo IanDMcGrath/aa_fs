@@ -161,20 +161,21 @@
 }
 
 .index-thumbnail-artist-avatar {
-  background-color: red;
-  border-radius: 2rem;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.index-thumbnail-details > .avatar-cover {
+  border-radius: 100%;
   height: 2.5rem;
   width: 2.5rem;
-  padding: 0.5rem;
-  position: relative;
-  top: 0.5rem;
+  position: absolute;
 }
 
 .index-thumbnail-title-name-div {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 0.5rem 0.5rem 0rem 0.5rem;
+  margin-left: 3rem;
   color: white;
 }
 

@@ -106,15 +106,27 @@ h1.artcoag {
   align-items: center;
 }
 
-h1.artcoag:before {
-  // display: block;
-  height: 2rem;
-  width: 2rem;
-  // content: url("artcoag.png");
-  background-color: blue;
-  content: "A";
-  image: image-url("artcoag.png");
+.logo-title-container {
+  display: flex;
 }
+
+.logo-container {
+  width: 2rem;
+  height: 2rem;
+  content: url(artcoag.png);
+  // background-image: image-url("artcoag.png");
+  // background-color: red;
+}
+
+// h1.artcoag:before {
+//   // display: block;
+//   height: 2rem;
+//   width: 2rem;
+//   content: url(../../images/artcoag.png);
+//   background-color: blue;
+//   content: "A";
+//   // image: image-url("/images/artcoag.png");
+// }
 
 .sticky-header > a {
   padding: 0.25rem 0.5rem 0.25rem 0.5rem;

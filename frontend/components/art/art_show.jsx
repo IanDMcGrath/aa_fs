@@ -17,7 +17,7 @@ class ArtShow extends React.Component {
 
   componentDidMount() {
     // console.log("i mounted")
-    if (!this.props.art) {
+    if (!this.props.art || (this.props.art && !this.props.art.createdAt)) {
       this.props.fetchArt(this.props.match.params.artId);
     }
   }

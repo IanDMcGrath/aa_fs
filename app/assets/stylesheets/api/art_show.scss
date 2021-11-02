@@ -1,5 +1,16 @@
+// :root {
+//   --showPageFlexDir: row;
+// }
+
+// @media only screen and (max-width: 500px) {
+//   :root {
+//     --showPageFlexDir: column;
+//   }
+// }
+
 .art-show-container {
   display: flex;
+  // flex-direction: var(--showPageFlexDir);
   background-color: black;
 }
 
@@ -11,7 +22,7 @@
 }
 
 .details-div {
-background-color: var(--bgc1)
+  background-color: var(--bgc1)
 }
 
 .details-panel {
@@ -58,7 +69,6 @@ background-color: var(--bgc1)
   width: 3rem;
   height: 3rem;
   border-radius: 2rem;
-  background-color: blue;
 }
 
 .details-panel-artist-details {

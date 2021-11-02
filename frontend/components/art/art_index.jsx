@@ -14,9 +14,7 @@ class ArtIndex extends React.Component {
   }
 
   renderAll(arts) {
-    return (
-      arts.map(art => <ArtIndexItemContainer key={art.id} art={art}/>)
-    );
+    return arts.map(art => <ArtIndexItemContainer key={art.id} art={art}/>)
   }
 
   renderFiltered(filter, arts) {

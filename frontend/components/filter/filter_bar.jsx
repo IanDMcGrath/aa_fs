@@ -24,7 +24,7 @@ class FilterBar extends React.Component {
     if (!tags) {return null}
     return (
       <div className="filter-bar">
-        {Object.values(tags).map(tag => <FilterButton tag={tag} handleChangeFilter={this.handleChangeFilter} isActive={Boolean(tag.name === currentFilter.name)}/>)}
+        {Object.values(tags).map((tag, i) => <FilterButton key={`tag-${i}`} tag={tag} handleChangeFilter={this.handleChangeFilter} isActive={Boolean(tag.name === currentFilter.name)}/>)}
       </div>
     )
   }

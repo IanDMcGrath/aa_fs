@@ -28,7 +28,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              publicPath: 'assets/images/user_icons',
+              publicPath: 'assets/images',
             },
           },
         ],

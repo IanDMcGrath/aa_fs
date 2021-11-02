@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router";
+import { Redirect, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
 class ArtIndexItem extends React.Component {
@@ -10,22 +10,21 @@ class ArtIndexItem extends React.Component {
   }
 
   handleClick(e) {
+    window.scrollTo(0,0);
     e.stopPropagation();
     e.preventDefault();
-    // console.log(`you clicked art: ${this.props.art.id}`)
-    // increment views here ?
+    this.props.history.push(`/arts/${this.props.art.id}`);
   }
 
   render() {
-    let { art } = this.props
+    let { art } = this.props;
     // console.log(art.artpanels[0])
     return (
-      <Link to={`/arts/${art.id}`}>
       <div className="index-thumbnail">
         <img src={art.artpanels[0]} className="index-thumbnail" />
-        <div className="index-thumbnail-details-backdrop">
-        <div className="index-thumbnail-details" onClick={this.handleClick}>
-          <img src={art.artist.avatar} className="index-thumbnail-artist-avatar" />
+        <div className="index-thumbnail-details-backdrop" onClick={this.handleClick}>
+        <div className="index-thumbnail-details">
+          <div className="avatar-cover"><img src={art.artist.avatar} className="index-thumbnail-artist-avatar" /></div>
           <div className="index-thumbnail-title-name-div">
             <h2 className="index-thumbnail-title">{art.title}</h2>
             <div className="index-thumbnail-name">{art.artist.username}</div>
@@ -33,9 +32,8 @@ class ArtIndexItem extends React.Component {
         </div>
         </div>
       </div>
-      </Link>
     )
   }
 }
 
-export default ArtIndexItem;
+export default withRouter(ArtIndexItem);
