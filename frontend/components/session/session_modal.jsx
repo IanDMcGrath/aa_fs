@@ -41,7 +41,7 @@ class SessionModal extends React.Component {
         <div className="modal-form animated fadeInTop">
           <div className="session-form-contents">
           <div className="modal-session-close" onClick={this.toggleModal(false)}><MdClose color="grey" className="modal-session-close" onClick={this.toggleModal(false)} /></div>
-          {formType === 'Sign In' ? (null) : (<div><h1 className="modal-title artcoag"><div className="artcoag-front">ART</div>COAG</h1><div className="signup-welcome">Join the leading showcase platform for art and design.</div></div>)}
+          {formType === 'Sign In' ? (null) : (<div><div className="logo-title-container"><div className="logo-container"/><h1 className="modal-title artcoag"><div className="artcoag-front">ART</div>COAG</h1></div><div className="signup-welcome">Join the leading showcase platform for art and design.</div></div>)}
           {formType === 'Sign In' ? (<SigninFormContainer/>) : (<SignupFormContainer/>)}
           <div className="member-yet"><div>{formType === "Sign Up" ? "Already have an account?" : "Not a member yet?"}</div><div onClick={this.changeFormType} className="other-form">{formType === "Sign Up" ? "Sign in" : "Sign up"}</div></div>
           {/* <ul>
