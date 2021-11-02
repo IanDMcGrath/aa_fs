@@ -85,6 +85,13 @@ json.set! :tags do
       end
     end
   end
+  json.set! :subject_matters do
+    @art.subject_matters.each do |subject_matter|
+      json.set! subject_matter.name do
+        json.extract! subject_matter, :id, :name
+      end
+    end
+  end
 end
 
 

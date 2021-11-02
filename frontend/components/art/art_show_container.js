@@ -9,6 +9,7 @@ const mapStateToProps = (state, ownProps) => ({
   comments: state.entities.comments.rootComments,
   likes: state.entities.likes,
   currentUser: state.session.id,
+  isOwner: Boolean(state.session.id === (state.entities.arts[ownProps.match.params.artId] ? state.entities.arts[ownProps.match.params.artId].artistId : null))
 });
 
 const mapDispatchToProps = dispatch => ({

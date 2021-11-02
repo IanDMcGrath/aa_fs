@@ -86,16 +86,20 @@
   color: white;
 }
 
-.details-panel-follow-button {
+.details-panel-buttons > .follow-button {
   border-radius: 0.2rem;
   margin-left: 2rem;
   background-color: var(--blue);
   font-size: 0.7rem;
-
 }
 
-.details-panel-like-button {
+.details-panel-buttons > .like-button {
   background-color: var(--green);
+  font-size: 0.8rem;
+}
+
+.details-panel-buttons > .edit-button {
+  background-color: var(--blue);
   font-size: 0.8rem;
 }
 
@@ -106,6 +110,11 @@
   justify-content: space-between;
   margin-top: 2rem;
   margin-bottom: 1rem;
+}
+
+.details-panel-buttons > .button {
+  font-size: 0.8rem;
+  width: 45%;
 }
 
 

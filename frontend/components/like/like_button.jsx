@@ -45,7 +45,7 @@ class LikeButton extends React.Component {
     let liked = Boolean(like);
     return (
       <button
-        className={`details-panel-like-button button ${liked ? "liked" : "unliked"}`}
+        className={`like-button button ${liked ? "liked" : "unliked"}`}
         onClick={this.handleLike}>
         {liked ? <BsCheck /> : <FaRegThumbsUp />}
         {liked ? "Liked" : "Like"}

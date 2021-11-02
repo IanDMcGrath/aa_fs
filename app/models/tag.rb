@@ -16,6 +16,11 @@ class Tag < ApplicationRecord
   through: :taggings,
   source: :tag
 
+  has_many :subject_matters,
+  -> {where category: "Subject Matter"},
+  through: :taggings,
+  source: :tag
+
   has_many :art_taggings,
   -> {where taggable_type: "Art"},
   through: :taggings,

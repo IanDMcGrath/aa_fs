@@ -1,20 +1,23 @@
-import { createArt } from "../../../actions/art_actions";
+import { connect } from "react-redux";
+import ArtForm from "./art_form";
+import { fetchArt, updateArt } from "../../../actions/art_actions";
 import { createTaggings } from "../../../util/tag_api_util";
 import { fetchTags } from "../../../actions/tag_actions";
 
 const mapStateToProps = (state, ownProps) => ({
   art: state.entities.arts[ownProps.match.params.artId],
   formType: "Create New Artwork",
-  selectedMediums: {},
-  selectedSubjectMatters: {},
+  selectedMediums: state.tags.tagMediums,
+  selectedSubjectMatters: state.tags.subjectMatters,
   mediums: state.entities.tags.medium,
   subjectMatters: state.entities.tags.subjectMatters,
 });
 
 const mapDispatchToProps = dispatch => ({
-  action: art => dispatch(createArt(art)),
+  action: art => dispatch(updateArt(art)),
+  fetchArt: artId => dispatch(fetchArt(artId)),
   fetchTags: () => dispatch(fetchTags()),
-  createTaggings: taggings => createTaggings(taggings),
+  updateTaggings: taggings => updateTaggings(taggings),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtForm);

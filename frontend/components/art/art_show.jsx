@@ -1,12 +1,14 @@
 import React from "react";
 import { FiUserPlus } from "react-icons/fi";
-import {FaRegThumbsUp, FaRegEye, FaRegComments } from "react-icons/fa";
+import { BsPencil } from 'react-icons/bs';
+import { FaRegThumbsUp, FaRegEye, FaRegComments } from "react-icons/fa";
 import CommentsListContainer from "../comments/comments_list_container";
 import { timeSince } from "../../util/timestamp_util";
 // import { AllStats, StatsNumComments } from "../widgets/stats";
 import StatsNumCommentsContainer from "../widgets/stats_container";
 import CreateCommentFormContainer from "../comments/create_comment_form_container";
 import LikeButtonContainer from "../like/like_button_container";
+import { withRouter } from "react-router";
 
 class ArtShow extends React.Component {
   constructor(props) {
@@ -57,7 +59,7 @@ class ArtShow extends React.Component {
   // }
 
   renderDetailsPanel() {
-    let { art, comments} = this.props;
+    let { art, comments, isOwner} = this.props;
     let likes = art.likes
     // console.log(likes)
     return (
@@ -72,7 +74,8 @@ class ArtShow extends React.Component {
         </div>
         <div className="details-panel-buttons">
           <LikeButtonContainer style={"big"} likeableId={art.id} likeableType={"Art"}/>
-          <button className="details-panel-follow-button button"><FiUserPlus />  Follow</button>
+          {/* <button className="follow-button button"><FiUserPlus />  Follow</button> */}
+          {isOwner ? <button className="edit-button button" onClick={() => this.props.history.push(`/arts/${this.props.art.id}/edit`)}><BsPencil />  Edit</button> : null}
         </div>
         <div>
           <h2 className="details-panel-art-title">{art.title}</h2>
@@ -116,4 +119,4 @@ class ArtShow extends React.Component {
   }
 }
 
-export default ArtShow
+export default withRouter(ArtShow);

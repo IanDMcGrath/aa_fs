@@ -27,3 +27,7 @@ export const fetchArt = artId => dispatch => (
 export const createArt = art => dispatch => (
   ArtApiUtil.createArt(art).then(art => dispatch(receiveArt(art)))
 );
+
+export const updateArt = art => dispatch => (
+  ArtApiUtil.updateArt(art).then(art => dispatch(receiveArt(art)))
+);

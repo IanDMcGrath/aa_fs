@@ -19,3 +19,11 @@ export const createArt = art => (
     data: { art }
   })
 );
+
+export const updateArt = art => (
+  $.ajax({
+    url: "/api/arts",
+    method: "PATCH",
+    data: { art }
+  })
+);

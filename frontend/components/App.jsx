@@ -13,6 +13,7 @@ import ArtIndexContainer from "./art/art_index_container";
 import ArtShowContainer from "./art/art_show_container";
 import { RiUploadLine } from "react-icons/ri";
 import CreateArtFormContainer from "./art/art_form/create_art_form_container";
+import EditArtFormContainer from "./art/art_form/edit_art_form_container";
 import { GrGithub, GrLinkedin } from "react-icons/gr";
 
 const App = () => (
@@ -32,6 +33,7 @@ const App = () => (
     <div className="body-div">
       <Switch>
         <ProtectedRoute path={"/arts/new"} component={CreateArtFormContainer} />
+        <Route path={"/arts/:artId/edit"} component={EditArtFormContainer} />
         <Route path={"/arts/:artId"} component={ArtShowContainer} />
         <Route exact path="/" component={ArtIndexContainer} />
       </Switch>
