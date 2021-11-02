@@ -5,10 +5,13 @@ import { createTaggings } from "../../../util/tag_api_util";
 import { fetchTags } from "../../../actions/tag_actions";
 
 const mapStateToProps = state => ({
-  art: {title:"", description:"", artistId: state.session.id},
+  art: Object.assign({},
+    { title: "", description: "", artistId: state.session.id },
+    { artfiles: null },
+    { selectedMediums: {} },
+    { selectedSubjectMatters: {} }
+  ),
   formType: "Create New Artwork",
-  selectedMediums: {},
-  selectedSubjectMatters: {},
   mediums: state.entities.tags.medium,
   subjectMatters: state.entities.tags.subjectMatters,
 });

@@ -10,7 +10,7 @@
     end
   end
   json.set! :tags do
-    json.set! :tag_mediums do
+    json.set! :medium do
       art.mediums.each do |medium|
         json.set! medium.name do
           json.extract! medium, :id, :name
@@ -22,7 +22,7 @@
         end
       end
     end
-    json.set! :subject_matters do
+    json.set! :subject_matter do
       art.subject_matters.each do |subject_matter|
         json.set! subject_matter.name do
           json.extract! subject_matter, :id, :name

@@ -16,7 +16,7 @@ class FilterBar extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchTags();
+    // this.props.fetchTags();
   }
 
   render () {

@@ -5,7 +5,7 @@ import FilterBar from "./filter_bar";
 
 
 const mapStateToProps = state => ({
-  tags: state.entities.tags.tagMediums,
+  tags: state.entities.tags.medium,
   currentFilter: state.ui.filter,
 });
 

@@ -7,7 +7,7 @@ import MediumCheckbox from "./medium_checkbox";
 class ArtForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, this.props.art, {artfiles: null}, {selectedMediums: {}});
+    this.state = this.props.art;
     this.handleInput = this.handleInput.bind(this);
     this.handleFiles = this.handleFiles.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
@@ -123,6 +123,11 @@ class ArtForm extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.formType === "Editing Artwork" && (!this.props.art.title)) {
+      this.props.history.push(`/arts/${this.props.match.params.artId}`);
+      // this.props.fetchArt(this.props.match.params.artId);
+      return;
+    }
     if (!this.props.mediums) {
       this.props.fetchTags();
     }
@@ -130,6 +135,14 @@ class ArtForm extends React.Component {
 
   render() {
     // console.log(this.state);
+    // console.log(this.props.formType);
+    // console.log(this.state);
+    if (this.props.formType === "Editing Artwork" && (!this.props.art.title)) {
+      console.log('does not have art');
+      return null;
+    }
+    // console.log('has art');
+    // return null;
     let { formType } = this.props;
     return (
       <div className="art-form-div">
@@ -186,4 +199,4 @@ class ArtForm extends React.Component {
   }
 }
 
-export default ArtForm;
+export default withRouter(ArtForm);

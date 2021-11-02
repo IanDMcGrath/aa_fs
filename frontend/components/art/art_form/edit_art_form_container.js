@@ -4,18 +4,24 @@ import { fetchArt, updateArt } from "../../../actions/art_actions";
 import { createTaggings } from "../../../util/tag_api_util";
 import { fetchTags } from "../../../actions/tag_actions";
 
-const mapStateToProps = (state, ownProps) => ({
-  art: state.entities.arts[ownProps.match.params.artId],
-  formType: "Create New Artwork",
-  selectedMediums: state.tags.tagMediums,
-  selectedSubjectMatters: state.tags.subjectMatters,
+const mapStateToProps = (state, ownProps) => {
+  console.log(state.entities.arts[ownProps.match.params.artId])
+  return ({
+  // art: state.entities.arts[ownProps.match.params.artId],
+  art: Object.assign({},
+    state.entities.arts[ownProps.match.params.artId],
+    { artfiles: null },
+    { selectedMediums: {} },
+    { selectedSubjectMatters: {} }
+  ),
+  formType: "Editing Artwork",
   mediums: state.entities.tags.medium,
-  subjectMatters: state.entities.tags.subjectMatters,
-});
+  subjectMatters: state.entities.tags.subjectMatter,
+})};
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   action: art => dispatch(updateArt(art)),
-  fetchArt: artId => dispatch(fetchArt(artId)),
+  fetchArt: (artId) => dispatch(fetchArt(artId)),
   fetchTags: () => dispatch(fetchTags()),
   updateTaggings: taggings => updateTaggings(taggings),
 });
