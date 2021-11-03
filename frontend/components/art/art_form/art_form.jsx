@@ -16,6 +16,8 @@ class ArtForm extends React.Component {
     this.submitUpdate = this.submitUpdate.bind(this);
     this.firstLetterDown = this.firstLetterDown.bind(this);
     this.firstLetterUp = this.firstLetterUp.bind(this);
+    this.renderArtPanel = this.renderArtPanel.bind(this);
+    this.removeArtPanel = this.removeArtPanel.bind(this);
   }
 
   handleInput(field) {
@@ -23,30 +25,72 @@ class ArtForm extends React.Component {
   }
 
   handleFiles(e) {
-    this.setState({artfiles: e.currentTarget.files});
+    console.log(e.currentTarget.files);
+    let currentFiles = this.state.artfiles ? this.state.artfiles : {};
+    currentFiles = Object.values(currentFiles).concat(Object.values(e.currentTarget.files));
+    this.setState({artfiles: Object.assign({}, currentFiles)});
   }
 
   handleSubmit(e) {
     e.stopPropagation();
-    if (this.props.formType === "Editing Artwork") {
-      this.submitUpdate();
-    } else {
-      this.submitCreate();
-    }
-  }
 
-  submitUpdate() {
-
-  }
-
-  submitCreate() {
-    const { artistId, title, description, artfiles } = this.state;
+    const { artistId, title, description } = this.state;
     const selectedMediums = Object.values(this.state.selectedMediums);
 
     const formData = new FormData();
     formData.append('art[artist_id]', artistId);
     formData.append('art[title]', title);
     formData.append('art[description]', description);
+
+    if (this.props.formType === "Editing Artwork") {
+      this.submitUpdate(formData);
+    } else {
+      this.submitCreate(formData);
+    }
+  }
+
+  removeArtPanel(e, panelId) {
+    let nextStateFiles = Object.assign({}, this.state.artfiles);
+    delete nextStateFiles[panelId];
+    this.setState({ artfiles: nextStateFiles });
+  }
+
+  renderArtPanel() {
+    if (this.formType === "Editing Artwork") {
+      // if (this.state.artfiles)
+    } else {
+      if (this.state.artfiles && Object.keys(this.state.artfiles).length > 0) {
+        let { artfiles } = this.state;
+        console.log(artfiles);
+        return ( //<img src={URL.createObjectURL(artfiles[0])} />
+          <ul className="artfiles">
+            {Object.values(artfiles).map((artfile, i) =>
+              <li className="artfile-panel">
+                <div className="button close" onClick={(e) => this.removeArtPanel(e, i)}>𐄂</div>
+                {(typeof artfile === 'string')
+                ?
+                  <img key={`artfile-${i}`} className="artfile" src={artfile} />
+                :
+                  <img key={`artfile-${i}`} className="artfile" src={URL.createObjectURL(artfile)} />}
+              </li>
+            )}
+          </ul>
+        );
+      }
+    }
+    return null;
+  }
+
+  submitUpdate() {
+    const { artfiles } = this.state;
+    // const selectedMediums = Object.values(this.state.selectedMediums);
+
+
+  }
+
+  submitCreate(formData) {
+    const { artfiles } = this.state;
+    // const selectedMediums = Object.values(this.state.selectedMediums);
     // Object.values(this.state.artfiles).forEach(artfile =>
     //   formData.append('art[artPanels]', artfile)
     // );
@@ -61,6 +105,9 @@ class ArtForm extends React.Component {
     for (let i = 0; i < artfiles.length; i++) {
       formData.append("art[artpanels][]", artfiles[i]);
     }
+
+    console.log(formData.get('art[artpanels][]'));
+    return null;
     // for (let i = 0; i < artfiles.length; i++) {
     //   // formData.append("art[tags][]", { tag: { tag_id: selectedMediums[i].id, taggable_tpe: "Art" } });
     //   formData.append(`tagging[tags][${i}][tag_id]`, selectedMediums[i].id);
@@ -92,31 +139,31 @@ class ArtForm extends React.Component {
         method: "POST",
         data: {tagging},
       }).then(() => {
-          if (Object.values(this.state.selectedMediums).length < 2) {
+        if (Object.values(this.state.selectedMediums).length < 2) {
+          return null;
+        } else {this.handleSuccess(res);}
+        let medium = Object.values(this.state.selectedMediums)[1];
+        let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"};
+        // console.log(tagging);
+        $.ajax({
+          url: "/api/taggings",
+          method: "POST",
+          data: {tagging},
+        }).then(() => {
+          if (Object.values(this.state.selectedMediums).length < 3) {
             return null;
-          } else {this.handleSuccess(res);}
-          let medium = Object.values(this.state.selectedMediums)[1];
+          } else {this.handleSuccess(res)}
+          let medium = Object.values(this.state.selectedMediums)[2];
           let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"};
           // console.log(tagging);
           $.ajax({
             url: "/api/taggings",
             method: "POST",
             data: {tagging},
-          }).then(() => {
-              if (Object.values(this.state.selectedMediums).length < 3) {
-                return null;
-              } else {this.handleSuccess(res)}
-              let medium = Object.values(this.state.selectedMediums)[2];
-              let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"};
-              // console.log(tagging);
-              $.ajax({
-                url: "/api/taggings",
-                method: "POST",
-                data: {tagging},
-              }).then(() => (this.handleSuccess(res)));
-            });
-          });
+          }).then(() => (this.handleSuccess(res)));
         });
+      });
+    });
   }
 
   handleSuccess(res) {
@@ -190,6 +237,9 @@ class ArtForm extends React.Component {
               <label className="form-label"> Upload media files
                 <input type="file" multiple onChange={this.handleFiles}/>
               </label>
+            </div>
+            <div className="form-section-body-files">
+              {this.renderArtPanel()}
             </div>
           </div>
           <div className="form-section">

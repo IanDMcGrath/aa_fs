@@ -5,12 +5,12 @@ import { createTaggings } from "../../../util/tag_api_util";
 import { fetchTags } from "../../../actions/tag_actions";
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state.entities.arts[ownProps.match.params.artId])
+  console.log(state.entities.arts[ownProps.match.params.artId]);
   return ({
   // art: state.entities.arts[ownProps.match.params.artId],
     art: state.entities.arts[ownProps.match.params.artId] ? Object.assign({},
     state.entities.arts[ownProps.match.params.artId],
-    { artfiles: null },
+      { artfiles: state.entities.arts[ownProps.match.params.artId] ? Object.assign({}, state.entities.arts[ownProps.match.params.artId].artpanels) : {} },
     { selectedMediums: state.entities.arts[ownProps.match.params.artId].tags.mediums },
     { selectedSubjectMatters: state.entities.arts[ownProps.match.params.artId].tags.subjectMatters }
   ) : {},
