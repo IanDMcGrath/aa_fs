@@ -12,6 +12,7 @@ const artsReducer = (state={}, action) => {
     case RECEIVE_ART:
       nextState = Object.assign({}, state);
       nextState[Object.values(action.art)[0].id] = Object.values(action.art)[0];
+      nextState[Object.values(action.art)[0].id].tags = action.art.tags;
       return nextState;
       // return action.art;
 

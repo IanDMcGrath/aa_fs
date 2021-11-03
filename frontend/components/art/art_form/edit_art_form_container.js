@@ -8,12 +8,12 @@ const mapStateToProps = (state, ownProps) => {
   console.log(state.entities.arts[ownProps.match.params.artId])
   return ({
   // art: state.entities.arts[ownProps.match.params.artId],
-  art: Object.assign({},
+    art: state.entities.arts[ownProps.match.params.artId] ? Object.assign({},
     state.entities.arts[ownProps.match.params.artId],
     { artfiles: null },
-    { selectedMediums: {} },
-    { selectedSubjectMatters: {} }
-  ),
+    { selectedMediums: state.entities.arts[ownProps.match.params.artId].tags.mediums },
+    { selectedSubjectMatters: state.entities.arts[ownProps.match.params.artId].tags.subjectMatters }
+  ) : {},
   formType: "Editing Artwork",
   mediums: state.entities.tags.medium,
   subjectMatters: state.entities.tags.subjectMatter,

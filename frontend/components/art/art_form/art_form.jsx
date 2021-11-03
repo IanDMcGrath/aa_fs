@@ -12,6 +12,10 @@ class ArtForm extends React.Component {
     this.handleFiles = this.handleFiles.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
     this.handleSuccess = this.handleSuccess.bind(this);
+    this.submitCreate = this.submitCreate.bind(this);
+    this.submitUpdate = this.submitUpdate.bind(this);
+    this.firstLetterDown = this.firstLetterDown.bind(this);
+    this.firstLetterUp = this.firstLetterUp.bind(this);
   }
 
   handleInput(field) {
@@ -23,10 +27,21 @@ class ArtForm extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    e.stopPropagation();
+    if (this.props.formType === "Editing Artwork") {
+      this.submitUpdate();
+    } else {
+      this.submitCreate();
+    }
+  }
+
+  submitUpdate() {
+
+  }
+
+  submitCreate() {
     const { artistId, title, description, artfiles } = this.state;
     const selectedMediums = Object.values(this.state.selectedMediums);
-
 
     const formData = new FormData();
     formData.append('art[artist_id]', artistId);
@@ -58,7 +73,7 @@ class ArtForm extends React.Component {
     // console.log('END OF FORMDATA');
     $.ajax({
       url: "/api/arts",
-      method:"POST",
+      method: "POST",
       data: formData,
       contentType: false,
       processData: false
@@ -108,6 +123,14 @@ class ArtForm extends React.Component {
     this.props.history.push(`/arts/${Object.keys(res)[0]}`);
   }
 
+  firstLetterDown(string) {
+    return string[0].toLowerCase().concat(string.slice(1));
+  }
+
+  firstLetterUp(string) {
+    return string[0].toUpperCase().concat(string.slice(1));
+  }
+
   handleCheckbox(e, medium, disabled) {
     // console.log(medium);
     if (disabled) {return null};
@@ -134,11 +157,11 @@ class ArtForm extends React.Component {
   }
 
   render() {
-    // console.log(this.state);
+    console.log(this.state);
     // console.log(this.props.formType);
     // console.log(this.state);
     if (this.props.formType === "Editing Artwork" && (!this.props.art.title)) {
-      console.log('does not have art');
+      // console.log('does not have art');
       return null;
     }
     // console.log('has art');
@@ -181,10 +204,11 @@ class ArtForm extends React.Component {
             <div className="form-section-header">Categorization</div>
             <div className="form-section-body">
               <div className="form-label">Medium</div>
-                <div className="form-list">
-                  {!this.props.mediums ? null : Object.values(this.props.mediums).map((medium, i) =>
-                  <MediumCheckbox key={`medium-${i}`} medium={medium} handleCheckbox={this.handleCheckbox} count={this.state.selectedMediums ? Object.keys(this.state.selectedMediums).length : 0} checked={this.state.selectedMediums[medium.id]}/>)}
-                </div>
+              <div className="form-list">
+                {!this.props.mediums ? null : Object.values(this.props.mediums).map((medium, i) =>
+                  <MediumCheckbox key={`medium-${i}`} medium={medium} handleCheckbox={this.handleCheckbox} count={this.state.selectedMediums ? Object.keys(this.state.selectedMediums).length : 0} checked={Boolean(this.state.selectedMediums[medium.id])}/>
+                )}
+              </div>
             </div>
           </div>
           <div className="form-section">

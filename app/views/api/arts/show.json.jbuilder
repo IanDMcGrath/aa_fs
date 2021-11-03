@@ -75,14 +75,14 @@ end
 json.set! :tags do
   json.set! :mediums do
     @art.mediums.each do |medium|
-      json.set! medium.name do
+      json.set! medium.id do
         json.extract! medium, :id, :name
       end
     end
   end
   json.set! :subject_matters do
     @art.subject_matters.each do |subject_matter|
-      json.set! subject_matter.name do
+      json.set! subject_matter.id do
         json.extract! subject_matter, :id, :name
       end
     end
