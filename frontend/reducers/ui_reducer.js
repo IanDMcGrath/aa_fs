@@ -1,6 +1,6 @@
 import { RECEIVE_COMMENT } from "../actions/comment_actions";
 import { LOGOUT_CURRENT_USER, RECEIVE_CURRENT_USER } from "../actions/session_actions";
-import { TOGGLE_SIGNIN, TOGGLE_REPLY, CHANGE_FILTER } from "../util/ui_api_util";
+import { TOGGLE_SIGNIN, TOGGLE_REPLY, CHANGE_FILTER, SHOW_MODAL, HIDE_MODAL } from "../util/ui_api_util";
 
 const uiReducer = (state={}, action) => {
   Object.freeze(state);
@@ -29,11 +29,19 @@ const uiReducer = (state={}, action) => {
       return nextState;
 
     case CHANGE_FILTER:
-      nextState = Object.assign({}, state, {filter: action.tag})
+      nextState = Object.assign({}, state, {filter: action.tag});
+      return nextState;
+
+    case SHOW_MODAL:
+      nextState = Object.assign({}, state, {modal: action.modal});
+      return nextState;
+
+    case HIDE_MODAL:
+      nextState = Object.assign({}, state, {modal: null});
       return nextState;
 
     default: return state;
   }
-}
+};
 
 export default uiReducer;

@@ -49,6 +49,7 @@ class Art < ApplicationRecord
   through: :taggings,
   source: :tag
 
+
   has_many :mediums,
   -> {where category: "Medium"},
   through: :taggings,

@@ -70,7 +70,7 @@ body {
   top: 0%;
   width: 100%;
   background-color: var(--bgc2);
-  z-index: 1;
+  z-index: 0;
 }
 
 a.github > svg {
@@ -137,11 +137,13 @@ h1.artcoag {
 
 ::-webkit-scrollbar {
   width: 0.5rem;
+
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--grey1);
   border-radius: 1rem;
+  z-index: 998;
 }
 
 ::-webkit-scrollbar-thumb:hover {

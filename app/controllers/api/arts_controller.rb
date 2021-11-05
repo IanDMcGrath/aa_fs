@@ -37,6 +37,32 @@ class Api::ArtsController < ApplicationController
     end
   end
 
+  def update
+    @art = Art.find_by(id: params[:id])
+    if @art
+      if @art.update_attributes(art_params)
+      render "/api/arts/show"
+      else
+        render @art.errors.full_messages, status: 422
+      end
+    else
+      render json: ['Something went wrong'], status: 401
+    end
+  end
+
+  def destroy
+    @art = Art.find_by(id: params[:id])
+    if @art
+      if @art.delete
+        render json: ["Successfully deleted Art"], status: 200
+      else
+        render @art.errors.full_messages, status: 422
+      end
+    else
+      render json: ['No Art by that Id'], status: 401
+    end
+  end
+
   private
 
   def art_params

@@ -27,3 +27,10 @@ export const updateArt = art => (
     data: { art }
   })
 );
+
+export const deleteArt = artId => (
+  $.ajax({
+    url: `/api/arts/${artId}`,
+    method: "DELETE"
+  })
+);

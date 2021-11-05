@@ -1,4 +1,4 @@
-import { RECEIVE_ARTS, RECEIVE_ART } from "../actions/art_actions";
+import { RECEIVE_ARTS, RECEIVE_ART, REMOVE_ART } from "../actions/art_actions";
 import { RECEIVE_LIKE, REMOVE_LIKE } from "../actions/like_actions";
 
 const artsReducer = (state={}, action) => {
@@ -31,8 +31,13 @@ const artsReducer = (state={}, action) => {
     //   }
     //   return state;
 
+    case REMOVE_ART:
+      nextState = Object.assign({}, state);
+      delete nextState[action.artId];
+      return nextState;
+
     default: return state;
   }
-}
+};
 
 export default artsReducer;

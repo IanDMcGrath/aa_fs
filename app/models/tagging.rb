@@ -6,5 +6,10 @@ class Tagging < ApplicationRecord
   foreign_key: :tag_id,
   class_name: :Tag
 
+  # belongs_to :subject_matters,
+  # -> {where category: "Subject Matter"},
+  # through: :tag,
+  # source: :tag
+
   belongs_to :taggable, polymorphic: true
 end

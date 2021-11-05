@@ -36,7 +36,8 @@ class SessionModal extends React.Component {
     let {formType} = this.state;
 
     return (
-      <div className="modal-screen" onClick={this.toggleModal(false)}>
+      <div className="modal-container">
+        <div className="modal-screen" onClick={this.toggleModal(false)} />
         {/* modal screen background */}
         <div className="modal-form animated fadeInTop">
           <div className="session-form-contents">

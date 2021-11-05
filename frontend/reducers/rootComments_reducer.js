@@ -10,7 +10,7 @@ const rootCommentsReducer = (state={}, action) => {
       if (action.art.comments && action.art.comments.rootComments) {
         return action.art.comments.rootComments;
       }
-      return state;
+      return {};
     case RECEIVE_COMMENT:
       nextState = Object.assign({}, state);
       if (action.comment.parentId && nextState[action.comment.parentId]) { // find parent comment's reply list and append the new id

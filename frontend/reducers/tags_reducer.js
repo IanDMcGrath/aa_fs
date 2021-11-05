@@ -13,12 +13,12 @@ const tagsReducer = (state={}, action) => {
       // console.log(action.art.tags);
       return action.tags;
 
-    case RECEIVE_ART:
-      if (!action.art.tags) {return state;}
-      nextState = Object.assign({}, state, action.art.tags);
-      if (!nextState.mediums) {nextState.mediums = {}}
-      if (!nextState.subjectMatters) {nextState.subjectMatters = {}}
-      return nextState;
+    // case RECEIVE_ART:
+    //   if (!action.art.tags) {return state;}
+    //   nextState = Object.assign({}, state, action.art.tags);
+    //   if (!nextState.medium) {nextState.medium = {}}
+    //   if (!nextState.subjectMatter) {nextState.subjectMatter = {}}
+    //   return nextState;
 
     default: return state;
   }

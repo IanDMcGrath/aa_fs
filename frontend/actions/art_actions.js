@@ -2,6 +2,7 @@ import * as ArtApiUtil from "../util/art_api_util.js";
 
 export const RECEIVE_ARTS = "RECEIVE_ARTS";
 export const RECEIVE_ART = "RECEIVE_ART";
+export const REMOVE_ART = "REMOVE_ART";
 
 const receiveArts = payload => ({
   type: RECEIVE_ARTS,
@@ -14,6 +15,10 @@ const receiveArt = art => ({
   art
 });
 
+const removeArt = artId => ({
+  type: REMOVE_ART,
+  artId
+});
 
 
 export const fetchArts = () => dispatch => (
@@ -30,4 +35,8 @@ export const createArt = art => dispatch => (
 
 export const updateArt = art => dispatch => (
   ArtApiUtil.updateArt(art).then(art => dispatch(receiveArt(art)))
+);
+
+export const deleteArt = artId => dispatch => (
+  ArtApiUtil.deleteArt(artId).then(() => dispatch(removeArt(artId)))
 );

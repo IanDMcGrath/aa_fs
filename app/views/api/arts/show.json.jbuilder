@@ -72,18 +72,38 @@ if logged_in?
   end
 end
 
+# json.set! :tags do
+#   json.set! :medium do
+#     @art.mediums.each do |medium|
+#       json.set! medium.id do
+#         json.extract! medium, :id, :name
+#       end
+#     end
+#   end
+#   json.set! :subject_matter do
+#     @art.subject_matters.each do |subject_matter|
+#       json.set! subject_matter.id do
+#         json.extract! subject_matter, :id, :name
+#       end
+#     end
+#   end
+# end
+
 json.set! :tags do
-  json.set! :mediums do
-    @art.mediums.each do |medium|
-      json.set! medium.id do
-        json.extract! medium, :id, :name
+  @art.taggings.includes(:tag).each do |tagging|
+    if tagging.tag.category == "Subject Matter"
+      json.set! :subject_matter do
+        json.set! tagging.tag.id do
+          json.extract! tagging.tag, :id, :name
+          json.tagging_id tagging.id
+        end
       end
-    end
-  end
-  json.set! :subject_matters do
-    @art.subject_matters.each do |subject_matter|
-      json.set! subject_matter.id do
-        json.extract! subject_matter, :id, :name
+    else
+      json.set! :medium do
+        json.set! tagging.tag.id do
+          json.extract! tagging.tag, :id, :name
+          json.tagging_id tagging.id
+        end
       end
     end
   end

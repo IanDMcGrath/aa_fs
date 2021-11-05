@@ -12,14 +12,16 @@ const mapStateToProps = state => ({
     { selectedSubjectMatters: {} }
   ),
   formType: "Create New Artwork",
-  mediums: state.entities.tags.medium,
-  subjectMatters: state.entities.tags.subjectMatters,
+  medium: state.entities.tags.medium,
+  subjectMatter: state.entities.tags.subjectMatter,
 });
 
 const mapDispatchToProps = dispatch => ({
   action: art => dispatch(createArt(art)),
   fetchTags: () => dispatch(fetchTags()),
   createTaggings: taggings => createTaggings(taggings),
+  showModal: modal => dispatch(uiShowModal(modal)),
+  hideModal: () => dispatch(uiHideModal),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtForm);
