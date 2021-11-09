@@ -34,6 +34,14 @@ class ArtShow extends React.Component {
     )
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.art && this.props.art && prevProps.art.id !== this.props.art.id) {
+      this.props.fetchArt(this.props.match.params.artId);
+    } else if (!this.props.art) {
+      this.props.fetchArt(this.props.match.params.artId);
+    }
+  }
+
   // shouldComponentUpdate(nextProps, nextState) {
   //   let np = Object.assign({}, nextProps);
   //   let tp = Object.assign({}, this.props);
@@ -106,10 +114,12 @@ class ArtShow extends React.Component {
       <div className="art-show-container">
         <div className="art-comments-div">
           <div className="art-div">{art ? this.renderArtpanels() : "Art Panels"}</div>
-          <div className="comments-div">
-            <CreateCommentFormContainer commentableId={art.id} commentableType={"Art"}/>
-            {comments ? <StatsNumCommentsContainer/> : null}
-            {art ? <CommentsListContainer isReplyList={false} commentIds={comments} parentId={null} commentableId={art.id} commentableType="Art" commentType="Art" /> : "Comments Panel"}
+          <div className="comments-div-container">
+            <div className="comments-div">
+              <CreateCommentFormContainer commentableId={art.id} commentableType={"Art"}/>
+              {comments ? <StatsNumCommentsContainer/> : null}
+              {art ? <CommentsListContainer isReplyList={false} commentIds={comments} parentId={null} commentableId={art.id} commentableType="Art" commentType="Art" /> : "Comments Panel"}
+            </div>
           </div>
         </div>
         <div className="details-div">{art ? this.renderDetailsPanel() : "Details Panel"}</div>

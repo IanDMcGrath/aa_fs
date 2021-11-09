@@ -11,6 +11,7 @@ const tagsReducer = (state={}, action) => {
     case RECEIVE_ARTS:
       // nextState = Object.assign({}, state, )
       // console.log(action.art.tags);
+      if (!action.tags) { return {} }
       return action.tags;
 
     // case RECEIVE_ART:

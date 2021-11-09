@@ -165,3 +165,16 @@ input {
   border-color: black;
 }
 
+.avatar-container {
+  height: 2rem;
+  width: 2rem;
+  margin: 0.25rem 0.5rem 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.avatar {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 100%;
+}

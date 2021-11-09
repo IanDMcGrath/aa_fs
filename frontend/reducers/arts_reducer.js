@@ -6,10 +6,11 @@ const artsReducer = (state={}, action) => {
   let nextState = {};
   switch (action.type) {
     case RECEIVE_ARTS:
-
+      if (!action.arts) { return {} }
       return action.arts;
 
     case RECEIVE_ART:
+      if (!action.art) { return {} }
       nextState = Object.assign({}, state);
       nextState[Object.values(action.art)[0].id] = Object.values(action.art)[0];
       nextState[Object.values(action.art)[0].id].tags = action.art.tags;

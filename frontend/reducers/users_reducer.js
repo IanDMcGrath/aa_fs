@@ -10,22 +10,20 @@ const usersReducer = (state = {}, action) => {
   switch(action.type){
     case RECEIVE_CURRENT_USER:
       return Object.assign({}, state, { [action.currentUser.id]: action.currentUser });
+
     case RECEIVE_ART:
       let nextState = Object.assign({}, state, action.art.commenters);
       // console.log(action);
       return nextState;
 
     case RECEIVE_USER:
-      console.log(action);
-      return {[action.user.id]: action.user};
+      // console.log(action);
+
+      return Object.assign({}, state, {[action.user.id]: action.user});
 
     case RECEIVE_COMMENT:
       nextState = Object.assign({}, state);
       nextState[action.comment.commenterId].avatar = action.comment.avatar;
-      return nextState;
-
-    case RECEIVE_ART:
-      nextState = Object.assign({}, state, action.commenters);
       return nextState;
 
     // case RECEIVE_ARTS:

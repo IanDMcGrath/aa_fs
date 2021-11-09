@@ -170,11 +170,17 @@
 }
 
 .comments-div {
-  background-color: var(--bgc1);
-  border-right: 0.1rem solid var(--grey1);
-  padding: 1rem;
+  // padding: 1rem;
+  margin: 1rem;
   overflow-y: auto;
   height: var(--vhBody);
+}
+
+.comments-div-container {
+  border-right: 0.1rem solid var(--grey1);
+  background-color: var(--bgc1);
+  // overflow-x: auto;
+  // max-width: calc(100vw - 24rem);
 }
 
 

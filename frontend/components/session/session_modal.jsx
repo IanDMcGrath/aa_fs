@@ -4,6 +4,7 @@ import SignupFormContainer from "./signup_form_container";
 import { CgEnter } from "react-icons/cg";
 import { MdClose } from 'react-icons/md';
 import { BsPencilSquare } from "react-icons/bs";
+import { withRouter } from "react-router";
 
 class SessionModal extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class SessionModal extends React.Component {
     this.isSignIn = this.isSignIn.bind(this);
     this.renderButtons = this.renderButtons.bind(this);
     this.renderUserOptions = this.renderUserOptions.bind(this);
+    this.tryFetchCurrentUser = this.tryFetchCurrentUser.bind(this);
   }
 
   changeFormType() {
@@ -90,12 +92,31 @@ class SessionModal extends React.Component {
   }
 
   renderUserOptions() {
-    let {logout} = this.props
+    let { logout, currentUser } = this.props
     return (
-      <div className="session-button" onClick={() => logout()}>
-        SIGN OUT
+      <div className="session-buttons">
+        <div className="avatar-container" onClick={() => this.props.history.push(`/users/${currentUser.id}`)}><img src={currentUser.avatar} className="avatar" /></div>
+        <div className="session-button" onClick={() => logout()}>
+          SIGN OUT
+        </div>
       </div>
     )
+  }
+
+  componentDidMount() {
+    console.log('COMPONENT DID MOUNT !!!!!');
+    this.tryFetchCurrentUser();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('COMPONENT DID UPDTATE!!!!!!');
+    this.tryFetchCurrentUser();
+  }
+
+  tryFetchCurrentUser() {
+    if (!(this.props.currentUser && this.props.currentUser.avatar) && this.props.isSignedIn) {
+      this.props.fetchCurrentUser(this.props.currentUserId);
+    }
   }
 
   render() {
@@ -116,4 +137,4 @@ class SessionModal extends React.Component {
   }
 }
 
-export default SessionModal;
+export default withRouter(SessionModal);

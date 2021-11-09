@@ -20,9 +20,18 @@ class UserShow extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // if (prevProps.user && !this.props.user) {
-
-    // }
+    if (!this.props.user && !this.state.hasFetchedUser) {
+      this.props.fetchUser(this.props.match.params.userId);
+      this.setState({hasFetchedUser: true, hasFetchedArts: false});
+      return;
+    }
+    if (prevProps.user && prevProps.user.id !== this.props.user.id) {
+      console.log(`prevProps: ${prevProps.user.id} // props: ${this.props.user.id}`);
+      this.props.fetchUserArts(this.props.user.id);
+      // this.setState({ hasFetchedArts: true });
+      // debugger;
+      return;
+    }
     if (this.props.user && !this.state.hasFetchedArts && this.state.hasFetchedUser) {
       if (!this.props.art) {
         this.props.fetchUserArts(this.props.user.id);
