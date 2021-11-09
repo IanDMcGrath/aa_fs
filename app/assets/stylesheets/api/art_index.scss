@@ -164,6 +164,8 @@
 .index-thumbnail-artist-avatar {
   object-fit: cover;
   border-radius: inherit;
+  height: 100%;
+  width: 100%;
 }
 
 .index-thumbnail-details > .avatar-cover {

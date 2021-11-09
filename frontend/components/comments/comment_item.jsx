@@ -8,6 +8,7 @@ import CommentItemContainer from "./comment_item_container";
 import CommentListContainer from "./comments_list_container";
 import LikeButtonContainer from "../like/like_button_container";
 import { StatsNumLikes } from "../widgets/stats";
+import { withRouter } from "react-router";
 
 class CommentItem extends React.Component {
   constructor(props) {
@@ -74,7 +75,7 @@ class CommentItem extends React.Component {
     return (
       <div className="commenter-main">
         <div className="comment-header">
-          <div className="commenter-username">{user.username}</div>
+          <div className="commenter-username" onClick={() => this.props.history.push(`/users/${user.id}`)}>{user.username}</div>
           <div className="comment-edit-delete">
             {isOwnComment ? <button className="comment-edit-buttons" onClick={this.handleUpdateComment}><BsPencil /></button> : null}
             {isOwnComment ? <button className="comment-edit-buttons" onClick={this.handleDeleteComment}><MdClose /></button> : null}</div>
@@ -115,10 +116,10 @@ class CommentItem extends React.Component {
     let style = {'marginLeft': '2.1rem', 'paddingLeft': '1rem', 'borderLeft': 'solid 0.1rem var(--grey2)'}
     // console.log('replies')
     // console.log(replies)
-    return (
+  return (
       <li className="comment">
         <div className="commenter-details">
-          <img className="commenter-avatar" src={user.avatar}/> {`Id:${comment.id}`}
+          <img className="commenter-avatar" src={user.avatar}/>
           {showUpdateForm ? <UpdateCommentFormContainer comment={comment} handleCancelUpdate={this.handleCancelUpdate()}/> : this.renderCommentContents()}
         </div>
         {showReply ? <div className="comment-reply-textarea"><CreateCommentFormContainer parentId={comment.id} commentableId={commentableId} commentableType={commentableType} /></div> : null}
@@ -128,4 +129,4 @@ class CommentItem extends React.Component {
   }
 }
 
-export default CommentItem;
+export default withRouter(CommentItem);

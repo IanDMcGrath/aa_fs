@@ -1,5 +1,6 @@
 import { RECEIVE_CURRENT_USER } from "../actions/session_actions"
 import { RECEIVE_ART } from "../actions/art_actions";
+import { RECEIVE_USER } from "../actions/user_actions";
 
 const usersReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -10,6 +11,11 @@ const usersReducer = (state = {}, action) => {
       let nextState = Object.assign({}, state, action.art.commenters);
       // console.log(action);
       return nextState;
+
+    case RECEIVE_USER:
+      console.log(action);
+      return {[action.user.id]: action.user};
+
     default:
       return state;
   }

@@ -4,7 +4,7 @@ export const RECEIVE_ARTS = "RECEIVE_ARTS";
 export const RECEIVE_ART = "RECEIVE_ART";
 export const REMOVE_ART = "REMOVE_ART";
 
-const receiveArts = payload => ({
+export const receiveArts = payload => ({
   type: RECEIVE_ARTS,
   arts: payload.arts,
   tags: payload.tags

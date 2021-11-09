@@ -3,7 +3,12 @@ class Api::ArtsController < ApplicationController
   before_action :underscore_params!
 
   def index
-    @arts = Art.all
+    if params[:user_id]
+      @arts = User.find_by(id: params[:user_id]).artworks
+    else
+      @arts = Art.all
+    end
+
     if @arts
       render "/api/arts/index"
     else

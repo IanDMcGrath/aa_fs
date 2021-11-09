@@ -1,9 +1,13 @@
 class User < ApplicationRecord
   validates :username, :email, :password_digest, :session_token, uniqueness: true
-  validates :password_digest, presence: true
-  validates :password, length: {minimum: 6}, allow_nil: true
+  validates :username, :email, :password_digest, presence: true
+  validates :username, :password, length: {minimum: 6, maximum: 64}, allow_nil: true
 
-  has_one_attached :avatar
+  # has_one_attached :avatar
+
+  has_one :avatar,
+  foreign_key: :user_id,
+  class_name: :Avatar
 
   has_many :artworks,
   foreign_key: :artist_id,

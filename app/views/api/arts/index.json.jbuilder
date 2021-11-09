@@ -5,7 +5,11 @@
       json.artpanels [url_for(art.artpanels[0])]
       json.set! :artist do
         json.extract! art.artist, :username
-        json.avatar [url_for(art.artist.avatar)]
+        if art.artist.avatar
+          json.avatar [url_for(art.artist.avatar.avatar_img)]
+        else
+          json.avatar "https://artcoag-seeds.s3.us-west-1.amazonaws.com/avatars/fsp_icons_new_user.png"
+        end
       end
     end
   end

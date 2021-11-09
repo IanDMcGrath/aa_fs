@@ -12,6 +12,7 @@ const rootCommentsReducer = (state={}, action) => {
       }
       return {};
     case RECEIVE_COMMENT:
+      if (action.comment.parentId && !state[action.comment.parentId]) { return state } // if not relevant to root comments, return state
       nextState = Object.assign({}, state);
       if (action.comment.parentId && nextState[action.comment.parentId]) { // find parent comment's reply list and append the new id
         // console.log("SETTING A COMMENT'S REPLIES");
@@ -19,8 +20,11 @@ const rootCommentsReducer = (state={}, action) => {
           nextState[action.comment.parentId].replies = {};
         }
         nextState[action.comment.parentId].replies[action.comment.id] = {id: action.comment.id};
+        console.log('NEW REPLY ADDED TO REPLIES OBJECT');
         return nextState;
+        break;
       }
+      console.log('ADDED NEW COMMENT TO ROOT');
       nextState[action.comment.id] = action.comment;
       return nextState;
     case REMOVE_COMMENT:

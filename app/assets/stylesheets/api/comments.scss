@@ -17,7 +17,7 @@
 
 .commenter-avatar {
   border-radius: 2rem;
-  background-color: blue;
+  // background-color: blue;
   height: 2rem;
   width: 2rem;
   margin-right: 0.6rem;
@@ -25,6 +25,7 @@
 
 .commenter-username {
   color: var(--blue);
+  cursor: pointer;
 }
 
 .commenter-work {

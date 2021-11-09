@@ -63,12 +63,11 @@ class ArtShow extends React.Component {
     let likes = art.likes
     // console.log(likes)
     return (
-      <div className="details-panel" onClick={this.handleClick}>
+      <div className="details-panel">
         <div className="details-panel-artist-div">
-          {console.log('load art show user icon')}
           <img src={art.artist.avatar} className="details-panel-artist-avatar" />
           <div className="details-panel-artist-details">
-            <h2 className="details-panel-artist-name">{art.artist.username}</h2>
+            <h2 className="details-panel-artist-name" onClick={() => this.props.history.push(`/users/${art.artist.id}`)}>{art.artist.username}</h2>
             <div className="details-panel-artist-association">{art.artist.work}</div>
           </div>
         </div>

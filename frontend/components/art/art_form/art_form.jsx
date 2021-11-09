@@ -330,7 +330,7 @@ class ArtForm extends React.Component {
     let { formType } = this.props;
     return (
       <div className="art-form-div">
-        {this.props.modal === 'art-delete-warning' ? <ModalDeleteWarningContainer /> : null}
+        {this.props.modal === 'art-delete-warning' ? <ModalDeleteWarningContainer artId={this.props.match.params.artId} /> : null}
         <form onSubmit={this.handleSubmit.bind(this)} className="art-form">
           <h2>{formType}</h2>
           <h3>{this.state.title.length > 0 ? this.state.title : "Untitled"}</h3>

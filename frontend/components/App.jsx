@@ -15,6 +15,7 @@ import { RiUploadLine } from "react-icons/ri";
 import CreateArtFormContainer from "./art/art_form/create_art_form_container";
 import EditArtFormContainer from "./art/art_form/edit_art_form_container";
 import { GrGithub, GrLinkedin } from "react-icons/gr";
+import UserShowContainer from "./profile/user_show_container";
 
 const App = () => (
   <div>
@@ -23,8 +24,8 @@ const App = () => (
         {/* <ArtCoag /> */}
         <Link to="/" className="logo-title-container"><div className="logo-container" /><h1 className="artcoag"><div className="artcoag-front">ART</div>COAG</h1></Link>
         {/* <WelcomeContainer /> */}
-        <a href={"https://github.com/IanDMcGrath?tab=repositories"} className="github"><GrGithub /></a>
-        <a href={"https://www.linkedin.com/in/ianmcgrath-techartist/"} className="linkedin"><GrLinkedin /></a>
+        <div className="github" onClick={() => window.open('https://github.com/IanDMcGrath', '_blank')}><GrGithub /></div>
+        <div className="linkedin" onClick={() => window.open('https://www.linkedin.com/in/ianmcgrath-techartist/', '_blank')}><GrLinkedin /></div>
         <Link to={"/arts/new"} ><div className="upload-button"><RiUploadLine /></div></Link>
         <SessionModalContainer />
       </div>
@@ -35,6 +36,7 @@ const App = () => (
         <ProtectedRoute path={"/arts/new"} component={CreateArtFormContainer} />
         <ProtectedRoute path={"/arts/:artId/edit"} component={EditArtFormContainer} />
         <Route path={"/arts/:artId"} component={ArtShowContainer} />
+        <Route path={"/users/:userId"} component={UserShowContainer} />
         <Route exact path="/" component={ArtIndexContainer} />
       </Switch>
       {/* <AuthRoute exact path="/signin" component={LoginFormContainer} />

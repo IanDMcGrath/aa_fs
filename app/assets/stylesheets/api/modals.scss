@@ -1,5 +1,15 @@
 .modal-container {
+  // position: fixed;
+}
+
+.modal-screen {
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background: var(--modal);
 }
 
 .modal {
@@ -10,7 +20,7 @@
   // transform: translateX(-50%) translateY(0%);
   // background-color: var(--bgc1);
   position: absolute;
-  right: 50%;
+  left: 50%;
   transform: translateX(50%) translateY(10%);
   background-color: var(--bgc1);
   width: 100vw;

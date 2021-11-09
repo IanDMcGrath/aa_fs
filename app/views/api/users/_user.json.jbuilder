@@ -1,2 +1,1 @@
-json.extract! user, :id, :username
-json.avatar [url_for(user.avatar)]
+json.extract! user, :id, :username, :work, :summary

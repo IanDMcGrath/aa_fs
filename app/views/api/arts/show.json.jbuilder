@@ -3,8 +3,12 @@ json.set! @art.id do
   # json.likes @art.likes.count
   json.artpanels @art.artpanels.map { |file| url_for(file) }
   json.set! :artist do
-    json.extract! @art.artist, :username, :work
-    json.avatar [url_for(@art.artist.avatar)]
+    json.extract! @art.artist, :id, :username, :work
+    if @art.artist.avatar
+      json.avatar [url_for(@art.artist.avatar.avatar_img)]
+    else
+      json.avatar "https://artcoag-seeds.s3.us-west-1.amazonaws.com/avatars/fsp_icons_new_user.png"
+    end
   end
 end
 
@@ -48,7 +52,11 @@ json.commenters do
   @art.commenters.each do |commenter|
     json.set! commenter.id do
       json.extract! commenter, :id, :username, :work
-      json.avatar [url_for(commenter.avatar)]
+      if commenter.avatar
+        json.avatar [url_for(commenter.avatar.avatar_img)]
+      else
+        json.avatar "https://artcoag-seeds.s3.us-west-1.amazonaws.com/avatars/fsp_icons_new_user.png"
+      end
     end
   end
 end
