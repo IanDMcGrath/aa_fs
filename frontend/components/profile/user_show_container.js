@@ -4,7 +4,7 @@ import UserShow from './user_show';
 
 const mapStateToProps = (state, ownProps) => ({
   user: state.entities.users[ownProps.match.params.userId],
-  isOwner: Boolean(state.session.id && ownProps.match.params.userId === state.session.id),
+  isOwner: Boolean(Boolean(state.session.id) && ownProps.match.params.userId == state.session.id),
   arts: Object.values(state.entities.arts)
 });
 

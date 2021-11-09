@@ -104,12 +104,12 @@ class SessionModal extends React.Component {
   }
 
   componentDidMount() {
-    console.log('COMPONENT DID MOUNT !!!!!');
+    // console.log('COMPONENT DID MOUNT !!!!!');
     this.tryFetchCurrentUser();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('COMPONENT DID UPDTATE!!!!!!');
+    // console.log('COMPONENT DID UPDTATE!!!!!!');
     this.tryFetchCurrentUser();
   }
 

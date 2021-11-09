@@ -4,9 +4,14 @@ import { receiveArts } from "./art_actions";
 export const RECEIVE_USER = "RECEIVE_USER";
 // export const RECEIVE_USER_ARTS = "RECEIVE_USER_ARTS";
 
-const receiveUser = user => ({
+export const receiveUser = user => ({
   type: RECEIVE_USER,
   user
+});
+
+export const receiveUserErrors = errors => ({
+  type: RECEIVE_USER_ERRORS,
+  errors
 });
 
 // const receiveUserArts = arts => ({

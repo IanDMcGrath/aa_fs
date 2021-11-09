@@ -16,6 +16,7 @@ import CreateArtFormContainer from "./art/art_form/create_art_form_container";
 import EditArtFormContainer from "./art/art_form/edit_art_form_container";
 import { GrGithub, GrLinkedin } from "react-icons/gr";
 import UserShowContainer from "./profile/user_show_container";
+import UserEditFormContainer from "./profile/user_edit_form_container";
 
 const App = () => (
   <div>
@@ -36,6 +37,7 @@ const App = () => (
         <ProtectedRoute path={"/arts/new"} component={CreateArtFormContainer} />
         <ProtectedRoute path={"/arts/:artId/edit"} component={EditArtFormContainer} />
         <Route path={"/arts/:artId"} component={ArtShowContainer} />
+        <ProtectedRoute path={"/users/:userId/edit"} component={UserEditFormContainer} />
         <Route path={"/users/:userId"} component={UserShowContainer} />
         <Route exact path="/" component={ArtIndexContainer} />
       </Switch>

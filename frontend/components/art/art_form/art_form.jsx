@@ -28,7 +28,7 @@ class ArtForm extends React.Component {
   }
 
   handleFiles(e) {
-    console.log(e.currentTarget.files);
+    // console.log(e.currentTarget.files);
     let currentFiles = this.state.artfiles ? this.state.artfiles : {};
     currentFiles = Object.values(currentFiles).concat(Object.values(e.currentTarget.files));
     this.setState({artfiles: Object.assign({}, currentFiles)});
@@ -68,6 +68,9 @@ class ArtForm extends React.Component {
 
   handleSubmit(e) {
     e.stopPropagation();
+    if (!Object.keys(this.state.selectedMediums).length > 0) {
+      return;
+    }
 
     const { artistId, title, description } = this.state;
     const selectedMediums = Object.values(this.state.selectedMediums);
@@ -372,7 +375,10 @@ class ArtForm extends React.Component {
           <div className="form-section">
             <div className="form-section-header">Categorization</div>
             <div className="form-section-body">
-              <div className="form-label">Medium</div>
+              <div className="form-label big">Medium</div>
+              <div className="form-description">
+                What mediums did you use to create this project? (Choose up to 3)
+              </div>
               <div className="form-list">
                 {!this.props.medium ? null : Object.values(this.props.medium).map((medium, i) =>
                   <MediumCheckbox key={`medium-${i}`} medium={medium} handleCheckbox={this.handleCheckbox} count={this.state.selectedMediums ? Object.keys(this.state.selectedMediums).length : 0} checked={Boolean(this.state.selectedMediums[medium.id])}/>
@@ -383,7 +389,7 @@ class ArtForm extends React.Component {
           <div className="form-section">
             <div className="form-section-header">Publishing Options</div>
             <div className="form-section-body">
-              <button className="form-submit button publish"><BiRocket /> {formType === "Create New Artwork" ? "Publish" : "Commit Changes"}</button>
+              <button className={`form-submit publish ${(Object.keys(this.state.selectedMediums).length > 0) ? 'enabled' : 'disabled'}`}><BiRocket /> {formType === "Create New Artwork" ? "Publish" : "Commit Changes"}</button>
             </div>
           </div>
           {this.props.formType === "Editing Artwork" ?
