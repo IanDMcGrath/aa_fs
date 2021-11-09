@@ -108,7 +108,7 @@ class CommentItem extends React.Component {
 
   render() {
     let { user, comment, replies, isOwnComment, showReply, showReplies, showCommentFormReply, commentableId, commentableType } = this.props;
-    if (!comment) {return null};
+    if (!comment || !user || !user.avatar) { return null };
     // console.log(`comment: ${comment.id} has rendered!`);
     let { showUpdateForm } = this.state;
     // let {uiToggleSignin} = this.props;

@@ -8,11 +8,15 @@ class UserShow extends React.Component {
   }
 
   componentDidMount() {
+    // console.log('COMPONENT DID MOUNT!!!!!!!!!!')
     if (!this.props.user || !this.props.user.avatar) {
       this.props.fetchUser(this.props.match.params.userId);
-      this.setState({hasFetchedUser: true});
+      this.setState({hasFetchedUser: true, hasFetchedArts: false});
       return;
     }
+    this.props.fetchUserArts(this.props.user.id);
+    this.setState({ hasFetchedArts: true });
+    return;
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -22,7 +26,7 @@ class UserShow extends React.Component {
     if (this.props.user && !this.state.hasFetchedArts && this.state.hasFetchedUser) {
       if (!this.props.art) {
         this.props.fetchUserArts(this.props.user.id);
-        this.setState({hasFetchedArts: true});
+        this.setState({hasFetchedUser: false, hasFetchedArts: true});
         return;
       }
     }
@@ -30,6 +34,7 @@ class UserShow extends React.Component {
 
   render() {
     if (!this.props.user) { return null }
+    if (!this.state.hasFetchedArts) { return null }
     const { user, arts } = this.props;
     let hasArts = Boolean(arts) && Boolean(Object.keys(arts).length > 0);
     return (
