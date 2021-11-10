@@ -263,6 +263,10 @@ class ArtForm extends React.Component {
       // this.props.fetchArt(this.props.match.params.artId);
       return;
     }
+
+    if (!this.props.medium || Object.keys(this.props.medium).length < 11) {
+      this.props.fetchTags();
+    }
     // if (this.props.formType === "Editing Artwork") {
     //   console.log('HERE ARE YOUR ARTFILES AS BLOBS:...');
     //   console.log(this.props.art.artfiles);
