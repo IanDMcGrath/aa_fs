@@ -34,27 +34,58 @@ class UserEditForm extends React.Component {
   }
 
   handleSubmit(e) {
-    const { id, username, work, avatar } = this.state;
+    let { id, username, work, avatar } = this.state;
     const { receiveUser, receiveUserErrors } = this.props;
 
+    if (!work) {
+      work = '';
+    }
+
     const formData = new FormData();
-    formData.append('user[user_id]', id);
+    // formData.append('user[user_id]', id);
     formData.append('user[username]', username);
     formData.append('user[work]', work);
 
-    if (this.props.didChangeAvatar) {
-      formData.append('user[avatar]', this.state.avatar);
-    }
+    console.log('PRE SUBMISSION ID:...');
+    console.log(this.props.avatarId);
+
+    // if (this.state.didChangeAvatar) {
+    //   formData.append('avatar[avatar_img]', this.state.avatar);
+    // }
 
     $.ajax({
-      url: `/api/users/${id}`,
+      url: `/api/users/${this.props.match.params.userId}`,
       method: "PATCH",
       data: formData,
       contentType: false,
       processData: false
     }).then(res => {
-      receiveUser(res)
-    })
+      receiveUser(res);
+
+      if (!this.state.didChangeAvatar) {
+        console.log('AVATAR DID NOT CHANGE, REDIRECT TO SHOW PAGE');
+        this.props.history.push(`/users/${this.props.match.params.userId}`);
+      }
+
+      console.log('AVATAR CHANGED, PUSHING NEW AVATAR');
+
+      const formData = new FormData();
+      formData.append('avatar[avatar_img]', this.state.avatar);
+      formData.append('avatar[user_id]', this.props.match.params.userId);
+
+      console.log(!this.props.avatarId ? "POST" : "PATCH");
+      console.log(this.props.avatarId);
+
+      $.ajax({
+        url: (!this.props.avatarId ? "/api/avatars" : `/api/avatars/${this.props.avatarId}`),
+        method: (!this.props.avatarId ? "POST" : "PATCH"),
+        data: formData,
+        contentType: false,
+        processData: false
+      }).then(res => {
+        this.props.history.push(`/users/${this.props.match.params.userId}`);
+      })
+    });
     // .catch(err => {
     //   receiveUserErrors(err)
     // })
@@ -68,7 +99,7 @@ class UserEditForm extends React.Component {
     // const { user } = this.props;
     const user = this.state;
     if (!user) { return null }
-
+    // console.log(this.props.avatarId);
     return (
       <div className="user-edit-form">
         <div className="user-show-header">
@@ -105,6 +136,7 @@ class UserEditForm extends React.Component {
                 <label className="form-label row"> <div className="margin-right">Upload avatar file</div>
                   <input type="file" onChange={this.handleAvatarFile} />
                 </label>
+                {this.state.didChangeAvatar ? <div className="tip left-blue">After submission, please allow some time for your avatar to update, then refresh the page</div> : null}
               </div>
             </div>
             <div className="form-section">

@@ -7,7 +7,8 @@ class User < ApplicationRecord
 
   has_one :avatar,
   foreign_key: :user_id,
-  class_name: :Avatar
+  class_name: :Avatar,
+  dependent: :destroy
 
   has_many :artworks,
   foreign_key: :artist_id,

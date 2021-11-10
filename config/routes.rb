@@ -20,5 +20,6 @@ Rails.application.routes.draw do
     resources :comments, only: [:show, :destroy]
     resources :tags, only: [:index]
     resources :taggings, only: [:create, :update, :destroy]
+    resources :avatars, only: [:create, :update]
   end
 end

@@ -10,9 +10,13 @@ const mapStateToProps = (state, ownProps) => ({
       work: 'work',
       avatar: ["https://artcoag-seeds.s3.us-west-1.amazonaws.com/avatars/fsp_icons_new_user.png"],
       didChangeAvatar: false,
+      // isDefaultAvatar: Boolean(state.entities.users && state.entities.users[ownProps.match.params.userId].avatar && state.entities.users[ownProps.match.params.userId].avatar[0] === "https://artcoag-seeds.s3.us-west-1.amazonaws.com/avatars/fsp_icons_new_user.png"),
+      // avatarId: Boolean(state.entities.users) && state.entities.users[ownProps.match.params.userId] ? state.entities.users[ownProps.match.params.userId].avatarId : null,
     },
     state.entities.users[ownProps.match.params.userId]
-  ),
+    ),
+  isDefaultAvatar: Boolean(state.entities.users && state.entities.users[ownProps.match.params.userId] && state.entities.users[ownProps.match.params.userId].avatarId),
+  avatarId: Boolean(state.entities.users) && state.entities.users[ownProps.match.params.userId] ? state.entities.users[ownProps.match.params.userId].avatarId : null,
   isOwner: Boolean(state.session.id && (ownProps.match.params.userId == state.session.id)),
   currentUser: state.session.id,
 });

@@ -26,13 +26,13 @@ class Api::UsersController < ApplicationController
     if @user
       render "/api/users/show"
     else
-      render json: ['User does not exist'], status: 404
+      render json: ['No user by that id'], status: 404
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:username, :password, :email, :avatar)
+    params.require(:user).permit(:username, :password, :email, :avatar, :work)
   end
 end
