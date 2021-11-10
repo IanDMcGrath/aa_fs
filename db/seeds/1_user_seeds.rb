@@ -1,4 +1,6 @@
-User.create!(username:"DemoUser", email:"demoemail", password:"password", work:"Artist at ___")
+if !User.find_by(id: 1)
+  User.create!(username:"DemoUser", email:"demoemail", password:"password", work:"Artist at ___")
+end
 User.create!(username:"Up Grade", email:"upGrade@email.com", password:"you'llneverguess", work:"2D Artist at Zomb Studio")
 User.create!(username:"xX_Pen God_Xx", email:"artweewoo@art.com", password:"iluvart", work:"3D Artist at Obo Studios")
 User.create!(username:"Ben Laser", email:"ben_pewpew@gmail.com", password:"i shoot therefore I pew", work:"Artist at Home")
