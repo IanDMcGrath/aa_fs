@@ -20,11 +20,13 @@ export const createArt = art => (
   })
 );
 
-export const updateArt = art => (
+export const updateArt = (artId, formData) => (
   $.ajax({
-    url: "/api/arts",
+    url: `/api/arts/${artId}`,
     method: "PATCH",
-    data: { art }
+    data: formData,
+    contentType: false,
+    processData: false
   })
 );
 

@@ -48,7 +48,8 @@
 ## Technical Jargon
 
 * Ruby version
-  * ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]
+  * ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux] (windows)
+  * ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-darwin21] (mac)
 
 * System dependencies
   * npm 6.4.1
@@ -70,35 +71,20 @@
 
 * How to run the test suite
   * npm start
-  * rails server
+  * bundle exec rails server
 
 * Services
   * AWS S3
 
 
 ## Planned Features
-* Art Edit Form
-  * Be able to edit an artwork to add/remove tags, edit title / description, (but not edit art panels)
-
-* Delete Artwork
-  * Outright Delete instead of editing an existing artwork
 
 * More filtering categories
-  * The current filters are base on the used medium and don't describe enough of what the artwork is about
-
-* Multi file uploading
-  * The create page currently only supports single file uploades
+  * The current filters describe the used art medium
+  * Will include general description tags (character art, concept art, monsters, etc)
 
 * Multi format art pages
   * artworks currently only support images but they could be ...
     * embedded videos
     * embedded sketchfabs
     * marmoset render turntables
-
-* Comments that don't break
-  * a major challenge of comments was convincing them to only re-render their parent comment and list
-  * fix pending
-
-* Page refresh
-  * some changes require a page refresh before updates are visible
-  * fix pending

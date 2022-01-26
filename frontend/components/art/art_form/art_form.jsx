@@ -68,7 +68,7 @@ class ArtForm extends React.Component {
 
   handleSubmit(e) {
     e.stopPropagation();
-    if (!Object.keys(this.state.selectedMediums).length > 0) {
+    if (Object.keys(this.state.selectedMediums).length === 0) {
       return;
     }
 
@@ -88,7 +88,8 @@ class ArtForm extends React.Component {
   }
 
   submitUpdate(formData) {
-    const { artfiles } = this.state;
+    // const { artfiles, selectedMediums } = this.state;
+    // const { loopSubmitTags, updateArt } = this.props;
     // const selectedMediums = Object.values(this.state.selectedMediums);
 
     // for (let i = 0; i < artfiles.length; i++) {
@@ -98,54 +99,197 @@ class ArtForm extends React.Component {
     // }
 
     // console.log(this.state);
+    // $.ajax({
+    //   url: `/api/arts/${this.state.id}`,
+    //   method: "PATCH",
+    //   data: formData,
+    //   contentType: false,
+    //   processData: false
+    // }).then(res => {
+    //   // return null;
+    //   // console.log('this is the response:');
+    //   // console.log(res);
+    //   // let taggings = Object.values(this.state.selectedMediums).map(medium => ({tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}));
+    //   // console.log(taggings);
+    //   // this.props.createTaggings(taggings);
+    //   let medium = Object.values(this.state.selectedMediums)[0];
+    //   let tagging = { tag_id: medium.id };
+    //   console.log('newprintingfoo');
+    //   console.log(medium);
+    //   $.ajax({
+    //     url: `/api/taggings/${Object.values(this.state.tags.medium)[0].taggingId}`,
+    //     method: "PATCH",
+    //     data: { tagging },
+    //   }).then(() => {
+    //     if (Object.values(this.state.selectedMediums).length < 2) {
+    //       return null;
+    //     } else { this.handleSuccess(res); }
+    //     let medium = Object.values(this.state.selectedMediums)[1];
+    //     let tagging = { tag_id: medium.id };
+    //     // console.log(tagging);
+    //     $.ajax({
+    //       url: `/api/taggings/${Object.values(this.state.tags.medium)[1].taggingId}`,
+    //       method: "PATCH",
+    //       data: { tagging },
+    //     }).then(() => {
+    //       if (Object.values(this.state.selectedMediums).length < 3) {
+    //         return null;
+    //       } else { this.handleSuccess(res) }
+    //       let medium = Object.values(this.state.selectedMediums)[2];
+    //       let tagging = { tag_id: medium.id };
+    //       // console.log(tagging);
+    //       $.ajax({
+    //         url: `/api/taggings/${Object.values(this.state.tags.medium)[2].taggingId}`,
+    //         method: "PATCH",
+    //         data: { tagging },
+    //       }).then(() => (this.handleSuccess(res)));
+    //     });
+    //   });
+    // });
+
+    // initial art patch (title and details...)
+    // let res = await $.ajax({
+    //   url: `/api/arts/${this.state.id}`,
+    //   method: "PATCH",
+    //   data: formData,
+    //   contentType: false,
+    //   processData: false
+    // });
+
+    // WORKING SIMPLE
+    // const myasyncf = async () => {
+    //   console.log('updating art Start...');
+    //   let art = await updateArt(this.state.id, formData);
+    //   console.log('updated art!--');
+
+    //   console.log('updating tags start...');
+    //   await loopSubmitTags(
+    //     Object.values(this.state.selectedMediums),
+    //     Object.values(this.state.tags.medium)
+    //   );
+    //   console.log('updated tags!--');
+
+    // }
+
+    // myasyncf();
+    // END OF WORKING SIMPLE
+
+    // id : int : id of the tagging (joins tag to art)
+    // tag_id : int : id of the tag
+    // taggable_id : int : id of the art
+    // taggable_type : string : polymorphic name of the table (singular): "Art"
+
+    // we are updating the tags attached to the art
+    // the submit button must return the selected tags no matter what
+    // we can make less work on the backend by identifying the id of any current tagging and changing its tag_id
+    // for each selectedMedium
+      // check if next currentTagging exists
+        // T: replace the tag_id and add updated: true
+        // F: create new tag object and add into currentTaggings and add new: true
+    // end forEach
+    // forEach currentTaggings
+      // if currentTagging does not have (updated || new)
+        // T: add delete: true
+    // ajax data: { taggings: currentTaggings }
+
+
+    const { artfiles, selectedMediums } = this.state;
+    const { loopSubmitTags, updateArt, art } = this.props;
+    const currentTaggings = art.tags.medium;
+    console.log('CURRENTTAGGINGS...');
+    console.log(currentTaggings);
+    console.log('SELECTEDMEDIUMS...');
+    console.log(selectedMediums);
+    console.log('==================');
+
+    const newTags = {};
+
+    let i=0;
+    const cts = Object.values(currentTaggings);
+    console.log(cts);
+    for (let tag in selectedMediums) { // tag in the for statement is the KEY not the VALUE of the object
+      if (cts[i]) {
+        console.log(`updating tag: ${cts[i].id}`);
+        newTags[cts[i].id] = { // data for updating tagging
+          tagging_id: currentTaggings[cts[i].id].taggingId,
+          tag_id: parseInt(tag),
+          taggable_id: art.id,
+          taggable_type: "Art",
+          actiontype: 'update',
+        };
+      } else {
+        console.log(`creating tag: ${tag}`);
+        newTags[tag] = { // data for new tagging // note: no tagging id
+          tag_id: parseInt(tag),
+          taggable_id: art.id,
+          taggable_type: "Art",
+          actiontype: 'create',
+        };
+      }
+      i++;
+    }
+
+    console.log('newTags before checking for deletion...');
+    console.log(newTags);
+
+    for (let tag in currentTaggings) { // mark extra tags for delete
+      console.log(tag);
+      if (!newTags[tag]) {
+        console.log(`marking tag for deletion: ${tag}`);
+        newTags[tag] = {
+          tagging_id: currentTaggings[tag].taggingId,
+          actiontype: 'delete'
+        };
+      }
+    }
+
+    const taggings = Object.values(newTags);
+
+    console.log('NEW TAGGINGS...');
+    console.log(taggings);
+    console.log('===============');
+
     $.ajax({
-      url: `/api/arts/${this.state.id}`,
+      url: `/api/taggings/${taggings[0]}`,
       method: "PATCH",
-      data: formData,
-      contentType: false,
-      processData: false
-    }).then(res => {
-      // return null;
-      // console.log('this is the response:');
-      // console.log(res);
-      // let taggings = Object.values(this.state.selectedMediums).map(medium => ({tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}));
-      // console.log(taggings);
-      // this.props.createTaggings(taggings);
-      let medium = Object.values(this.state.selectedMediums)[0];
-      let tagging = { tag_id: medium.id };
-      console.log('newprintingfoo')
-      console.log(medium);
-      $.ajax({
-        url: `/api/taggings/${Object.values(this.state.tags.medium)[0].taggingId}`,
-        method: "PATCH",
-        data: { tagging },
-      }).then(() => {
-        if (Object.values(this.state.selectedMediums).length < 2) {
-          return null;
-        } else { this.handleSuccess(res); }
-        let medium = Object.values(this.state.selectedMediums)[1];
-        let tagging = { tag_id: medium.id };
-        // console.log(tagging);
-        $.ajax({
-          url: `/api/taggings/${Object.values(this.state.tags.medium)[1].taggingId}`,
-          method: "PATCH",
-          data: { tagging },
-        }).then(() => {
-          if (Object.values(this.state.selectedMediums).length < 3) {
-            return null;
-          } else { this.handleSuccess(res) }
-          let medium = Object.values(this.state.selectedMediums)[2];
-          let tagging = { tag_id: medium.id };
-          // console.log(tagging);
-          $.ajax({
-            url: `/api/taggings/${Object.values(this.state.tags.medium)[2].taggingId}`,
-            method: "PATCH",
-            data: { tagging },
-          }).then(() => (this.handleSuccess(res)));
-        });
-      });
+      data: { taggings },
     });
+
+    // this.handleSuccess(res);
+
+    // tag patching after art patch
+    // let medium = Object.values(this.state.selectedMediums)[0];
+    // let tagging = { tag_id: medium.id };
+    // await $.ajax({
+    //   url: `/api/taggings/${Object.values(this.state.tags.medium)[0].taggingId}`,
+    //   method: "PATCH",
+    //   data: { tagging },
+    // }).then(() => {});
+
+    // if (Object.values(this.state.selectedMediums).length < 2) {
+    //   return null;
+    // } else { this.handleSuccess(res); }
+    // let medium = Object.values(this.state.selectedMediums)[1];
+    // let tagging = { tag_id: medium.id };
+    // await $.ajax({
+    //   url: `/api/taggings/${Object.values(this.state.tags.medium)[1].taggingId}`,
+    //   method: "PATCH",
+    //   data: { tagging },
+    // }).then(() => {});
+
+    // if (Object.values(this.state.selectedMediums).length < 3) {
+    //   return null;
+    // } else { this.handleSuccess(res) }
+    // let medium = Object.values(this.state.selectedMediums)[2];
+    // let tagging = { tag_id: medium.id };
+    // $.ajax({
+    //   url: `/api/taggings/${Object.values(this.state.tags.medium)[2].taggingId}`,
+    //   method: "PATCH",
+    //   data: { tagging },
+    // }).then(() => (this.handleSuccess(res)));
   }
+
+
 
   submitCreate(formData) {
     let { artfiles } = this.state;
@@ -166,7 +310,7 @@ class ArtForm extends React.Component {
       formData.append("art[artpanels][]", artfiles[i]);
     }
 
-    console.log('SUBMITTED... ARTPANEL...')
+    console.log('SUBMITTED... ARTPANEL...');
     console.log(formData.get("art[artpanels][]"));
 
     // return null;
@@ -385,7 +529,14 @@ class ArtForm extends React.Component {
               </div>
               <div className="form-list">
                 {!this.props.medium ? null : Object.values(this.props.medium).map((medium, i) =>
-                  <MediumCheckbox key={`medium-${i}`} medium={medium} handleCheckbox={this.handleCheckbox} count={this.state.selectedMediums ? Object.keys(this.state.selectedMediums).length : 0} checked={Boolean(this.state.selectedMediums[medium.id])}/>
+                  <MediumCheckbox
+                    key={`medium-${i}`}
+                    medium={medium}
+                    handleCheckbox={this.handleCheckbox}
+                    count={this.state.selectedMediums
+                      ? Object.keys(this.state.selectedMediums).length
+                      : 0} checked={Boolean(this.state.selectedMediums[medium.id])}
+                  />
                 )}
               </div>
             </div>

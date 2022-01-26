@@ -1,5 +1,7 @@
 class Api::TaggingsController < ApplicationController
 
+  before_action :underscore_params!
+
   # def create
   #   Tagging.transaction do
   #     @taggings = Tagging.create!(taggings_params)
@@ -19,17 +21,65 @@ class Api::TaggingsController < ApplicationController
     end
   end
 
+  # def update
+  #   @tagging = Tagging.find_by(id: params[:id])
+  #   if @tagging
+  #     if @tagging.update_attributes(tag_id: params[:tag_id]);
+  #       render json: ["Successfully changed Tagging"], status: 200
+  #     else
+  #       render json: @tagging.errors.full_messages, status: 422
+  #     end
+  #   else
+  #     render json: ['Something went wrong'], status: 401
+  #   end
+  # end
+
   def update
-    @tagging = Tagging.find_by(id: params[:id])
-    if @tagging
-      if @tagging.update_attributes(tag_id: params[:tag_id]);
-        render json: ["Successfully updated Tagging"], status: 200
-      else
-        render json: @tagging.errors.full_messages, status: 422
+    # Convert params to a hash. Iterate over N items.
+    p 'FULL DATA OBJECT'
+    p params
+    p 'Tagging start here ========'
+    resTags = []
+    params[:taggings].each do |tagging|
+      case tagging[1]['actiontype']
+        when 'update'
+          id = tagging[1]['tagging_id'].to_i
+          tagging[1].delete('tagging_id')
+          tag_id = tagging[1]['tag_id']
+          t = Tagging.find_by(id: id)
+          if t.update_attributes!(tag_id: tag_id)
+            resTags.push(t)
+            p "UPDATED TAGGING #{id}"
+          else
+            p 'SOMETHING WENT WRONG WHEN UPDATING'
+          end
+        when 'create'
+          t = Tagging.new(tagging_params)
+          if t.save
+            resTags.push(t)
+            p "CREATED NEW TAGGING #{t.id}"
+          else
+            p 'SOMETHING WENT WRONG WHEN CREATING'
+          end
+        when 'delete'
+          id = tagging[1]['tagging_id'].to_i
+          t = Tagging.find_by(id: id)
+          if t.delete
+            p "DELETED A TAGGING #{id}"
+          else
+            p "SOMETHEN WENT WRONG WHEN DELETING #{id}"
+        else
+          p 'NO ACTIONTYPE DEFINED'
       end
-    else
-      render json: ['Something went wrong'], status: 401
+      # p tagging[1].permit(:tag_id, :taggable_id, :taggable_type)
+      p 'END TAG-----'
     end
+    if resTags.length > 0
+      return resTags
+    else
+      p "NO RETURN TAGGINGS"
+    end
+    p 'Tagging ends here ========'
   end
 
   def destroy
@@ -48,7 +98,8 @@ class Api::TaggingsController < ApplicationController
   private
 
   def tagging_params
-    params.require(:tagging).permit(:tag_id, :taggable_id, :taggable_type)
+    params.require(:tagging).permit(:tagging_id, :tag_id, :taggable_id, :taggable_type, :actiontype)
     # params.permit(taggings: [:tag_id, :taggable_id, :taggable_type]).require(:taggings)
   end
+
 end

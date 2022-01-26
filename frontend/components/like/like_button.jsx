@@ -59,7 +59,7 @@ class LikeButton extends React.Component {
     console.log(like);
     return (
       style === "small" ? this.renderSmallButton() : this.renderBigButton()
-      );
+    );
   }
 }
 
