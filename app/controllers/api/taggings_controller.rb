@@ -39,43 +39,52 @@ class Api::TaggingsController < ApplicationController
     p 'FULL DATA OBJECT'
     p params
     p 'Tagging start here ========'
-    resTags = []
+    @taggings = []
     params[:taggings].each do |tagging|
       case tagging[1]['actiontype']
-        when 'update'
-          id = tagging[1]['tagging_id'].to_i
-          tagging[1].delete('tagging_id')
-          tag_id = tagging[1]['tag_id']
-          t = Tagging.find_by(id: id)
-          if t.update_attributes!(tag_id: tag_id)
-            resTags.push(t)
-            p "UPDATED TAGGING #{id}"
-          else
-            p 'SOMETHING WENT WRONG WHEN UPDATING'
-          end
-        when 'create'
-          t = Tagging.new(tagging_params)
-          if t.save
-            resTags.push(t)
-            p "CREATED NEW TAGGING #{t.id}"
-          else
-            p 'SOMETHING WENT WRONG WHEN CREATING'
-          end
-        when 'delete'
-          id = tagging[1]['tagging_id'].to_i
-          t = Tagging.find_by(id: id)
+      when 'update'
+        id = tagging[1]['tagging_id'].to_i
+        tagging[1].delete('tagging_id')
+        tag_id = tagging[1]['tag_id']
+        t = Tagging.find_by(id: id)
+        if t.update_attributes!(tag_id: tag_id)
+          @taggings.push(t)
+          p "UPDATED TAGGING #{id}"
+        else
+          p 'SOMETHING WENT WRONG WHEN UPDATING'
+        end
+      when 'create'
+        t = Tagging.new({
+          tag_id: tagging[1]["tag_id"],
+          taggable_id: tagging[1]["taggable_id"],
+          taggable_type: tagging[1]["taggable_type"]
+        })
+        if t.save
+          @taggings.push(t)
+          p "CREATED NEW TAGGING"
+        else
+          p 'SOMETHING WENT WRONG WHEN CREATING'
+        end
+      when 'delete'
+        id = tagging[1]['tagging_id'].to_i
+        t = Tagging.find_by(id: id)
+        if t
           if t.delete
             p "DELETED A TAGGING #{id}"
           else
-            p "SOMETHEN WENT WRONG WHEN DELETING #{id}"
+            p "SOMETHING WENT WRONG WHEN DELETING #{id}"
+          end
         else
-          p 'NO ACTIONTYPE DEFINED'
+          p "COULD NOT FIND TAG #{id} TO DELETE"
+        end
+      else
+        p 'NO ACTIONTYPE DEFINED'
       end
       # p tagging[1].permit(:tag_id, :taggable_id, :taggable_type)
       p 'END TAG-----'
     end
-    if resTags.length > 0
-      return resTags
+    if @taggings.length > 0
+      render "/api/taggings/show"
     else
       p "NO RETURN TAGGINGS"
     end
