@@ -33,8 +33,8 @@ export const createArt = art => dispatch => (
   ArtApiUtil.createArt(art).then(art => dispatch(receiveArt(art)))
 );
 
-export const updateArt = art => dispatch => (
-  ArtApiUtil.updateArt(art).then(art => dispatch(receiveArt(art)))
+export const updateArt = (artId, formData) => dispatch => (
+  ArtApiUtil.updateArt(artId, formData).then(art => dispatch(receiveArt(art)))
 );
 
 export const deleteArt = artId => dispatch => (

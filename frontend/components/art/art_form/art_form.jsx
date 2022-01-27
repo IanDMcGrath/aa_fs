@@ -88,128 +88,16 @@ class ArtForm extends React.Component {
   }
 
   submitUpdate(formData) {
-    // const { artfiles, selectedMediums } = this.state;
-    // const { loopSubmitTags, updateArt } = this.props;
-    // const selectedMediums = Object.values(this.state.selectedMediums);
-
-    // for (let i = 0; i < artfiles.length; i++) {
-    //   if (typeof artfiles[i] !== 'string') {
-    //     formData.append("art[artpanels][]", artfiles[i]);
-    //   }
-    // }
-
-    // console.log(this.state);
-    // $.ajax({
-    //   url: `/api/arts/${this.state.id}`,
-    //   method: "PATCH",
-    //   data: formData,
-    //   contentType: false,
-    //   processData: false
-    // }).then(res => {
-    //   // return null;
-    //   // console.log('this is the response:');
-    //   // console.log(res);
-    //   // let taggings = Object.values(this.state.selectedMediums).map(medium => ({tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}));
-    //   // console.log(taggings);
-    //   // this.props.createTaggings(taggings);
-    //   let medium = Object.values(this.state.selectedMediums)[0];
-    //   let tagging = { tag_id: medium.id };
-    //   console.log('newprintingfoo');
-    //   console.log(medium);
-    //   $.ajax({
-    //     url: `/api/taggings/${Object.values(this.state.tags.medium)[0].taggingId}`,
-    //     method: "PATCH",
-    //     data: { tagging },
-    //   }).then(() => {
-    //     if (Object.values(this.state.selectedMediums).length < 2) {
-    //       return null;
-    //     } else { this.handleSuccess(res); }
-    //     let medium = Object.values(this.state.selectedMediums)[1];
-    //     let tagging = { tag_id: medium.id };
-    //     // console.log(tagging);
-    //     $.ajax({
-    //       url: `/api/taggings/${Object.values(this.state.tags.medium)[1].taggingId}`,
-    //       method: "PATCH",
-    //       data: { tagging },
-    //     }).then(() => {
-    //       if (Object.values(this.state.selectedMediums).length < 3) {
-    //         return null;
-    //       } else { this.handleSuccess(res) }
-    //       let medium = Object.values(this.state.selectedMediums)[2];
-    //       let tagging = { tag_id: medium.id };
-    //       // console.log(tagging);
-    //       $.ajax({
-    //         url: `/api/taggings/${Object.values(this.state.tags.medium)[2].taggingId}`,
-    //         method: "PATCH",
-    //         data: { tagging },
-    //       }).then(() => (this.handleSuccess(res)));
-    //     });
-    //   });
-    // });
-
-    // initial art patch (title and details...)
-    // let res = await $.ajax({
-    //   url: `/api/arts/${this.state.id}`,
-    //   method: "PATCH",
-    //   data: formData,
-    //   contentType: false,
-    //   processData: false
-    // });
-
-    // WORKING SIMPLE
-    // const myasyncf = async () => {
-    //   console.log('updating art Start...');
-    //   let art = await updateArt(this.state.id, formData);
-    //   console.log('updated art!--');
-
-    //   console.log('updating tags start...');
-    //   await loopSubmitTags(
-    //     Object.values(this.state.selectedMediums),
-    //     Object.values(this.state.tags.medium)
-    //   );
-    //   console.log('updated tags!--');
-
-    // }
-
-    // myasyncf();
-    // END OF WORKING SIMPLE
-
-    // id : int : id of the tagging (joins tag to art)
-    // tag_id : int : id of the tag
-    // taggable_id : int : id of the art
-    // taggable_type : string : polymorphic name of the table (singular): "Art"
-
-    // we are updating the tags attached to the art
-    // the submit button must return the selected tags no matter what
-    // we can make less work on the backend by identifying the id of any current tagging and changing its tag_id
-    // for each selectedMedium
-      // check if next currentTagging exists
-        // T: replace the tag_id and add updated: true
-        // F: create new tag object and add into currentTaggings and add new: true
-    // end forEach
-    // forEach currentTaggings
-      // if currentTagging does not have (updated || new)
-        // T: add delete: true
-    // ajax data: { taggings: currentTaggings }
-
-
     const { artfiles, selectedMediums } = this.state;
-    const { loopSubmitTags, updateArt, art } = this.props;
+    const { updateArt, art } = this.props;
     const currentTaggings = art.tags.medium;
-    console.log('CURRENTTAGGINGS...');
-    console.log(currentTaggings);
-    console.log('SELECTEDMEDIUMS...');
-    console.log(selectedMediums);
-    console.log('==================');
 
     const newTags = {};
 
     let i=0;
     const cts = Object.values(currentTaggings);
-    console.log(cts);
     for (let tag in selectedMediums) { // tag in the for statement is the KEY not the VALUE of the object
       if (cts[i]) {
-        console.log(`updating tag: ${cts[i].id}`);
         newTags[cts[i].id] = { // data for updating tagging
           tagging_id: currentTaggings[cts[i].id].taggingId,
           tag_id: parseInt(tag),
@@ -218,7 +106,6 @@ class ArtForm extends React.Component {
           actiontype: 'update',
         };
       } else {
-        console.log(`creating tag: ${tag}`);
         newTags[tag] = { // data for new tagging // note: no tagging id
           tag_id: parseInt(tag),
           taggable_id: art.id,
@@ -229,13 +116,8 @@ class ArtForm extends React.Component {
       i++;
     }
 
-    console.log('newTags before checking for deletion...');
-    console.log(newTags);
-
     for (let tag in currentTaggings) { // mark extra tags for delete
-      console.log(tag);
       if (!newTags[tag]) {
-        console.log(`marking tag for deletion: ${tag}`);
         newTags[tag] = {
           tagging_id: currentTaggings[tag].taggingId,
           actiontype: 'delete'
@@ -245,133 +127,48 @@ class ArtForm extends React.Component {
 
     const taggings = Object.values(newTags);
 
-    console.log('NEW TAGGINGS...');
-    console.log(taggings);
-    console.log('===============');
-
     $.ajax({
       url: `/api/taggings/${taggings[0]}`,
       method: "PATCH",
       data: { taggings },
+    }).then(res => { // this call returns nothing
+
+      // update all other art data
+      updateArt(art.id, formData);
+      // this call returns the new art
+
+      window.scrollTo(0, 0);
+      this.props.history.push(`/arts/${art.id}`);
+
     });
-
-    // this.handleSuccess(res);
-
-    // tag patching after art patch
-    // let medium = Object.values(this.state.selectedMediums)[0];
-    // let tagging = { tag_id: medium.id };
-    // await $.ajax({
-    //   url: `/api/taggings/${Object.values(this.state.tags.medium)[0].taggingId}`,
-    //   method: "PATCH",
-    //   data: { tagging },
-    // }).then(() => {});
-
-    // if (Object.values(this.state.selectedMediums).length < 2) {
-    //   return null;
-    // } else { this.handleSuccess(res); }
-    // let medium = Object.values(this.state.selectedMediums)[1];
-    // let tagging = { tag_id: medium.id };
-    // await $.ajax({
-    //   url: `/api/taggings/${Object.values(this.state.tags.medium)[1].taggingId}`,
-    //   method: "PATCH",
-    //   data: { tagging },
-    // }).then(() => {});
-
-    // if (Object.values(this.state.selectedMediums).length < 3) {
-    //   return null;
-    // } else { this.handleSuccess(res) }
-    // let medium = Object.values(this.state.selectedMediums)[2];
-    // let tagging = { tag_id: medium.id };
-    // $.ajax({
-    //   url: `/api/taggings/${Object.values(this.state.tags.medium)[2].taggingId}`,
-    //   method: "PATCH",
-    //   data: { tagging },
-    // }).then(() => (this.handleSuccess(res)));
   }
 
 
 
   submitCreate(formData) {
-    let { artfiles } = this.state;
-    artfiles = Object.values(artfiles);
-    // const selectedMediums = Object.values(this.state.selectedMediums);
-    // Object.values(this.state.artfiles).forEach(artfile =>
-    //   formData.append('art[artPanels]', artfile)
-    // );
-    // formData.append('art[artpanels]', this.state.artfiles);
+    const { artfiles, selectedMediums } = this.state;
+    const { action } = this.props;
 
-    // console.log('ART FILE OBJECT...');
-    // console.log(artfiles[0]);
-    // console.log('END OF ARTFILE.');
-
-    // return null;
-
-    for (let i = 0; i < artfiles.length; i++) {
-      formData.append("art[artpanels][]", artfiles[i]);
+    for (const k in artfiles) {
+      formData.append("art[artpanels][]", artfiles[k]);
     }
 
     console.log('SUBMITTED... ARTPANEL...');
     console.log(formData.get("art[artpanels][]"));
 
-    // return null;
-
-    // console.log(formData.get('art[artpanels][]'));
-    // for (let i = 0; i < artfiles.length; i++) {
-    //   // formData.append("art[tags][]", { tag: { tag_id: selectedMediums[i].id, taggable_tpe: "Art" } });
-    //   formData.append(`tagging[tags][${i}][tag_id]`, selectedMediums[i].id);
-    //   formData.append(`tagging[tags][${i}][taggable_type]`, 'Art');
-    // }
-
-    // console.log("FORM DATA OBJECT...");
-    // console.log(formData.getAll('art[artpanels][]'));
-    // console.log(formData.getAll('art[tags][1][taggable_type]'));
-    // console.log('END OF FORMDATA');
-    $.ajax({
-      url: "/api/arts",
-      method: "POST",
-      data: formData,
-      contentType: false,
-      processData: false
-    }).then(res => {
-      // return null;
-      // console.log('this is the response:');
-      // console.log(res);
-      // let taggings = Object.values(this.state.selectedMediums).map(medium => ({tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"}));
-      // console.log(taggings);
-      // this.props.createTaggings(taggings);
-      let medium = Object.values(this.state.selectedMediums)[0];
-      let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"};
-      // console.log(tagging);
-      $.ajax({
-        url: "/api/taggings",
-        method: "POST",
-        data: { tagging },
-      }).then(() => {
-        if (Object.values(this.state.selectedMediums).length < 2) {
-          return null;
-        } else {this.handleSuccess(res);}
-        let medium = Object.values(this.state.selectedMediums)[1];
-        let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"};
-        // console.log(tagging);
-        $.ajax({
-          url: "/api/taggings",
-          method: "POST",
-          data: { tagging },
-        }).then(() => {
-          if (Object.values(this.state.selectedMediums).length < 3) {
-            return null;
-          } else {this.handleSuccess(res)}
-          let medium = Object.values(this.state.selectedMediums)[2];
-          let tagging = {tag_id: medium.id, taggable_id: Object.keys(res)[0], taggable_type: "Art"};
-          // console.log(tagging);
-          $.ajax({
-            url: "/api/taggings",
-            method: "POST",
-            data: { tagging },
-          }).then(() => (this.handleSuccess(res)));
-        });
+    for (const k in selectedMediums) {
+      formData.append("art[taggings][]", {
+        // data for new tagging // note: no tagging id
+        tag_id: parseInt(k),
+        taggable_type: "Art",
+        actiontype: "create"
       });
-    });
+    }
+    console.log('FINAL CREATE FORMDATA============');
+    console.log(formData);
+    console.log('END CREATE FORMDATA============');
+    action(formData);
+    // end of submitCreate
   }
 
   handleSuccess(res) {
@@ -388,7 +185,6 @@ class ArtForm extends React.Component {
   }
 
   handleCheckbox(e, medium, disabled) {
-    // console.log(medium);
     if (disabled) {return null};
     let nextMediums = {};
     if (this.state.selectedMediums[medium.id]) {
@@ -398,7 +194,6 @@ class ArtForm extends React.Component {
       nextMediums = Object.assign({}, this.state.selectedMediums, {[medium.id]: medium});
     }
     this.setState({selectedMediums: nextMediums});
-
   }
 
   componentDidMount() {
@@ -411,47 +206,6 @@ class ArtForm extends React.Component {
     if (!this.props.medium || Object.keys(this.props.medium).length < 11) {
       this.props.fetchTags();
     }
-    // if (this.props.formType === "Editing Artwork") {
-    //   console.log('HERE ARE YOUR ARTFILES AS BLOBS:...');
-    //   console.log(this.props.art.artfiles);
-    //   console.log('LETS TURN THEM INTO FILES...');
-    //   // const urlToObject = (image) => {
-    //   //   // const response = await fetch(image);
-    //   //   // const blob = await response.blob();
-    //   //   // const file = new File([blob], 'image.jpg', {type: blob.type});
-    //   //   // console.log(file);
-    //   //   const file = new File([image], 'image.jpg', { type: image.type });
-    //   //   // console.log(file);
-    //   //   return file;
-
-    //   //   // fetchch(image)
-    //   //   // .then((res) => {
-    //   //   //   return res.blob()
-    //   //   // })
-    //   //   // .then((blob) => {
-    //   //   //   console.log(blob);
-    //   //   // })
-    //   // }
-    //   const urlToObject = async (image) => {
-    //     // const file = new File([image], 'image.jpg', { type: image.type });
-    //     // return file;
-    //     $.ajax({
-    //       url: image,
-    //       method: "GET"
-    //     }).then(res => res.blob()).then(blob => {
-    //       let objectURL = URL.createObjectURL(blob);
-    //       return objectURL;
-    //     })
-    //   }
-    //   let newArtfiles = {};
-    //   Object.values(this.props.art.artfiles).forEach((artfile, i) => {
-    //     let newArtfile = urlToObject(artfile);
-    //     newArtfiles[i] = newArtfile;
-    //   });
-    //   console.log('ART FILES...');
-    //   console.log(newArtfiles);
-    //   this.setState({ artfiles: Object.assign({}, newArtfiles) });
-    // }
     if (!this.props.medium) {
       this.props.fetchTags();
     }
@@ -459,25 +213,20 @@ class ArtForm extends React.Component {
 
   handleDelete(e) {
     e.preventDefault();
-    // this.props.deleteArt(this.props.art.id);
-    // this.props.history.push('/');
     this.props.showModal('art-delete-warning');
   }
 
   render() {
-    // console.log(this.state);
-    // console.log(this.props.formType);
-    // console.log(this.state);
-    if (this.props.formType === "Editing Artwork" && (!this.props.art.title)) {
-      // console.log('does not have art');
+    if (this.props.formType === "Editing Artwork"
+    && (!this.props.art.title)) {
       return null;
     }
+
     let isEditing = false;
     if (this.props.formType === "Editing Artwork") {
       isEditing = true;
     }
-    // console.log('has art');
-    // return null;
+
     let { formType } = this.props;
     return (
       <div className="art-form-div">

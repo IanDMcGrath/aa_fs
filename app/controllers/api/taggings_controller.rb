@@ -36,9 +36,9 @@ class Api::TaggingsController < ApplicationController
 
   def update
     # Convert params to a hash. Iterate over N items.
-    p 'FULL DATA OBJECT'
-    p params
-    p 'Tagging start here ========'
+    # p 'FULL DATA OBJECT'
+    # p params
+    # p 'Tagging start here ========'
     @taggings = []
     params[:taggings].each do |tagging|
       case tagging[1]['actiontype']
@@ -49,9 +49,9 @@ class Api::TaggingsController < ApplicationController
         t = Tagging.find_by(id: id)
         if t.update_attributes!(tag_id: tag_id)
           @taggings.push(t)
-          p "UPDATED TAGGING #{id}"
+          # p "UPDATED TAGGING #{id}"
         else
-          p 'SOMETHING WENT WRONG WHEN UPDATING'
+          # p 'SOMETHING WENT WRONG WHEN UPDATING'
         end
       when 'create'
         t = Tagging.new({
@@ -61,34 +61,34 @@ class Api::TaggingsController < ApplicationController
         })
         if t.save
           @taggings.push(t)
-          p "CREATED NEW TAGGING"
+          # p "CREATED NEW TAGGING"
         else
-          p 'SOMETHING WENT WRONG WHEN CREATING'
+          # p 'SOMETHING WENT WRONG WHEN CREATING'
         end
       when 'delete'
         id = tagging[1]['tagging_id'].to_i
         t = Tagging.find_by(id: id)
         if t
           if t.delete
-            p "DELETED A TAGGING #{id}"
+            # p "DELETED A TAGGING #{id}"
           else
-            p "SOMETHING WENT WRONG WHEN DELETING #{id}"
+            # p "SOMETHING WENT WRONG WHEN DELETING #{id}"
           end
         else
-          p "COULD NOT FIND TAG #{id} TO DELETE"
+          # p "COULD NOT FIND TAG #{id} TO DELETE"
         end
       else
-        p 'NO ACTIONTYPE DEFINED'
+        # p 'NO ACTIONTYPE DEFINED'
       end
       # p tagging[1].permit(:tag_id, :taggable_id, :taggable_type)
-      p 'END TAG-----'
+      # p 'END TAG-----'
     end
     if @taggings.length > 0
-      render "/api/taggings/show"
+      # render "/api/taggings/show"
     else
-      p "NO RETURN TAGGINGS"
+      # p "NO RETURN TAGGINGS"
     end
-    p 'Tagging ends here ========'
+    # p 'Tagging ends here ========'
   end
 
   def destroy

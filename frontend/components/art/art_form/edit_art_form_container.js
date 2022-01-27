@@ -1,8 +1,6 @@
 import { connect } from "react-redux";
 import ArtForm from "./art_form";
-import { fetchArt, deleteArt } from "../../../actions/art_actions";
-import { updateArt } from "../../../util/art_api_util";
-import { createTaggings, loopSubmitTags } from "../../../util/tag_api_util";
+import { fetchArt, deleteArt, updateArt } from "../../../actions/art_actions";
 import { fetchTags } from "../../../actions/tag_actions";
 import { uiHideModal, uiShowModal } from "../../../actions/ui_actions";
 
@@ -28,8 +26,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   updateTaggings: taggings => updateTaggings(taggings),
   deleteArt: artId => dispatch(deleteArt(artId)),
   showModal: modal => dispatch(uiShowModal(modal)),
-  loopSubmitTags: (tagsSelected, tagsMedium) => loopSubmitTags(tagsSelected, tagsMedium),
-  updateArt: (artId, formData) => updateArt(artId, formData)
+  updateArt: (artId, formData) => dispatch(updateArt(artId, formData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtForm);
